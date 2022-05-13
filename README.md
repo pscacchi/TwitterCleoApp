@@ -8,7 +8,6 @@ The format used to build this readme is  [GitHub Flavored Markdown Spec format](
  - Main branch: main
  - Feature branch: feature/XXX-XXX-XXX-name-ticket
 
-
 ## Project states
 Stage 1: Design review. Analysis backlog design.  
 Stage 2: API Analysis.  
@@ -16,10 +15,7 @@ Stage 3: Architecture and planification.
 Stage 4: Product backloag create.  
 Stage 5: Development.  
 
-
 ## Working Agreements 
-
- 
 
 #### Coexistence rules 
 
