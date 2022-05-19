@@ -64,6 +64,7 @@ Stage 5: Development.
 
 ## Technical Agreements 
 
+
  - Code Review: review by at least one technical lead is required (Review the code and do a minimal test at your site that compiles and tests the functionality, run tests if they exist). 
 
 ### Definition of Ready 
