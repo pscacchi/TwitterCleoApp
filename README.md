@@ -4,7 +4,7 @@
 
 The format used to build this readme is  [GitHub Flavored Markdown Spec format](https://github.github.com/gfm/)
 
-### Fork strategy: [Feature flow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)
+### Branch strategy: [Feature flow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)
  - Main branch: main
  - Feature branch: feature/XXX-XXX-XXX-name-ticket
 
