@@ -1,0 +1,81 @@
+{
+	"id": "b5948a65-ba3e-4a58-b47f-b11ecb8bdfbb",
+	"name": "Trial Enviroment",
+	"values": [
+		{
+			"key": "API_key",
+			"value": "a1BEgyeObqAmrLFeZkyEaaTeC",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "API_secret_key",
+			"value": "e00beHeYbU7GlpgUOZMdvXXUsicSCSLfglhjkh9GahprI4jRWc",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Bearer_token",
+			"value": "AAAAAAAAAAAAAAAAAAAAABKpcwEAAAAAnefkOZgaxLfni2nviRDy4sPtCDg%3Dm9eqaov66E82S1jIXJfYYCZr7aAVF4zEkkSi4HcDOennmFNSnY",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Client_ID",
+			"value": "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Client_secret",
+			"value": "26Dybp-xOjC9Tr9kYyPtU_9X1y-Dl3g4szOmMtMxVT9VyMTmTy",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "redirect_uri",
+			"value": "https://twittercloneendava.firebaseapp.com/__/auth/handler",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "code",
+			"value": "a0hqYTEtdS1IaUlRXy13cVVJcEx6MDM5WVRRUmdEc25kVG1PRTllbU5td2tXOjE2NTM5NjM3NDczMzE6MTowOmFjOjE",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "scope",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "refresh_token",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "my_id",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "spacex_id",
+			"value": "34743251",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2022-06-02T14:52:50.728Z",
+	"_postman_exported_using": "Postman/9.20.3-220527-0752"
+}
