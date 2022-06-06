@@ -72,7 +72,6 @@ Stage 5: Development.
  - It must be correctly defined with a statement containing the final value it would add to the product for the user, 
  - It must contain all the details, such as texts, design, resources, and API (Application - Programming Interfaces) definitions 
  - It must have the AC (Acceptance Criteria) well defined and clear. 
-
  - It must have well defined, by the dev team, all the subtasks needed to accomplish the details and estimations. 
 
 ### Definition of Done 
@@ -83,3 +82,46 @@ Stage 5: Development.
  - It must not exist style errors (Static analysis of code) 
  - It must pass the Code Review from Technical Lead  
  - It must be seen by the PO (Product Owner) 
+ 
+ 
+ 
+## Architecture
+
+### Basics concepts
+
+A model-view-viewmodel (MVVM) architectural pattern is used and is built arround [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) and follows the recommendations laid out in the [Guide to App Architecture](https://developer.android.com/jetpack/docs/guide).
+
+Logic is kept away from Activity and Fragment. Data is observed using [Kotlin Flow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow) based on StateFlow.
+
+* User Interface built with [Jetpack Compose](https://developer.android.com/jetpack/compose)
+* The app is a single-activity architecture using [Navigation Compose](https://developer.android.com/jetpack/compose/navigation)
+* Reactive UIs using Flow and [Coroutines](https://developer.android.com/kotlin/coroutines) for asynchronous operations.
+* A data layer with a repository and two data sources (local using Room and a fake remote).
+
+### Layer diagram
+
+![Link](doc_image/layer_diagram.jpg)
+
+### Kotlin
+
+The app is entirely in Kotlin and uses [Jetpack's Android Ktx extensions](https://developer.android.com/kotlin/ktx).
+
+Asynchronous task are handled with [coroutines](https://developer.android.com/kotlin/coroutines).
+
+
+### Directory structure
+    /app
+        /src
+            /main
+                /java
+                    /ar.scacchipa.twittercloneapp
+                        /component
+                        /fragment 
+                        /domain
+                        /ui
+                        /repository
+                        /datasource
+                /res
+        /androidTest
+        /test
+
