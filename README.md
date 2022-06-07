@@ -96,7 +96,6 @@ Logic is kept away from Activity and Fragment. Data is observed using [Kotlin Fl
 * User Interface built with [Jetpack Compose](https://developer.android.com/jetpack/compose)
 * The app is a single-activity architecture using [Navigation Compose](https://developer.android.com/jetpack/compose/navigation)
 * Reactive UIs using Flow and [Coroutines](https://developer.android.com/kotlin/coroutines) for asynchronous operations.
-* A data layer with a repository and two data sources (local using Room and a fake remote).
 
 ### Layer diagram
 
@@ -115,13 +114,20 @@ Asynchronous task are handled with [coroutines](https://developer.android.com/ko
             /main
                 /java
                     /ar.scacchipa.twittercloneapp
+                        /di
                         /component
-                        /fragment 
                         /domain
                         /ui
                         /repository
                         /datasource
                 /res
         /androidTest
+            /ui
         /test
+            /di
+            /component
+            /domain
+            /repository
+            /datasource
 
+* For default, /androidTest/ui/ was adding, but this will not be implemented.
