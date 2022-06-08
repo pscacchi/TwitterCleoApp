@@ -3,13 +3,7 @@ package ar.scacchipa.twittercloneapp.component
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import ar.scacchipa.twittercloneapp.ui.Splash
 import ar.scacchipa.twittercloneapp.ui.theme.TwitterCloneAppTheme
 
 class TwitterCloneActivity : ComponentActivity() {
@@ -18,26 +12,8 @@ class TwitterCloneActivity : ComponentActivity() {
         setContent {
             TwitterCloneAppTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+                Splash()
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    TwitterCloneAppTheme {
-        Greeting("Android")
     }
 }
