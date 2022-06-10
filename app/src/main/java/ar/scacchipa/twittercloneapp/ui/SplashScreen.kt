@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import ar.scacchipa.twittercloneapp.ui.theme.TwitterCloneAppTheme
 
 @Composable
-fun Splash() {
+fun SplashScreen() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -22,6 +22,6 @@ fun Splash() {
 @Composable
 fun SpashPreview() {
     TwitterCloneAppTheme {
-        Splash()
+        SplashScreen()
     }
 }

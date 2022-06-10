@@ -3,7 +3,7 @@ package ar.scacchipa.twittercloneapp.component
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import ar.scacchipa.twittercloneapp.ui.Splash
+import ar.scacchipa.twittercloneapp.ui.SplashScreen
 import ar.scacchipa.twittercloneapp.ui.theme.TwitterCloneAppTheme
 
 class TwitterCloneActivity : ComponentActivity() {
@@ -12,7 +12,7 @@ class TwitterCloneActivity : ComponentActivity() {
         setContent {
             TwitterCloneAppTheme {
                 // A surface container using the 'background' color from the theme
-                Splash()
+                SplashScreen()
             }
         }
     }
