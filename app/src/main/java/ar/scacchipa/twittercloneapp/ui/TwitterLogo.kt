@@ -18,6 +18,7 @@ import androidx.core.graphics.PathParser
 import ar.scacchipa.twittercloneapp.ui.theme.TwitterCloneAppTheme
 
 @Composable
+@Preview(showBackground = true)
 fun TwitterLogo() {
     Canvas(
         modifier = Modifier
@@ -41,14 +42,16 @@ fun TwitterLogo() {
         drawPath(
             path = composePathFill,
             color = Color.Transparent,
-            style = Stroke(width = 11.272727012634277f, miter = 4f, join = StrokeJoin.Round)
+            style = Stroke(
+                width = 11.272727012634277f, miter = 4f,
+                join = StrokeJoin.Round)
         )
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun TwitterLogoPreview() {
+@Preview(showBackground = true)
+fun LoginPreview() {
     TwitterCloneAppTheme {
         TwitterLogo()
     }
