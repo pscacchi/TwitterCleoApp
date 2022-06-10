@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ar.scacchipa.twittercloneapp.ui.Login
 import ar.scacchipa.twittercloneapp.ui.Route
-import ar.scacchipa.twittercloneapp.ui.Splash
+import ar.scacchipa.twittercloneapp.ui.SplashScreen
 import ar.scacchipa.twittercloneapp.ui.theme.TwitterCloneAppTheme
 
 class TwitterCloneActivity : ComponentActivity() {
@@ -21,7 +21,7 @@ class TwitterCloneActivity : ComponentActivity() {
                     navController = navController,
                     startDestination = Route.Splash.route
                 ) {
-                    composable(Route.Splash.route) { Splash(navController) }
+                    composable(Route.Splash.route) { SplashScreen(navController) }
                     composable(Route.Login.route) { Login(navController) }
                 }
             }
