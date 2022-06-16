@@ -8,13 +8,12 @@ import ar.scacchipa.twittercloneapp.ui.Route
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class MainAppViewModel(app: Application): AndroidViewModel( app ) {
-
-    var currentPage: MutableStateFlow<String> = MutableStateFlow( Route.SplashScreen.route )
-
-    val startModeController = StartModeController(
-        app = app,
+    private val startModeController = StartModeController(
         scope = viewModelScope,
         splashCallback = { currentPage.value = Route.SplashScreen.route },
-        loginCallback = { currentPage.value = Route.LoginScreen.route}
+        loginCallback = { currentPage.value = Route.LoginScreen.route }
+    )
+    var currentPage: MutableStateFlow<String> = MutableStateFlow(
+        startModeController.getInitialScreen()
     )
 }
