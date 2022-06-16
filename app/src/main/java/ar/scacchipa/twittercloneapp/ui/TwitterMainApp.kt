@@ -3,8 +3,8 @@ package ar.scacchipa.twittercloneapp.ui
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -12,15 +12,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ar.scacchipa.twittercloneapp.ui.theme.TwitterCloneAppTheme
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MainAppViewModel: ViewModel() {
-    val currentPage = MutableLiveData<String>(Route.SplashScreen.route)
+    var currentPage: MutableStateFlow<String> = MutableStateFlow(Route.SplashScreen.route)
+
     init {
         Log.i("ViewModel", "init")
         viewModelScope.launch {
-            Log.i("ViewModel", "Launch toogle loop")
             while(true) {
                 delay(1000)
                 toggle()
@@ -33,7 +34,7 @@ class MainAppViewModel: ViewModel() {
         } else {
             Route.SplashScreen.route
         }
-        Log.i("ViewModel", currentPage.value.toString())
+        Log.i("ViewModel", currentPage.value)
     }
 }
 
@@ -41,7 +42,6 @@ class MainAppViewModel: ViewModel() {
 fun TwitterMainApp(
     viewModel: MainAppViewModel = viewModel()
 ) {
-    //val currentPage = viewModel.currentPage
     Log.i("TwitterMainApp", "Recomposing")
     Log.i("TwitterMainApp", viewModel.toString())
 
@@ -62,10 +62,11 @@ fun TwitterMainApp(
                 })
             }
         }
-        val flow: MutableSharedFlow<String>? = null
 
-        viewModel.currentPage.observe(LocalLifecycleOwner.current) {
-            navController.navigate(it)
+        LocalLifecycleOwner.current.lifecycleScope.launchWhenStarted {
+            viewModel.currentPage.collectLatest {
+                navController.navigate(it)
+            }
         }
     }
 }
