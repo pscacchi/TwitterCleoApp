@@ -16,5 +16,5 @@ class MainAppViewModel(app: Application): AndroidViewModel( app ) {
         scope = viewModelScope,
         splashCallback = { currentPage.value = Route.SplashScreen.route },
         loginCallback = { currentPage.value = Route.LoginScreen.route}
-
+    )
 }
