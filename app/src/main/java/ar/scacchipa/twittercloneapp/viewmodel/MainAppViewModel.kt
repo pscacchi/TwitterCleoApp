@@ -1,19 +1,25 @@
 package ar.scacchipa.twittercloneapp.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.util.Log
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.scacchipa.twittercloneapp.domain.StartModeController
 import ar.scacchipa.twittercloneapp.ui.Route
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class MainAppViewModel(app: Application): AndroidViewModel( app ) {
-    private val startModeController = StartModeController(
-        scope = viewModelScope,
-        splashCallback = { currentPage.value = Route.SplashScreen.route },
-        loginCallback = { currentPage.value = Route.LoginScreen.route }
-    )
+class MainAppViewModel: ViewModel( ) {
     var currentPage: MutableStateFlow<String> = MutableStateFlow(
-        startModeController.getInitialScreen()
+        StartModeController.getInitialScreen()
     )
+    init {
+        Log.i("ViewModel", "Reinitial Viewmodel")
+        StartModeController(
+            scope = viewModelScope,
+            splashCallback = { navigateTo(Route.SplashScreen.route) },
+            loginCallback = { navigateTo(Route.LoginScreen.route) }
+        )
+    }
+    fun navigateTo(route: String) {
+        currentPage.value = route
+    }
 }

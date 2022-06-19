@@ -10,24 +10,14 @@ class StartModeController(
     val splashCallback: () -> Unit,
     val loginCallback: () -> Unit
     ) {
-
-    private var splashWasShowed = false
-
     init {
-        if (splashWasShowed) {
+        splashCallback()
+        scope.launch {
+            delay(5000)
             loginCallback()
-        } else {
-            splashCallback
-            scope.launch {
-                delay(5000)
-                loginCallback()
-            }
         }
     }
-
-    fun getInitialScreen() =
-        if (splashWasShowed)
-            Route.LoginScreen.route
-        else
-            Route.SplashScreen.route
+    companion object {
+        fun getInitialScreen() = Route.SplashScreen.route
+    }
 }

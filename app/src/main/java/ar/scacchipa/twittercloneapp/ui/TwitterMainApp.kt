@@ -13,9 +13,8 @@ import ar.scacchipa.twittercloneapp.viewmodel.MainAppViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun TwitterMainApp(
-    viewModel: MainAppViewModel = viewModel()
-) {
+fun TwitterMainApp() {
+    val viewModel: MainAppViewModel = viewModel()
     val navController = rememberNavController()
     TwitterCloneAppTheme {
         NavHost(
@@ -29,7 +28,7 @@ fun TwitterMainApp(
             }
             composable(Route.LoginScreen.route) {
                 LoginScreen(callback = {
-                    navController.navigate(Route.MainScreen.route)
+                    //viewModel.navigateTo(Route.MainScreen.route)
                 })
             }
             composable(Route.MainScreen.route) {
@@ -41,9 +40,11 @@ fun TwitterMainApp(
     }
     LocalLifecycleOwner.current.lifecycleScope.launchWhenStarted {
         viewModel.currentPage.collectLatest {
-            navController.navigate(it) {
-                this.popUpTo(route = Route.SplashScreen.route) {
-                    inclusive = true
+            if (it == Route.SplashScreen.route) {
+                navController.navigate(it) {
+                    this.popUpTo(route = Route.SplashScreen.route) {
+                        inclusive = true
+                    }
                 }
             }
         }
