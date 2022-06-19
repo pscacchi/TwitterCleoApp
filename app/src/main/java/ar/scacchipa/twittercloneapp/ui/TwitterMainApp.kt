@@ -16,8 +16,8 @@ import kotlinx.coroutines.flow.collectLatest
 fun TwitterMainApp(
     viewModel: MainAppViewModel = viewModel()
 ) {
+    val navController = rememberNavController()
     TwitterCloneAppTheme {
-        val navController = rememberNavController()
         NavHost(
             navController = navController,
             startDestination = viewModel.currentPage.collectAsState().value
@@ -38,13 +38,12 @@ fun TwitterMainApp(
                 })
             }
         }
-
-        LocalLifecycleOwner.current.lifecycleScope.launchWhenStarted {
-            viewModel.currentPage.collectLatest {
-                navController.navigate(it) {
-                    this.popUpTo(route = Route.SplashScreen.route) {
-                        inclusive = true
-                    }
+    }
+    LocalLifecycleOwner.current.lifecycleScope.launchWhenStarted {
+        viewModel.currentPage.collectLatest {
+            navController.navigate(it) {
+                this.popUpTo(route = Route.SplashScreen.route) {
+                    inclusive = true
                 }
             }
         }
