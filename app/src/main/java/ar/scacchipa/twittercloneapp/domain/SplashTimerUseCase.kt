@@ -4,11 +4,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashTimer(
+class SplashTimerUseCase(
     val callback: () -> Unit,
-    val scope: CoroutineScope?) {
-    init {
-        scope?.launch {
+    val scope: CoroutineScope) {
+    fun startToSpend() {
+        scope.launch {
             delay(5000)
             callback.invoke()
         }
