@@ -9,7 +9,7 @@ import ar.scacchipa.twittercloneapp.databinding.FragmentLoginLayoutBinding
 
 class FragmentLogin : Fragment() {
 
-    var bindind: FragmentLoginLayoutBinding? = null
+    private var bindind: FragmentLoginLayoutBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -2,17 +2,21 @@ package ar.scacchipa.twittercloneapp.component
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import ar.scacchipa.twittercloneapp.databinding.ActivityMainBinding
+import ar.scacchipa.twittercloneapp.databinding.ActivityMainLayoutBinding
 
 class TwitterCloneActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private var binding: ActivityMainLayoutBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = ActivityMainLayoutBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }
