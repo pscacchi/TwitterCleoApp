@@ -27,12 +27,8 @@ class FragmentSplash: Fragment() {
                 findNavController().navigate(R.id.action_fragmentSplash_to_fragmentLogin)
             }
         }
-        return binding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         splashViewModel.spendSplash()
+        return binding?.root
     }
 
     override fun onDestroy() {
