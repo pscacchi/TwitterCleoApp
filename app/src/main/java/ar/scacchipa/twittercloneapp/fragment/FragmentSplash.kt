@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.FragmentSplashLayoutBinding
@@ -22,7 +23,7 @@ class FragmentSplash: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSplashLayoutBinding.inflate(inflater)
-        splashViewModel.splashWasSpent.observe(viewLifecycleOwner) { splashWasSpent ->
+        splashViewModel.addObserver(viewLifecycleOwner) { splashWasSpent ->
             if (splashWasSpent) {
                 findNavController().navigate(R.id.action_fragmentSplash_to_fragmentLogin)
             }
