@@ -6,18 +6,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class SpahsTimerUseCaseUnitTest {
+class SplashTimerUseCaseUnitTest {
     @Test
     fun returnTrueFiveSecondLater() = runTest {
-        var wasSpent = false
-        val timer = SplashTimerUseCase()
-        assertEquals(false, wasSpent)
-        val initialTime = this.testScheduler.currentTime
-        wasSpent = timer.spendSplash()
-
-        val changeTime = this.testScheduler.currentTime
-
-        assertEquals(5000, changeTime - initialTime)
-        assertEquals(true, wasSpent)
+        assertEquals(true, SplashTimerUseCase().spendSplash())
+        assertEquals(5000, this.testScheduler.currentTime )
     }
 }
