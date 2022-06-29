@@ -27,15 +27,10 @@ class FragmentLoginApi : Fragment() {
             webView.settings.allowContentAccess = true
             webView.settings.allowFileAccess = true
 
-//            webView.webChromeClient = WebChromeClient()
             webView.webViewClient = WebViewClient()
 
             webView.loadUrl("https://twitter.com/i/oauth2/authorize?response_type=code&client_id=Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ&redirect_uri=https://twittercloneendava.firebaseapp.com/__/auth/handler&scope=users.read%20tweet.read%20offline.access%20list.read%20follows.read%20like.read%20space.read%20tweet.write%20like.write&state=state&code_challenge=challenge&code_challenge_method=plain")
-//            webView.loadUrl("https://google.com")
         }
-
-
-
         return binding?.root
     }
 
