@@ -17,5 +17,13 @@
     <fragment
         android:id="@+id/fragmentLogin"
         android:name="ar.scacchipa.twittercloneapp.fragment.FragmentLogin"
-        android:label="FragmentLogin" />
+        android:label="FragmentLogin" >
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmentLoginApi"
+            app:destination="@id/fragmentLoginApi" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentLoginApi"
+        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentLoginApi"
+        android:label="FragmentLoginApi" />
 </navigation>
