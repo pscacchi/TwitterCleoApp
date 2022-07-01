@@ -1,45 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/primary_background">
 
-    <EditText
-        android:id="@+id/edittext_username"
+    <ImageView
+        android:id="@+id/login_twitter_logo_imageview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/username"
-        android:contentDescription="@string/username"
-        app:layout_constraintBottom_toTopOf="@+id/edittext_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/edittext_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:contentDescription="@string/password"
-        app:layout_constraintBottom_toTopOf="@+id/button_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_username" />
-
-    <Button
-        android:id="@+id/button_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:contentDescription="@string/login_button"
+        android:contentDescription="@string/twitter_logo_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_password" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:srcCompat="@drawable/twitter_logo" />
 
+    <com.google.android.material.button.MaterialButton
+        style="@style/Theme.TwitterCloneApp"
+        android:id="@+id/button_login"
+        android:layout_width="200dp"
+        android:layout_height="51dp"
+        android:backgroundTint="@color/twitter_background"
+        android:contentDescription="@string/login_button"
+        android:textColor="@color/twitter_on_background"
+        android:text="@string/login"
+        android:textSize="@dimen/normal_text_size"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_twitter_logo_imageview"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

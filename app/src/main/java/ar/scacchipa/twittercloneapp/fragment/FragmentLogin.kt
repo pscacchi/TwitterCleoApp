@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.FragmentLoginLayoutBinding
 
 class FragmentLogin : Fragment() {
@@ -16,6 +18,9 @@ class FragmentLogin : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         bindind = FragmentLoginLayoutBinding.inflate(inflater)
+        bindind?.buttonLogin?.setOnClickListener{
+            findNavController().navigate(R.id.action_fragmentLogin_to_fragmentLoginApi)
+        }
         return bindind?.root
     }
 
