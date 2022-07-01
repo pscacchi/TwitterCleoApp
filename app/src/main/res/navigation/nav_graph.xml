@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/fragmentSplash">
 
@@ -25,5 +26,26 @@
     <fragment
         android:id="@+id/fragmentLoginApi"
         android:name="ar.scacchipa.twittercloneapp.fragment.FragmentLoginApi"
-        android:label="FragmentLoginApi" />
+        android:label="FragmentLoginApi" >
+        <action
+            android:id="@+id/action_fragmentLoginApi_to_fragmentHappyPath"
+            app:destination="@id/fragmentHappyPath" />
+        <action
+            android:id="@+id/action_fragmentLoginApi_to_fragmentSadPath"
+            app:destination="@id/sadFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentHappyPath"
+        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentHappyPath"
+        android:label="FragmentHappyPath" >
+        <argument
+            android:name="bearerToken"
+            app:argType="string"
+            android:defaultValue=""/>
+    </fragment>
+    <fragment
+        android:id="@+id/sadFragment"
+        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentSadPath"
+        android:label="fragment_sad"
+        tools:layout="@layout/fragment_sad_path"/>
 </navigation>

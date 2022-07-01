@@ -4,20 +4,41 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.FragmentLoginApiLayoutBinding
+import ar.scacchipa.twittercloneapp.viewmodel.LoginApiViewModel
 
 
 class FragmentLoginApi : Fragment() {
 
+    private val viewModel: LoginApiViewModel by viewModels()
     private var binding: FragmentLoginApiLayoutBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val clientId = getString(R.string.client_id)
+        val redirectUri = getString(R.string.redirect_uri)
+
         binding = FragmentLoginApiLayoutBinding.inflate(inflater)
+
+        viewModel.userAccessToken.observe(viewLifecycleOwner) {
+            if (it.access_token != "") {
+                val action = FragmentLoginApiDirections
+                    .actionFragmentLoginApiToFragmentHappyPath(it.access_token)
+                findNavController().navigate(action)
+            } else {
+                findNavController().navigate(R.id.action_fragmentLoginApi_to_fragmentSadPath)
+            }
+        }
 
         binding?.loginApiWebview?.let { webView ->
             webView.settings.javaScriptEnabled = true
@@ -27,9 +48,20 @@ class FragmentLoginApi : Fragment() {
             webView.settings.allowContentAccess = true
             webView.settings.allowFileAccess = true
 
-            webView.webViewClient = WebViewClient()
+            webView.webViewClient = object: WebViewClient() {
+                override fun shouldOverrideUrlLoading(
+                    view: WebView?,
+                    request: WebResourceRequest?
+                ): Boolean {
+                    request?.url?.let { uri ->
+                        viewModel.controlRequest(uri, clientId, redirectUri)
+                    }
+                    return super.shouldOverrideUrlLoading(view, request)
+                }
+            }
 
-            webView.loadUrl("https://twitter.com/i/oauth2/authorize?response_type=code&client_id=Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ&redirect_uri=https://twittercloneendava.firebaseapp.com/__/auth/handler&scope=users.read%20tweet.read%20offline.access%20list.read%20follows.read%20like.read%20space.read%20tweet.write%20like.write&state=state&code_challenge=challenge&code_challenge_method=plain")
+            val url = viewModel.createTemporaryCodeUrl(clientId, redirectUri)
+            webView.loadUrl(url)
         }
         return binding?.root
     }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_background">
+    android:background="@color/primary_background"
+    tools:context=".fragment.FragmentLogin">
 
     <ImageView
         android:id="@+id/login_twitter_logo_imageview"
