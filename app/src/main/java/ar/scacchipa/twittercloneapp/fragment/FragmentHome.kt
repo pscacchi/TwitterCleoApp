@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import ar.scacchipa.twittercloneapp.databinding.FragmentLoginSuccessBinding
 
-class FragmentLoginSuccess : Fragment() {
+class FragmentHome : Fragment() {
 
-    val args: FragmentLoginSuccessArgs by navArgs()
+    val args: FragmentHomeArgs by navArgs()
     var binding: FragmentLoginSuccessBinding? = null
 
     override fun onCreateView(

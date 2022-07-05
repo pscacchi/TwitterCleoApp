@@ -34,7 +34,7 @@ class FragmentAuthWebDialog : Fragment() {
         viewModel.userAccessToken.observe(viewLifecycleOwner) {
             if (it.access_token != "") {
                 val action = FragmentAuthWebDialogDirections
-                    .actionFragmentAuthWebDialogToFragmentLoginSuccess(it.access_token)
+                    .actionFragmentAuthWebDialogToFragmentHome(it.access_token)
                 findNavController().navigate(action)
             } else {
                 findNavController().navigate(R.id.action_fragmentAuthWebDialog_to_fragmentLoginError)

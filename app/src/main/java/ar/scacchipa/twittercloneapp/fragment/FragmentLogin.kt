@@ -19,7 +19,7 @@ class FragmentLogin : Fragment() {
     ): View? {
         bindind = FragmentLoginLayoutBinding.inflate(inflater)
         bindind?.buttonLogin?.setOnClickListener{
-            findNavController().navigate(R.id.action_fragmentLogin_to_fragmentLoginApi)
+            findNavController().navigate(R.id.action_fragmentLogin_to_fragmentLoginAuthWebDialog)
         }
         return bindind?.root
     }

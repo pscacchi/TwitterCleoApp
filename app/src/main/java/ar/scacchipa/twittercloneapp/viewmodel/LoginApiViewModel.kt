@@ -2,6 +2,7 @@ package ar.scacchipa.twittercloneapp.viewmodel
 
 import android.net.Uri
 import androidx.core.net.toUri
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,8 +19,9 @@ class LoginApiViewModel (
     private val userCase: AuthorizationUseCase =
         AuthorizationUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit())))
 ): ViewModel() {
-    var userAccessToken = MutableLiveData<UserAccessToken>()
-        private set
+    private val _userAccessToken = MutableLiveData<UserAccessToken>()
+    val userAccessToken: LiveData<UserAccessToken>
+        get() = _userAccessToken
 
     fun controlRequest(uri: Uri, clientId: String, redirectUri: String) {
         if (uri.host == redirectUri.toUri().host) {
@@ -28,15 +30,19 @@ class LoginApiViewModel (
             }
             uri.getQueryParameter("error")?.let { error ->
                 if (error == "access_denied") {
-                    userAccessToken.value = UserAccessToken()
+                    _userAccessToken.value = UserAccessToken()
                 }
             }
         }
     }
 
-    private fun generateUserAccessToken(transitoryCode: String, clientId: String, redirectUri: String) {
+    private fun generateUserAccessToken(
+        transitoryCode: String,
+        clientId: String,
+        redirectUri: String
+    ) {
         viewModelScope.launch {
-            userAccessToken.value = withContext(Dispatchers.IO) {
+            _userAccessToken.value = withContext(Dispatchers.IO) {
                 userCase.generateAccessToken(
                     transitoryToken = transitoryCode,
                     grant_type = "authorization_code",
@@ -48,6 +54,7 @@ class LoginApiViewModel (
             }
         }
     }
+
     fun createTemporaryCodeUrl(clientId: String, redirectUri: String): String {
         return userCase.createTemporaryCodeUrl(clientId, redirectUri)
     }

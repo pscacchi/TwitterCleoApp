@@ -20,32 +20,32 @@
         android:name="ar.scacchipa.twittercloneapp.fragment.FragmentLogin"
         android:label="FragmentLogin" >
         <action
-            android:id="@+id/action_fragmentLogin_to_fragmentLoginApi"
-            app:destination="@id/fragmentLoginApi" />
+            android:id="@+id/action_fragmentLogin_to_fragmentLoginAuthWebDialog"
+            app:destination="@id/fragmentLoginAuthWebDialog" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentLoginApi"
+        android:id="@+id/fragmentLoginAuthWebDialog"
         android:name="ar.scacchipa.twittercloneapp.fragment.FragmentAuthWebDialog"
-        android:label="FragmentLoginApi" >
+        android:label="FragmentLoginAuthWebDialog" >
         <action
-            android:id="@+id/action_fragmentAuthWebDialog_to_fragmentLoginSuccess"
-            app:destination="@id/fragmentHappyPath" />
+            android:id="@+id/action_fragmentAuthWebDialog_to_fragmentHome"
+            app:destination="@id/fragmentHome" />
         <action
             android:id="@+id/action_fragmentAuthWebDialog_to_fragmentLoginError"
-            app:destination="@id/sadFragment" />
+            app:destination="@id/fragmentLoginError" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentHappyPath"
-        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentLoginSuccess"
-        android:label="FragmentHappyPath" >
+        android:id="@+id/fragmentHome"
+        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentHome"
+        android:label="FragmentLoginSuccess" >
         <argument
             android:name="bearerToken"
             app:argType="string"
             android:defaultValue=""/>
     </fragment>
     <fragment
-        android:id="@+id/sadFragment"
+        android:id="@+id/fragmentLoginError"
         android:name="ar.scacchipa.twittercloneapp.fragment.FragmentLoginError"
-        android:label="fragment_sad"
+        android:label="FragmentLoginError"
         tools:layout="@layout/fragment_login_error"/>
 </navigation>
