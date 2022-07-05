@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/secundart_background"
-    tools:context=".fragment.FragmentLoginApi">
+    tools:context=".fragment.FragmentAuthWebDialog">
 
     <WebView
         android:id="@+id/login_api_webview"

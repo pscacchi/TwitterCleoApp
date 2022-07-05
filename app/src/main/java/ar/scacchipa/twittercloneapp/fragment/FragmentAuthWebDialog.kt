@@ -1,6 +1,7 @@
 package ar.scacchipa.twittercloneapp.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.R
-import ar.scacchipa.twittercloneapp.databinding.FragmentLoginApiLayoutBinding
+import ar.scacchipa.twittercloneapp.databinding.FragmentAuthWebDialogLayoutBinding
 import ar.scacchipa.twittercloneapp.viewmodel.LoginApiViewModel
 
 
-class FragmentLoginApi : Fragment() {
+class FragmentAuthWebDialog : Fragment() {
 
     private val viewModel: LoginApiViewModel by viewModels()
-    private var binding: FragmentLoginApiLayoutBinding? = null
+    private var binding: FragmentAuthWebDialogLayoutBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,15 +29,15 @@ class FragmentLoginApi : Fragment() {
         val clientId = getString(R.string.client_id)
         val redirectUri = getString(R.string.redirect_uri)
 
-        binding = FragmentLoginApiLayoutBinding.inflate(inflater)
+        binding = FragmentAuthWebDialogLayoutBinding.inflate(inflater)
 
         viewModel.userAccessToken.observe(viewLifecycleOwner) {
             if (it.access_token != "") {
-                val action = FragmentLoginApiDirections
-                    .actionFragmentLoginApiToFragmentHappyPath(it.access_token)
+                val action = FragmentAuthWebDialogDirections
+                    .actionFragmentAuthWebDialogToFragmentLoginSuccess(it.access_token)
                 findNavController().navigate(action)
             } else {
-                findNavController().navigate(R.id.action_fragmentLoginApi_to_fragmentSadPath)
+                findNavController().navigate(R.id.action_fragmentAuthWebDialog_to_fragmentLoginError)
             }
         }
 
@@ -54,6 +55,7 @@ class FragmentLoginApi : Fragment() {
                     request: WebResourceRequest?
                 ): Boolean {
                     request?.url?.let { uri ->
+                        Log.i("WebView", uri.toString())
                         viewModel.controlRequest(uri, clientId, redirectUri)
                     }
                     return super.shouldOverrideUrlLoading(view, request)

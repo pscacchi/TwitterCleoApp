@@ -25,18 +25,18 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentLoginApi"
-        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentLoginApi"
+        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentAuthWebDialog"
         android:label="FragmentLoginApi" >
         <action
-            android:id="@+id/action_fragmentLoginApi_to_fragmentHappyPath"
+            android:id="@+id/action_fragmentAuthWebDialog_to_fragmentLoginSuccess"
             app:destination="@id/fragmentHappyPath" />
         <action
-            android:id="@+id/action_fragmentLoginApi_to_fragmentSadPath"
+            android:id="@+id/action_fragmentAuthWebDialog_to_fragmentLoginError"
             app:destination="@id/sadFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentHappyPath"
-        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentHappyPath"
+        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentLoginSuccess"
         android:label="FragmentHappyPath" >
         <argument
             android:name="bearerToken"
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/sadFragment"
-        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentSadPath"
+        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentLoginError"
         android:label="fragment_sad"
-        tools:layout="@layout/fragment_sad_path"/>
+        tools:layout="@layout/fragment_login_error"/>
 </navigation>
