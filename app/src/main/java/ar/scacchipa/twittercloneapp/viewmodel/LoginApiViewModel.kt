@@ -26,6 +26,11 @@ class LoginApiViewModel (
             uri.getQueryParameter("code")?.let { code ->
                 this.generateUserAccessToken(code, clientId, redirectUri)
             }
+            uri.getQueryParameter("error")?.let { error ->
+                if (error == "access_denied") {
+                    userAccessToken.value = UserAccessToken()
+                }
+            }
         }
     }
 

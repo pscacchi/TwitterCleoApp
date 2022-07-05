@@ -5,4 +5,7 @@ class UserAccessToken (
     val expires_in: Int = 0,
     val access_token: String = "",
     val scope: String = "",
-    val refresh_token: String = "")
+    val refresh_token: String = "",
+    val error: String = "",
+    val error_description: String = ""
+)
