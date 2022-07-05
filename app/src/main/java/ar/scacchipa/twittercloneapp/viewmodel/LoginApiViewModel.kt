@@ -11,9 +11,7 @@ import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class LoginApiViewModel (
     private val userCase: AuthorizationUseCase =
@@ -42,16 +40,13 @@ class LoginApiViewModel (
         redirectUri: String
     ) {
         viewModelScope.launch {
-            _userAccessToken.value = withContext(Dispatchers.IO) {
-                userCase.generateAccessToken(
+            _userAccessToken.value = userCase.generateAccessToken(
                     transitoryToken = transitoryCode,
                     grant_type = "authorization_code",
                     clientId = clientId,
                     redirect_uri = redirectUri,
                     codeVerifier = "challenge",
-                    state = "state"
-                )
-            }
+                    state = "state")
         }
     }
 

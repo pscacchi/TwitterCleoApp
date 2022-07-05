@@ -41,15 +41,15 @@ class FragmentAuthWebDialog : Fragment() {
             }
         }
 
-        binding?.loginApiWebview?.let { webView ->
-            webView.settings.javaScriptEnabled = true
-            webView.settings.loadWithOverviewMode = true
-            webView.settings.domStorageEnabled = true
-            webView.settings.loadsImagesAutomatically = true
-            webView.settings.allowContentAccess = true
-            webView.settings.allowFileAccess = true
+        binding?.loginApiWebview?.apply {
+            settings.javaScriptEnabled = true
+            settings.loadWithOverviewMode = true
+            settings.domStorageEnabled = true
+            settings.loadsImagesAutomatically = true
+            settings.allowContentAccess = true
+            settings.allowFileAccess = true
 
-            webView.webViewClient = object: WebViewClient() {
+            webViewClient = object: WebViewClient() {
                 override fun shouldOverrideUrlLoading(
                     view: WebView?,
                     request: WebResourceRequest?
@@ -62,8 +62,7 @@ class FragmentAuthWebDialog : Fragment() {
                 }
             }
 
-            val url = viewModel.createTemporaryCodeUrl(clientId, redirectUri)
-            webView.loadUrl(url)
+            loadUrl( viewModel.createTemporaryCodeUrl(clientId, redirectUri) )
         }
         return binding?.root
     }

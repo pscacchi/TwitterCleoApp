@@ -5,6 +5,8 @@ import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.IAuthorizationRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class AuthorizationUseCase(
     private val repository: IAuthorizationRepository =
@@ -17,14 +19,15 @@ class AuthorizationUseCase(
         redirect_uri: String,
         codeVerifier: String = "challenge",
         state:String = "state"
-    ): UserAccessToken {
-        return repository.genAccessToken(
+    ): UserAccessToken = withContext(Dispatchers.IO) {
+        return@withContext repository.genAccessToken(
             transitoryToken = transitoryToken,
             grant_type = grant_type,
             clientId = clientId,
             redirect_uri = redirect_uri,
             codeVerifier = codeVerifier,
-            state = state)
+            state = state
+        )
     }
 
     fun getScope():String  {
