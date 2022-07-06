@@ -12,7 +12,7 @@ import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
-import ar.scacchipa.twittercloneapp.repository.DbContants
+import ar.scacchipa.twittercloneapp.repository.Constants
 import kotlinx.coroutines.launch
 
 class AuthWebDialogViewModel (
@@ -27,7 +27,7 @@ class AuthWebDialogViewModel (
         get() = _userAccessToken
 
     fun controlRequest(uri: Uri) {
-        if (uri.host == DbContants.REDIRECT_URI.toUri().host) {
+        if (uri.host == Constants.REDIRECT_URI.toUri().host) {
             uri.getQueryParameter("code")?.let { code ->
                 this.generateUserAccessToken(code)
             }

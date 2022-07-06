@@ -1,6 +1,6 @@
 package ar.scacchipa.twittercloneapp.repository
 
-object DbContants {
+object Constants {
     const val CLIENT_ID = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ"
     const val REDIRECT_URI = "https://twittercloneendava.firebaseapp.com/__/auth/handler"
 
@@ -14,7 +14,7 @@ object DbContants {
 
     const val SCOPE_USERS_READ = "users.read"
     const val SCOPE_TWEET_READ = "tweet.read"
-    const val SCOPE_TWEET_WRTIE = "tweet.write"
+    const val SCOPE_TWEET_WRITE = "tweet.write"
     const val SCOPE_OFFLINE_ACCESS = "offline.access"
     const val SCOPE_LIST_READ = "list.read"
     const val SCOPE_FOLLOWS_READ = "follows.read"

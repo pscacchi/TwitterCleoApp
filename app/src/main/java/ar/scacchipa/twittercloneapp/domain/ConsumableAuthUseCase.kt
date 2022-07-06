@@ -1,31 +1,31 @@
 package ar.scacchipa.twittercloneapp.domain
 
-import ar.scacchipa.twittercloneapp.repository.DbContants
+import ar.scacchipa.twittercloneapp.repository.Constants
 
 open class ConsumableAuthUseCase {
 
     open operator fun invoke(): String {
         return "https://twitter.com/i/oauth2/authorize?" +
-                "response_type=${DbContants.RESPONSE_TYPE_CODE}&" +
-                "client_id=${DbContants.CLIENT_ID}&" +
-                "redirect_uri=${DbContants.REDIRECT_URI}&" +
+                "response_type=${Constants.RESPONSE_TYPE_CODE}&" +
+                "client_id=${Constants.CLIENT_ID}&" +
+                "redirect_uri=${Constants.REDIRECT_URI}&" +
                 "scope=${getScope()}&" +
-                "state=${DbContants.STATE_STATE}&" +
-                "code_challenge=${DbContants.CODE_CHALLENGE_CHALLENGE}&" +
-                "code_challenge_method=${DbContants.CODE_CHALLENGE_METHOD_PLAIN}"
+                "state=${Constants.STATE_STATE}&" +
+                "code_challenge=${Constants.CODE_CHALLENGE_CHALLENGE}&" +
+                "code_challenge_method=${Constants.CODE_CHALLENGE_METHOD_PLAIN}"
     }
 
     private fun getScope():String {
         return listOf(
-            DbContants.SCOPE_USERS_READ,
-            DbContants.SCOPE_TWEET_READ,
-            DbContants.SCOPE_TWEET_WRTIE,
-            DbContants.SCOPE_OFFLINE_ACCESS,
-            DbContants.SCOPE_LIST_READ,
-            DbContants.SCOPE_FOLLOWS_READ,
-            DbContants.SCOPE_LIKE_READ,
-            DbContants.SCOPE_LIKE_WRITE,
-            DbContants.SCOPE_SPACE_READ
+            Constants.SCOPE_USERS_READ,
+            Constants.SCOPE_TWEET_READ,
+            Constants.SCOPE_TWEET_WRITE,
+            Constants.SCOPE_OFFLINE_ACCESS,
+            Constants.SCOPE_LIST_READ,
+            Constants.SCOPE_FOLLOWS_READ,
+            Constants.SCOPE_LIKE_READ,
+            Constants.SCOPE_LIKE_WRITE,
+            Constants.SCOPE_SPACE_READ
         ).joinToString("%20")
     }
 }
