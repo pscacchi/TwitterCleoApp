@@ -45,17 +45,11 @@ class AuthWebDialogViewModel (
         viewModelScope.launch {
             _userAccessToken.value = authorizationUseCase(
                     transitoryToken = transitoryCode,
-                    grantType = DbContants.GRANT_TYPE_AUTHORIZATION_CODE,
-                    clientId = DbContants.CLIENT_ID,
-                    redirectUri = DbContants.REDIRECT_URI,
-                    codeVerifier = DbContants.CODE_VERIFIER_CHALLENGE,
-                    state = DbContants.STATE_STATE)
+            )
         }
     }
 
     fun createTemporaryCodeUrl(): String {
-        return consumableAuthUseCase(
-            DbContants.CLIENT_ID,
-            DbContants.REDIRECT_URI)
+        return consumableAuthUseCase()
     }
 }

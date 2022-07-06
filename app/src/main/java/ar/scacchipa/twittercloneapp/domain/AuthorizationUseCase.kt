@@ -4,26 +4,22 @@ import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
+import ar.scacchipa.twittercloneapp.repository.DbContants
 import ar.scacchipa.twittercloneapp.repository.IAuthorizationRepository
 
-class AuthorizationUseCase(
+open class AuthorizationUseCase(
     private val repository: IAuthorizationRepository =
         AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit()))
 ) {
-    suspend operator fun invoke(
+    open suspend operator fun invoke(
         transitoryToken: String,
-        grantType: String,
-        clientId: String,
-        redirectUri: String,
-        codeVerifier: String,
-        state:String
     ): UserAccessToken {
         return repository.genAccessToken(
             transitoryToken = transitoryToken,
-            grantType = grantType,
-            clientId = clientId,
-            redirectUri = redirectUri,
-            codeVerifier = codeVerifier,
-            state = state)
+            grantType = DbContants.GRANT_TYPE_AUTHORIZATION_CODE,
+            clientId = DbContants.CLIENT_ID,
+            redirectUri = DbContants.REDIRECT_URI,
+            codeVerifier = DbContants.CODE_VERIFIER_CHALLENGE,
+            state = DbContants.STATE_STATE)
     }
 }
