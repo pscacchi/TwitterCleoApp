@@ -13,12 +13,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.FragmentAuthWebDialogLayoutBinding
-import ar.scacchipa.twittercloneapp.viewmodel.LoginApiViewModel
-
+import ar.scacchipa.twittercloneapp.viewmodel.AuthWebDialogViewModel
 
 class FragmentAuthWebDialog : Fragment() {
 
-    private val viewModel: LoginApiViewModel by viewModels()
+    private val viewModel: AuthWebDialogViewModel by viewModels()
     private var binding: FragmentAuthWebDialogLayoutBinding? = null
 
     override fun onCreateView(
@@ -26,15 +25,12 @@ class FragmentAuthWebDialog : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val clientId = getString(R.string.client_id)
-        val redirectUri = getString(R.string.redirect_uri)
-
         binding = FragmentAuthWebDialogLayoutBinding.inflate(inflater)
 
         viewModel.userAccessToken.observe(viewLifecycleOwner) {
-            if (it.access_token != "") {
+            if (it.accessToken != "") {
                 val action = FragmentAuthWebDialogDirections
-                    .actionFragmentAuthWebDialogToFragmentHome(it.access_token)
+                    .actionFragmentAuthWebDialogToFragmentHome(it.accessToken)
                 findNavController().navigate(action)
             } else {
                 findNavController().navigate(R.id.action_fragmentAuthWebDialog_to_fragmentLoginError)
@@ -42,27 +38,29 @@ class FragmentAuthWebDialog : Fragment() {
         }
 
         binding?.loginApiWebview?.apply {
-            settings.javaScriptEnabled = true
-            settings.loadWithOverviewMode = true
-            settings.domStorageEnabled = true
-            settings.loadsImagesAutomatically = true
-            settings.allowContentAccess = true
-            settings.allowFileAccess = true
+            settings.apply {
+                javaScriptEnabled = true
+                loadWithOverviewMode = true
+                domStorageEnabled = true
+                loadsImagesAutomatically = true
+                allowContentAccess = true
+                allowFileAccess = true
+            }
 
-            webViewClient = object: WebViewClient() {
+            webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(
                     view: WebView?,
                     request: WebResourceRequest?
                 ): Boolean {
                     request?.url?.let { uri ->
                         Log.i("WebView", uri.toString())
-                        viewModel.controlRequest(uri, clientId, redirectUri)
+                        viewModel.controlRequest(uri)
                     }
                     return super.shouldOverrideUrlLoading(view, request)
                 }
             }
 
-            loadUrl( viewModel.createTemporaryCodeUrl(clientId, redirectUri) )
+            loadUrl(viewModel.createTemporaryCodeUrl())
         }
         return binding?.root
     }

@@ -10,10 +10,10 @@ interface IAuthDataSource {
     @POST("2/oauth2/token")
     suspend fun genAccessTokenSourceCode(
         @Field("code") transitoryToken: String,
-        @Field("grant_type") grant_type: String = "authorization_code",
+        @Field("grant_type") grantType: String,
         @Field("client_id") clientId: String,
-        @Field("redirect_uri") redirect_uri: String,
-        @Field("code_verifier") codeVerifier: String = "challenge",
-        @Field("state") state:String = "state"
+        @Field("redirect_uri") redirectUri: String,
+        @Field("code_verifier") codeVerifier: String,
+        @Field("state") state:String
     ) : Response<UserAccessToken>
 }

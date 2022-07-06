@@ -5,10 +5,10 @@ import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 interface IAuthorizationRepository {
     suspend fun genAccessToken(
         transitoryToken: String,
-        grant_type: String = "authorization_code",
+        grantType: String,
         clientId: String,
-        redirect_uri: String,
-        codeVerifier: String = "challenge",
-        state: String = "state"
+        redirectUri: String,
+        codeVerifier: String,
+        state: String
     ): UserAccessToken
 }

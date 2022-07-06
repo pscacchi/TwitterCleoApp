@@ -4,26 +4,30 @@ import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
 import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class AuthorizationRepository(
-    val genAccessTokenSource: IAuthDataSource = provideAuthSourceDateApi(provideRetrofit())
+    private val genAccessTokenSource: IAuthDataSource = provideAuthSourceDateApi(provideRetrofit()),
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): IAuthorizationRepository {
     override suspend fun genAccessToken(
         transitoryToken: String,
-        grant_type: String,
+        grantType: String,
         clientId: String,
-        redirect_uri: String,
+        redirectUri: String,
         codeVerifier: String,
         state: String
-    ): UserAccessToken {
+    ): UserAccessToken = withContext(dispatcher){
         val response = genAccessTokenSource.genAccessTokenSourceCode(
             transitoryToken = transitoryToken,
-            grant_type = grant_type,
+            grantType = grantType,
             clientId = clientId,
-            redirect_uri = redirect_uri,
+            redirectUri = redirectUri,
             codeVerifier = codeVerifier,
             state = state)
-        return if (response.isSuccessful) {
+        if (response.isSuccessful) {
             response.body()?:UserAccessToken()
         } else {
             UserAccessToken()

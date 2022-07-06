@@ -6,8 +6,6 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="twitter_logo_image">Twitter Logo Image</string>
-    <string name="client_id">Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ</string>
-    <string name="redirect_uri">https://twittercloneendava.firebaseapp.com/__/auth/handler</string>
     <string name="happy_path">Happy Path</string>
     <string name="sad_path">Sad Path</string>
     <string name="bearer_token">Bearer Token</string>

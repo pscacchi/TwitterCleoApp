@@ -10,21 +10,26 @@ import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
+import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
+import ar.scacchipa.twittercloneapp.repository.DbContants
 import kotlinx.coroutines.launch
 
-class LoginApiViewModel (
-    private val userCase: AuthorizationUseCase =
-        AuthorizationUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit())))
+class AuthWebDialogViewModel (
+    private val authorizationUseCase: AuthorizationUseCase =
+        AuthorizationUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit()))),
+    private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase()
+
 ): ViewModel() {
+
     private val _userAccessToken = MutableLiveData<UserAccessToken>()
     val userAccessToken: LiveData<UserAccessToken>
         get() = _userAccessToken
 
-    fun controlRequest(uri: Uri, clientId: String, redirectUri: String) {
-        if (uri.host == redirectUri.toUri().host) {
+    fun controlRequest(uri: Uri) {
+        if (uri.host == DbContants.REDIRECT_URI.toUri().host) {
             uri.getQueryParameter("code")?.let { code ->
-                this.generateUserAccessToken(code, clientId, redirectUri)
+                this.generateUserAccessToken(code)
             }
             uri.getQueryParameter("error")?.let { error ->
                 if (error == "access_denied") {
@@ -35,22 +40,22 @@ class LoginApiViewModel (
     }
 
     private fun generateUserAccessToken(
-        transitoryCode: String,
-        clientId: String,
-        redirectUri: String
+        transitoryCode: String
     ) {
         viewModelScope.launch {
-            _userAccessToken.value = userCase.generateAccessToken(
+            _userAccessToken.value = authorizationUseCase(
                     transitoryToken = transitoryCode,
-                    grant_type = "authorization_code",
-                    clientId = clientId,
-                    redirect_uri = redirectUri,
-                    codeVerifier = "challenge",
-                    state = "state")
+                    grantType = DbContants.GRANT_TYPE_AUTHORIZATION_CODE,
+                    clientId = DbContants.CLIENT_ID,
+                    redirectUri = DbContants.REDIRECT_URI,
+                    codeVerifier = DbContants.CODE_VERIFIER_CHALLENGE,
+                    state = DbContants.STATE_STATE)
         }
     }
 
-    fun createTemporaryCodeUrl(clientId: String, redirectUri: String): String {
-        return userCase.createTemporaryCodeUrl(clientId, redirectUri)
+    fun createTemporaryCodeUrl(): String {
+        return consumableAuthUseCase(
+            DbContants.CLIENT_ID,
+            DbContants.REDIRECT_URI)
     }
 }
