@@ -37,7 +37,7 @@ class FragmentAuthWebDialog : Fragment() {
             }
         }
 
-        binding?.loginApiWebview?.apply {
+        binding?.loginWebview?.apply {
             settings.apply {
                 javaScriptEnabled = true
                 loadWithOverviewMode = true

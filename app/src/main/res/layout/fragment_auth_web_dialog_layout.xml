@@ -8,7 +8,7 @@
     tools:context=".fragment.FragmentAuthWebDialog">
 
     <WebView
-        android:id="@+id/login_api_webview"
+        android:id="@+id/login_webview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
