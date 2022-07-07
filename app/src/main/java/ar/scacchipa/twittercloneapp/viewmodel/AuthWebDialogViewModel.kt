@@ -1,7 +1,5 @@
 package ar.scacchipa.twittercloneapp.viewmodel
 
-import android.net.Uri
-import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +12,7 @@ import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.DbContants
 import kotlinx.coroutines.launch
+import java.net.URI
 
 class AuthWebDialogViewModel (
     private val authorizationUseCase: AuthorizationUseCase =
@@ -26,12 +25,13 @@ class AuthWebDialogViewModel (
     val userAccessToken: LiveData<UserAccessToken>
         get() = _userAccessToken
 
-    fun controlRequest(uri: Uri) {
-        if (uri.host == DbContants.REDIRECT_URI.toUri().host) {
-            uri.getQueryParameter("code")?.let { code ->
+    fun controlRequest(uri: URI) {
+        if (uri.host == URI(DbContants.REDIRECT_URI).host) {
+            val queryParameters = getQueryParameters(uri.query)
+            queryParameters["code"]?.let { code ->
                 this.generateUserAccessToken(code)
             }
-            uri.getQueryParameter("error")?.let { error ->
+            queryParameters["error"]?.let { error ->
                 if (error == "access_denied") {
                     _userAccessToken.value = UserAccessToken()
                 }
@@ -51,6 +51,19 @@ class AuthWebDialogViewModel (
                     codeVerifier = DbContants.CODE_VERIFIER_CHALLENGE,
                     state = DbContants.STATE_STATE)
         }
+    }
+    private fun getQueryParameters(query: String): HashMap<String, String> {
+        val params = query.split("&")
+
+        val map = hashMapOf<String, String>()
+
+        params.forEach { param ->
+            val term = param.split("=")
+            val name = term[0]
+            val value = term[1]
+            map[name] = value
+        }
+        return map
     }
 
     fun createTemporaryCodeUrl(): String {

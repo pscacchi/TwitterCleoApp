@@ -2,9 +2,9 @@ package ar.scacchipa.twittercloneapp.domain
 
 import ar.scacchipa.twittercloneapp.repository.DbContants
 
-class ConsumableAuthUseCase {
+open class ConsumableAuthUseCase {
 
-    operator fun invoke(clientId: String, redirectUri: String): String {
+    open operator fun invoke(clientId: String, redirectUri: String): String {
         return "https://twitter.com/i/oauth2/authorize?" +
                 "response_type=${DbContants.RESPONSE_TYPE_CODE}&" +
                 "client_id=$clientId&" +

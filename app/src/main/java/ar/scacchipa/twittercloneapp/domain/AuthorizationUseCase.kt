@@ -6,11 +6,11 @@ import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.IAuthorizationRepository
 
-class AuthorizationUseCase(
+open class AuthorizationUseCase(
     private val repository: IAuthorizationRepository =
         AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit()))
 ) {
-    suspend operator fun invoke(
+    open suspend operator fun invoke(
         transitoryToken: String,
         grantType: String,
         clientId: String,

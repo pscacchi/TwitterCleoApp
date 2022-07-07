@@ -2,7 +2,7 @@ package ar.scacchipa.twittercloneapp.datasource
 
 import com.google.gson.annotations.SerializedName
 
-class UserAccessToken (
+data class UserAccessToken (
     @SerializedName("token_type")
     val tokenType: String = "",
     @SerializedName("expires_in")
