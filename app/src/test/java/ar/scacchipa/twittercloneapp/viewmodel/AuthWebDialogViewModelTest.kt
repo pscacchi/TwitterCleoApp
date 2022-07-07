@@ -57,6 +57,7 @@ class AuthWebDialogViewModelTest {
         authWebDialogViewModel?.controlRequest(uri)
         Assert.assertEquals(authWebDialogViewModel?.userAccessToken?.value, null)
     }
+
     @Test
     fun shouldGenerateUserAccessToken() = runTest {
         val uri = URI("https://twittercloneendava.firebaseapp.com/__/auth/handler?state=state&" +
@@ -73,6 +74,15 @@ class AuthWebDialogViewModelTest {
                 refreshToken = "LVJQQXMxSUM0QUQ2eHNidkNfYUNScUJoSTY5Sy1ndGxqMmx2WnRPQzF4NklDOjE2NTY1OTUxOTIxMTU6MTowOnJ0OjE",
                 error = "",
                 errorDescription = ""))
+    }
+
+    @Test
+    fun shouldGenerateErrorUserAccessToken() {
+        val uri = URI("https://twittercloneendava.firebaseapp.com/__/auth/handler?error=access_denied&state=state")
+        authWebDialogViewModel?.controlRequest(uri)
+
+        Assert.assertTrue(
+            authWebDialogViewModel?.userAccessToken?.value?.error == "error")
     }
 }
 
@@ -91,7 +101,7 @@ class MockAuthorizationUseCase: AuthorizationUseCase() {
                 errorDescription = ""
             )
         } else {
-            UserAccessToken()
+            UserAccessToken(error = "error")
         }
     }
 }
