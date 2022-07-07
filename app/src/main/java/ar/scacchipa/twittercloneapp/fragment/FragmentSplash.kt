@@ -1,10 +1,10 @@
 package ar.scacchipa.twittercloneapp.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -29,14 +29,11 @@ class FragmentSplash: Fragment() {
             }
         }
         activity?.window?.let { window ->
-            window.statusBarColor = Color.TRANSPARENT
-            window.decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                        View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-            )
-            window.navigationBarColor =
-                requireContext().resources.getColor(R.color.primary_background)
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or
+                    View.SYSTEM_UI_FLAG_IMMERSIVE or
+                    View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.primary_background)
+            window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.primary_background)
         }
         splashViewModel.spendSplash()
         return binding?.root
