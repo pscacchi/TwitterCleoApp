@@ -29,7 +29,9 @@
         android:label="FragmentLoginAuthWebDialog" >
         <action
             android:id="@+id/action_fragmentAuthWebDialog_to_fragmentHome"
-            app:destination="@id/fragmentHome" />
+            app:destination="@id/fragmentHome"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_fragmentAuthWebDialog_to_fragmentLoginError"
             app:destination="@id/fragmentLoginError" />

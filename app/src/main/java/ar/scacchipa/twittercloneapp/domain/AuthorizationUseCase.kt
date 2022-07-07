@@ -4,6 +4,7 @@ import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
+import ar.scacchipa.twittercloneapp.repository.Constants
 import ar.scacchipa.twittercloneapp.repository.IAuthorizationRepository
 
 open class AuthorizationUseCase(
@@ -11,19 +12,14 @@ open class AuthorizationUseCase(
         AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit()))
 ) {
     open suspend operator fun invoke(
-        transitoryToken: String,
-        grantType: String,
-        clientId: String,
-        redirectUri: String,
-        codeVerifier: String,
-        state:String
+        transitoryToken: String
     ): UserAccessToken {
         return repository.genAccessToken(
             transitoryToken = transitoryToken,
-            grantType = grantType,
-            clientId = clientId,
-            redirectUri = redirectUri,
-            codeVerifier = codeVerifier,
-            state = state)
+            grantType = Constants.GRANT_TYPE_AUTHORIZATION_CODE,
+            clientId = Constants.CLIENT_ID,
+            redirectUri = Constants.REDIRECT_URI,
+            codeVerifier = Constants.CODE_VERIFIER_CHALLENGE,
+            state = Constants.STATE_STATE)
     }
 }

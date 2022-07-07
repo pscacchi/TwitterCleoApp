@@ -10,7 +10,7 @@ import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
-import ar.scacchipa.twittercloneapp.repository.DbContants
+import ar.scacchipa.twittercloneapp.repository.Constants
 import kotlinx.coroutines.launch
 import java.net.URI
 
@@ -26,7 +26,7 @@ class AuthWebDialogViewModel (
         get() = _userAccessToken
 
     fun controlRequest(uri: URI) {
-        if (uri.host == URI(DbContants.REDIRECT_URI).host) {
+        if (uri.host == URI(Constants.REDIRECT_URI).host) {
             val queryParameters = getQueryParameters(uri.query)
             queryParameters["code"]?.let { code ->
                 this.generateUserAccessToken(code)
@@ -45,11 +45,7 @@ class AuthWebDialogViewModel (
         viewModelScope.launch {
             _userAccessToken.value = authorizationUseCase(
                     transitoryToken = transitoryCode,
-                    grantType = DbContants.GRANT_TYPE_AUTHORIZATION_CODE,
-                    clientId = DbContants.CLIENT_ID,
-                    redirectUri = DbContants.REDIRECT_URI,
-                    codeVerifier = DbContants.CODE_VERIFIER_CHALLENGE,
-                    state = DbContants.STATE_STATE)
+            )
         }
     }
     private fun getQueryParameters(query: String): HashMap<String, String> {
@@ -67,8 +63,6 @@ class AuthWebDialogViewModel (
     }
 
     fun createTemporaryCodeUrl(): String {
-        return consumableAuthUseCase(
-            DbContants.CLIENT_ID,
-            DbContants.REDIRECT_URI)
+        return consumableAuthUseCase()
     }
 }

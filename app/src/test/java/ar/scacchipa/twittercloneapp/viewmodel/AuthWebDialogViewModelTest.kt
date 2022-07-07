@@ -78,12 +78,7 @@ class AuthWebDialogViewModelTest {
 
 class MockAuthorizationUseCase: AuthorizationUseCase() {
     override suspend operator fun invoke(
-        transitoryToken: String,
-        grantType: String,
-        clientId: String,
-        redirectUri: String,
-        codeVerifier: String,
-        state:String
+        transitoryToken: String
     ): UserAccessToken {
         return if (transitoryToken == "SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE") {
             UserAccessToken(
@@ -102,11 +97,11 @@ class MockAuthorizationUseCase: AuthorizationUseCase() {
 }
 
 class MockConsumableAuthUseCase: ConsumableAuthUseCase() {
-    override operator fun invoke(clientId: String, redirectUri: String): String {
+    override operator fun invoke(): String {
         return "https://twitter.com/i/oauth2/authorize?" +
                 "response_type=code&" +
-                "client_id=$clientId&" +
-                "redirect_uri=$redirectUri&" +
+                "client_id=Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ&" +
+                "redirect_uri=https://twittercloneendava.firebaseapp.com/__/auth/handler&" +
                 "scope=tweet.read%20tweet.write&" +
                 "state=state&" +
                 "code_challenge=challenge&" +
