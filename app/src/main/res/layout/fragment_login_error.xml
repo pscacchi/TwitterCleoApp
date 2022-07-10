@@ -1,15 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.FragmentLoginError">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:text="@string/sad_path"/>
+    <include
+        android:id="@+id/include"
+        layout="@layout/fragment_login_layout"/>
 
-</FrameLayout>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#8050A0FF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/error_msg_box_view"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:background="@drawable/blue_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/login_error_title_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_error"
+        android:textSize="@dimen/large_text_size"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/login_error_msg_textview"
+        app:layout_constraintEnd_toEndOf="@+id/include"
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toTopOf="@+id/error_msg_box_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/login_error_msg_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:textSize="@dimen/normal_text_size"
+        android:textColor="@color/on_primary"
+        android:gravity="center"
+        android:text="@string/login_error_msg"
+        app:layout_constraintBottom_toTopOf="@+id/ok_login_error_button"
+        app:layout_constraintEnd_toEndOf="@+id/include"
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/login_error_title_textview" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/ok_login_error_button"
+        android:layout_width="200dp"
+        android:layout_height="52dp"
+        android:backgroundTint="@color/twitter_background"
+        android:text="@string/ok"
+        android:textColor="@color/twitter_on_background"
+        android:textSize="@dimen/normal_text_size"
+        android:textStyle="italic"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/error_msg_box_view"
+        app:layout_constraintEnd_toEndOf="@+id/include"
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/login_error_msg_textview" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
