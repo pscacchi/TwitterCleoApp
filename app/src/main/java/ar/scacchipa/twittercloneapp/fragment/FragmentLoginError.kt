@@ -5,14 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.R
+import ar.scacchipa.twittercloneapp.databinding.FragmentLoginErrorBinding
 
 class FragmentLoginError : Fragment() {
+
+    private var binding: FragmentLoginErrorBinding? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login_error, container, false)
+        binding = FragmentLoginErrorBinding.inflate(inflater, container, false)
+
+        binding?.okLoginErrorButton?.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentLoginError_to_fragmentLogin)
+        }
+
+        return binding?.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
 }
