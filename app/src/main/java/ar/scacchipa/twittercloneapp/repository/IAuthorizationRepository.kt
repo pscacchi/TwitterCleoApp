@@ -11,4 +11,5 @@ interface IAuthorizationRepository {
         codeVerifier: String,
         state: String
     ): UserAccessToken
+    fun getErrorUserCaseTokenCreator() : UserAccessToken
 }

@@ -10,7 +10,7 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class AuthorizationUseCaseTest {
 
-    val authorizationUseCase = AuthorizationUseCase(MockAuthorizationRespository())
+    private val authorizationUseCase = AuthorizationUseCase(MockAuthorizationRespository())
 
     @Test
     fun authorizationUseCaseShouldReturnAUserAccessToken() = runTest {
@@ -26,7 +26,6 @@ class AuthorizationUseCaseTest {
                 errorDescription = ""
             ))
     }
-
 }
 
 class MockAuthorizationRespository: IAuthorizationRepository {
@@ -47,5 +46,9 @@ class MockAuthorizationRespository: IAuthorizationRepository {
             error = "",
             errorDescription = ""
         )
+    }
+
+    override fun getErrorUserCaseTokenCreator(): UserAccessToken {
+        return UserAccessToken(error = "error")
     }
 }
