@@ -25,7 +25,7 @@ class MockAuthorizationRepository: IAuthorizationRepository {
         codeVerifier: String,
         state: String
     ): UserAccessToken {
-        TODO("Not yet implemented")
+        return UserAccessToken(error= "")
     }
 
     override fun getErrorUserCaseTokenCreator(): UserAccessToken {
