@@ -4,18 +4,21 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
+import ar.scacchipa.twittercloneapp.domain.ErrorTokenCreatorUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import java.net.URI
 
-
 @ExperimentalCoroutinesApi
 class AuthWebDialogViewModelTest {
-    private var authWebDialogViewModel: AuthWebDialogViewModel? = null
+    private var subject: AuthWebDialogViewModel = AuthWebDialogViewModel(
+        authorizationUseCase = MockAuthorizationUseCase(),
+        consumableAuthUseCase = MockConsumableAuthUseCase(),
+        errorUserCaseTokenCreator = MockErrorTokenCreator()
+    )
 
     @get:Rule
     var mainCoroutineTestRule = MainCoroutineTestRule()
@@ -23,18 +26,10 @@ class AuthWebDialogViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    @Before
-    fun setup() {
-        authWebDialogViewModel = AuthWebDialogViewModel(
-            authorizationUseCase = MockAuthorizationUseCase(),
-            consumableAuthUseCase = MockConsumableAuthUseCase()
-        )
-    }
-
     @Test
-    fun shouldGenerateCodeUrlTest() {
+    fun viewModelShouldGenerateCodeUrl() {
         Assert.assertEquals(
-            authWebDialogViewModel?.createTemporaryCodeUrl(),
+            subject.createTemporaryCodeUrl(),
             "https://twitter.com/i/oauth2/authorize?" +
                     "response_type=code&" +
                     "client_id=Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ&" +
@@ -47,25 +42,26 @@ class AuthWebDialogViewModelTest {
     }
 
     @Test
-    fun shouldNotGenerateUserAccessToken() {
-        val url = ("https://mobile.twitter.com/i/oauth2/authorize?response_type=code&" +
+    fun viewModelShouldNotGenerateUserAccessToken() {
+        val uri = URI("https://mobile.twitter.com/i/oauth2/authorize?response_type=code&" +
                 "client_id=Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ&" +
                 "redirect_uri=https://twittercloneendava.firebaseapp.com/__/auth/handler&" +
                 "scope=tweet.read%20tweet.write" +
                 "state=state&code_challenge=challenge&code_challenge_method=plain")
-        val uri = URI(url)
-        authWebDialogViewModel?.controlRequest(uri)
-        Assert.assertEquals(authWebDialogViewModel?.userAccessToken?.value, null)
+
+        subject.controlRequest(uri)
+        Assert.assertEquals(subject.userAccessToken.value, null)
     }
 
     @Test
-    fun shouldGenerateUserAccessToken() = runTest {
+    fun shouldGenerateSuccessUserAccessToken() = runTest {
         val uri = URI("https://twittercloneendava.firebaseapp.com/__/auth/handler?state=state&" +
                 "code=SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE")
-        authWebDialogViewModel?.controlRequest(uri)
+
+        subject.controlRequest(uri)
 
         Assert.assertTrue(
-            authWebDialogViewModel?.userAccessToken?.value ==
+            subject.userAccessToken.value ==
             UserAccessToken(
                 tokenType = "bearer",
                 expiresIn = 7200,
@@ -77,12 +73,13 @@ class AuthWebDialogViewModelTest {
     }
 
     @Test
-    fun shouldGenerateErrorUserAccessToken() {
+    fun viewModelShouldGenerateErrorUserAccessToken() {
         val uri = URI("https://twittercloneendava.firebaseapp.com/__/auth/handler?error=access_denied&state=state")
-        authWebDialogViewModel?.controlRequest(uri)
+
+        subject.controlRequest(uri)
 
         Assert.assertTrue(
-            authWebDialogViewModel?.userAccessToken?.value?.error == "error")
+            subject.userAccessToken.value?.error == "error")
     }
 }
 
@@ -116,5 +113,11 @@ class MockConsumableAuthUseCase: ConsumableAuthUseCase() {
                 "state=state&" +
                 "code_challenge=challenge&" +
                 "code_challenge_method=plain"
+    }
+}
+
+class MockErrorTokenCreator: ErrorTokenCreatorUseCase() {
+    override operator fun invoke(): UserAccessToken {
+        return UserAccessToken(error = "error")
     }
 }

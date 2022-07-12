@@ -5,7 +5,7 @@ import org.junit.Test
 
 class ConsumableAuthUseCaseTest {
     @Test
-    fun consumableAuthUseCaseShouldReturnArl() {
+    fun consumableAuthUseCaseShouldReturnUrl() {
         val consumableAuthUseCase = ConsumableAuthUseCase()
         Assert.assertEquals(consumableAuthUseCase(),
             "https://twitter.com/i/oauth2/authorize?" +

@@ -12,6 +12,8 @@ object Constants {
     const val GRANT_TYPE_AUTHORIZATION_CODE = "authorization_code"
     const val CODE_VERIFIER_CHALLENGE = "challenge"
 
+    const val ERROR_CODE = "error"
+
     const val SCOPE_USERS_READ = "users.read"
     const val SCOPE_TWEET_READ = "tweet.read"
     const val SCOPE_TWEET_WRITE = "tweet.write"
