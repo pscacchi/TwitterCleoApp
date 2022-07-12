@@ -3,7 +3,6 @@ package ar.scacchipa.twittercloneapp.domain
 import ar.scacchipa.twittercloneapp.repository.Constants
 
 open class ConsumableAuthUseCase {
-
     open operator fun invoke(): String {
         return "https://twitter.com/i/oauth2/authorize?" +
                 "response_type=${Constants.RESPONSE_TYPE_CODE}&" +

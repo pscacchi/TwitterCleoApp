@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.FragmentAuthWebDialogLayoutBinding
 import ar.scacchipa.twittercloneapp.viewmodel.AuthWebDialogViewModel
+import java.net.URI
 
 class FragmentAuthWebDialog : Fragment() {
 
@@ -54,7 +55,7 @@ class FragmentAuthWebDialog : Fragment() {
                 ): Boolean {
                     request?.url?.let { uri ->
                         Log.i("WebView", uri.toString())
-                        viewModel.controlRequest(uri)
+                        viewModel.controlRequest(URI(uri.toString()))
                     }
                     return super.shouldOverrideUrlLoading(view, request)
                 }
