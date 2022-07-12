@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
+import ar.scacchipa.twittercloneapp.domain.ErrorTokenCreatorUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -15,7 +16,8 @@ import java.net.URI
 class AuthWebDialogViewModelTest {
     private var subject: AuthWebDialogViewModel = AuthWebDialogViewModel(
         authorizationUseCase = MockAuthorizationUseCase(),
-        consumableAuthUseCase = MockConsumableAuthUseCase()
+        consumableAuthUseCase = MockConsumableAuthUseCase(),
+        errorUserCaseTokenCreator = MockErrorTokenCreator()
     )
 
     @get:Rule
@@ -111,5 +113,11 @@ class MockConsumableAuthUseCase: ConsumableAuthUseCase() {
                 "state=state&" +
                 "code_challenge=challenge&" +
                 "code_challenge_method=plain"
+    }
+}
+
+class MockErrorTokenCreator: ErrorTokenCreatorUseCase() {
+    override operator fun invoke(): UserAccessToken {
+        return UserAccessToken(error = "error")
     }
 }

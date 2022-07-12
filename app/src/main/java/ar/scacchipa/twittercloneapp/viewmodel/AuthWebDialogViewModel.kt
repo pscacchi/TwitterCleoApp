@@ -9,6 +9,7 @@ import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
+import ar.scacchipa.twittercloneapp.domain.ErrorTokenCreatorUseCase
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.Constants
 import kotlinx.coroutines.launch
@@ -17,7 +18,9 @@ import java.net.URI
 class AuthWebDialogViewModel (
     private val authorizationUseCase: AuthorizationUseCase =
         AuthorizationUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit()))),
-    private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase()
+    private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase(),
+    private val errorUserCaseTokenCreator: ErrorTokenCreatorUseCase =
+        ErrorTokenCreatorUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit())))
 
 ): ViewModel() {
 
@@ -33,7 +36,7 @@ class AuthWebDialogViewModel (
             }
             queryParameters["error"]?.let { error ->
                 if (error == "access_denied") {
-                    _userAccessToken.value = UserAccessToken()
+                    _userAccessToken.value = errorUserCaseTokenCreator()
                 }
             }
         }

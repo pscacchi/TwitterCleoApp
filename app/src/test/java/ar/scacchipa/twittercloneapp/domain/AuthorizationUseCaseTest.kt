@@ -47,4 +47,8 @@ class MockAuthorizationRespository: IAuthorizationRepository {
             errorDescription = ""
         )
     }
+
+    override fun getErrorUserCaseTokenCreator(): UserAccessToken {
+        return UserAccessToken(error = "error")
+    }
 }

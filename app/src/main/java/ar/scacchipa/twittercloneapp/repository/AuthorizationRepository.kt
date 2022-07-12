@@ -33,4 +33,7 @@ class AuthorizationRepository(
             UserAccessToken()
         }
     }
+    override fun getErrorUserCaseTokenCreator() : UserAccessToken {
+        return UserAccessToken(error = Constants.ERROR_CODE)
+    }
 }

@@ -48,6 +48,15 @@ class AuthorizationRepositoryTest {
 
         Assert.assertEquals(expected, actual)
     }
+
+    @Test
+    fun repoShouldGetErrorUserAccessToken() {
+        Assert.assertEquals(
+            UserAccessToken(error= "error"),
+            subject.getErrorUserCaseTokenCreator()
+        )
+    }
+
 }
 
 class MockAuthDataSource: IAuthDataSource {
