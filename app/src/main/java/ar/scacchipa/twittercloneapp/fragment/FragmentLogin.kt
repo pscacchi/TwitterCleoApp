@@ -29,7 +29,6 @@ class FragmentLogin : Fragment() {
 
         createDialog(inflater)
 
-        showErrorDialog()
         return mainBindind?.root
     }
 
