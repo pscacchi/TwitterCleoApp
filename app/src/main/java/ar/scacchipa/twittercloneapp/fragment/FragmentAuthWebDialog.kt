@@ -11,7 +11,6 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.FragmentAuthWebDialogLayoutBinding
 import ar.scacchipa.twittercloneapp.viewmodel.AuthWebDialogViewModel
 import java.net.URI
@@ -34,7 +33,7 @@ class FragmentAuthWebDialog : Fragment() {
                     .actionFragmentAuthWebDialogToFragmentHome(it.accessToken)
                 findNavController().navigate(action)
             } else {
-                findNavController().navigate(R.id.action_fragmentAuthWebDialog_to_fragmentLoginError)
+                findNavController().navigateUp()
             }
         }
 
