@@ -33,7 +33,9 @@ class FragmentAuthWebDialog : Fragment() {
                     .actionFragmentAuthWebDialogToFragmentHome(it.accessToken)
                 findNavController().navigate(action)
             } else {
-                findNavController().navigateUp()
+                val action = FragmentAuthWebDialogDirections
+                    .actionFragmentLoginAuthWebDialogToFragmentLogin(true)
+                findNavController().navigate(action)
             }
         }
 
