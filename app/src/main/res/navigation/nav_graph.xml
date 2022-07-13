@@ -49,5 +49,5 @@
         android:id="@+id/fragmentLoginError"
         android:name="ar.scacchipa.twittercloneapp.fragment.FragmentLoginError"
         android:label="FragmentLoginError"
-        tools:layout="@layout/fragment_login_error"/>
+        tools:layout="@layout/dialog_login_error"/>
 </navigation>

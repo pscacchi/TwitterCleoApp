@@ -13,6 +13,6 @@ class FragmentLoginError : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login_error, container, false)
+        return inflater.inflate(R.layout.dialog_login_error, container, false)
     }
 }
