@@ -75,7 +75,7 @@ class FragmentLogin : Fragment() {
             hideErrorDialog()
         }
 
-        mainBinding?.root?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary_background))TH
+        mainBinding?.root?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary_background))
     }
 
     private fun hideErrorDialog() {
