@@ -10,8 +10,8 @@ import ar.scacchipa.twittercloneapp.databinding.FragmentLoginSuccessBinding
 
 class FragmentHome : Fragment() {
 
-    val args: FragmentHomeArgs by navArgs()
-    var binding: FragmentLoginSuccessBinding? = null
+    private val args: FragmentHomeArgs by navArgs()
+    private var binding: FragmentLoginSuccessBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

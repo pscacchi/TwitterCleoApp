@@ -19,9 +19,8 @@ class AuthWebDialogViewModel (
     private val authorizationUseCase: AuthorizationUseCase =
         AuthorizationUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit()))),
     private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase(),
-    private val errorUserCaseTokenCreator: ErrorTokenCreatorUseCase =
+    private val errorTokenCreatorUseCase: ErrorTokenCreatorUseCase =
         ErrorTokenCreatorUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit())))
-
 ): ViewModel() {
 
     private val _userAccessToken = MutableLiveData<UserAccessToken>()
@@ -36,7 +35,7 @@ class AuthWebDialogViewModel (
             }
             queryParameters["error"]?.let { error ->
                 if (error == "access_denied") {
-                    _userAccessToken.value = errorUserCaseTokenCreator()
+                    _userAccessToken.value = errorTokenCreatorUseCase()
                 }
             }
         }
@@ -64,7 +63,6 @@ class AuthWebDialogViewModel (
         }
         return map
     }
-
     fun createTemporaryCodeUrl(): String {
         return consumableAuthUseCase()
     }

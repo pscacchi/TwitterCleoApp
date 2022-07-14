@@ -25,19 +25,28 @@ class FragmentLogin : Fragment() {
     private val viewModel: LoginViewModel by viewModels()
     private val args: FragmentLoginArgs by navArgs()
 
+    private var readArgs = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel.mustShowErrorMsg(args.showErrorMsg)
-
         mainBinding = FragmentLoginLayoutBinding.inflate(inflater)
         mainBinding?.buttonLogin?.setOnClickListener{
-            findNavController().navigate(R.id.action_fragmentLogin_to_fragmentLoginAuthWebDialog)
+            viewModel.onClickLoginButton()
         }
 
         createDialog(inflater)
+
+        viewModel.addNavigatorObserver(viewLifecycleOwner) { mustNavToLoginAuthWeb ->
+            if (mustNavToLoginAuthWeb) {
+                viewModel.onNavToAuthWeb()
+                findNavController().navigate(
+                    FragmentLoginDirections.actionFragmentLoginToFragmentLoginAuthWebDialog()
+                )
+            }
+        }
 
         viewModel.addMsgChangeObserver(viewLifecycleOwner) { mustShowErrorMsg ->
             if (mustShowErrorMsg) {
@@ -45,6 +54,11 @@ class FragmentLogin : Fragment() {
             } else {
                 this.hideErrorDialog()
             }
+        }
+
+        if (readArgs and args.showErrorMsg) {
+            viewModel.showErrorMsg()
+            readArgs = false
         }
 
         return mainBinding?.root
@@ -72,7 +86,7 @@ class FragmentLogin : Fragment() {
             ViewGroup.LayoutParams.WRAP_CONTENT)
 
         errorBinding?.okLoginErrorButton?.setOnClickListener {
-            hideErrorDialog()
+            viewModel.onClickMsgButton()
         }
 
         mainBinding?.root?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary_background))
