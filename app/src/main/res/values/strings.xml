@@ -9,4 +9,7 @@
     <string name="happy_path">Happy Path</string>
     <string name="sad_path">Sad Path</string>
     <string name="bearer_token">Bearer Token</string>
+    <string name="login_error_msg">We had an error to authenticate you. Please review your login information and try again.</string>
+    <string name="ok">Ok</string>
+    <string name="login_error">Login Error</string>
 </resources>
