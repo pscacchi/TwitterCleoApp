@@ -1,5 +1,7 @@
 package ar.scacchipa.twittercloneapp.viewmodel
 
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +11,6 @@ import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.domain.ErrorTokenCreatorUseCase
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.Constants
 import kotlinx.coroutines.launch
@@ -19,15 +20,13 @@ class AuthWebDialogViewModel (
     private val authorizationUseCase: AuthorizationUseCase =
         AuthorizationUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit()))),
     private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase(),
-    private val errorTokenCreatorUseCase: ErrorTokenCreatorUseCase =
-        ErrorTokenCreatorUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit())))
 ): ViewModel() {
 
     private val _userAccessToken = MutableLiveData<UserAccessToken>()
     val userAccessToken: LiveData<UserAccessToken>
         get() = _userAccessToken
 
-    fun controlRequest(uri: URI) {
+    fun onReceiveUrl(uri: URI) {
         if (uri.host == URI(Constants.REDIRECT_URI).host) {
             val queryParameters = getQueryParameters(uri.query)
             queryParameters["code"]?.let { code ->
@@ -35,9 +34,16 @@ class AuthWebDialogViewModel (
             }
             queryParameters["error"]?.let { error ->
                 if (error == "access_denied") {
-                    _userAccessToken.value = errorTokenCreatorUseCase()
-                }
+                    _userAccessToken.value = UserAccessToken(error = Constants.ERROR_CANCELLED_AUTH)                }
             }
+        }
+    }
+    fun onErrorAuthorization(request: WebResourceRequest?,
+                             errorResponse: WebResourceResponse?) {
+        if (request?.url.toString() == "https://mobile.twitter.com/i/api/1.1/onboarding/task.json"
+            && (errorResponse?.statusCode == 400 || errorResponse?.statusCode == 401)) {
+            println("${request?.url.toString()} -> ${errorResponse.statusCode}")
+            _userAccessToken.value = UserAccessToken(error = Constants.ERROR_NO_AUTHORIZATION)
         }
     }
 

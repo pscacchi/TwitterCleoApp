@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
@@ -30,8 +31,11 @@ class FragmentAuthWebDialog : Fragment() {
 
         viewModel.userAccessToken.observe(viewLifecycleOwner) {
             when {
-                it.error == Constants.ERROR_CODE -> {
-                    val action = FragmentAuthWebDialogDirections
+                it.error == Constants.ERROR_CANCELLED_AUTH -> {
+                    findNavController().navigateUp()
+                }
+                it.error == Constants.ERROR_NO_AUTHORIZATION -> {
+                    val action= FragmentAuthWebDialogDirections
                         .actionFragmentLoginAuthWebDialogToFragmentLogin(true)
                     findNavController().navigate(action)
                 }
@@ -60,9 +64,17 @@ class FragmentAuthWebDialog : Fragment() {
                 ): Boolean {
                     request?.url?.let { uri ->
                         Log.i("WebView", uri.toString())
-                        viewModel.controlRequest(URI(uri.toString()))
+                        viewModel.onReceiveUrl(URI(uri.toString()))
                     }
                     return super.shouldOverrideUrlLoading(view, request)
+                }
+                override fun onReceivedHttpError(
+                    view: WebView?,
+                    request: WebResourceRequest?,
+                    errorResponse: WebResourceResponse?
+                ) {
+                    super.onReceivedHttpError(view, request, errorResponse)
+                    viewModel.onErrorAuthorization(request, errorResponse)
                 }
             }
 

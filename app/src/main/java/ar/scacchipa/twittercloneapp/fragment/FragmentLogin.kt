@@ -15,7 +15,6 @@ import ar.scacchipa.twittercloneapp.databinding.DialogLoginErrorBinding
 import ar.scacchipa.twittercloneapp.databinding.FragmentLoginLayoutBinding
 import ar.scacchipa.twittercloneapp.viewmodel.LoginViewModel
 
-
 class FragmentLogin : Fragment() {
 
     private var mainBinding: FragmentLoginLayoutBinding? = null

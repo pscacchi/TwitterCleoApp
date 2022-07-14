@@ -13,6 +13,8 @@ object Constants {
     const val CODE_VERIFIER_CHALLENGE = "challenge"
 
     const val ERROR_CODE = "error"
+    const val ERROR_CANCELLED_AUTH = "cancelled_authorization"
+    const val ERROR_NO_AUTHORIZATION = "no_authorization"
 
     const val SCOPE_USERS_READ = "users.read"
     const val SCOPE_TWEET_READ = "tweet.read"
@@ -23,5 +25,4 @@ object Constants {
     const val SCOPE_LIKE_READ = "like.read"
     const val SCOPE_LIKE_WRITE = "like.write"
     const val SCOPE_SPACE_READ = "space.read"
-
 }

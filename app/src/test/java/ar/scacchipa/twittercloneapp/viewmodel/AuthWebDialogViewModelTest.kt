@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.domain.ErrorTokenCreatorUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -16,8 +15,7 @@ import java.net.URI
 class AuthWebDialogViewModelTest {
     private var subject: AuthWebDialogViewModel = AuthWebDialogViewModel(
         authorizationUseCase = MockAuthorizationUseCase(),
-        consumableAuthUseCase = MockConsumableAuthUseCase(),
-        errorUserCaseTokenCreator = MockErrorTokenCreator()
+        consumableAuthUseCase = MockConsumableAuthUseCase()
     )
 
     @get:Rule
@@ -49,7 +47,7 @@ class AuthWebDialogViewModelTest {
                 "scope=tweet.read%20tweet.write" +
                 "state=state&code_challenge=challenge&code_challenge_method=plain")
 
-        subject.controlRequest(uri)
+        subject.onReceiveUrl(uri)
         Assert.assertEquals(subject.userAccessToken.value, null)
     }
 
@@ -58,7 +56,7 @@ class AuthWebDialogViewModelTest {
         val uri = URI("https://twittercloneendava.firebaseapp.com/__/auth/handler?state=state&" +
                 "code=SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE")
 
-        subject.controlRequest(uri)
+        subject.onReceiveUrl(uri)
 
         Assert.assertTrue(
             subject.userAccessToken.value ==
@@ -76,7 +74,7 @@ class AuthWebDialogViewModelTest {
     fun viewModelShouldGenerateErrorUserAccessToken() {
         val uri = URI("https://twittercloneendava.firebaseapp.com/__/auth/handler?error=access_denied&state=state")
 
-        subject.controlRequest(uri)
+        subject.onReceiveUrl(uri)
 
         Assert.assertTrue(
             subject.userAccessToken.value?.error == "error")
@@ -113,11 +111,5 @@ class MockConsumableAuthUseCase: ConsumableAuthUseCase() {
                 "state=state&" +
                 "code_challenge=challenge&" +
                 "code_challenge_method=plain"
-    }
-}
-
-class MockErrorTokenCreator: ErrorTokenCreatorUseCase() {
-    override operator fun invoke(): UserAccessToken {
-        return UserAccessToken(error = "error")
     }
 }
