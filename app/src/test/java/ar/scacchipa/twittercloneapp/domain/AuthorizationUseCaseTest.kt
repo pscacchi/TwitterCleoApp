@@ -29,7 +29,7 @@ class AuthorizationUseCaseTest {
 }
 
 class MockAuthorizationRespository: IAuthorizationRepository {
-    override suspend fun genAccessToken(
+    override suspend fun requestAccessToken(
         transitoryToken: String,
         grantType: String,
         clientId: String,
@@ -48,7 +48,11 @@ class MockAuthorizationRespository: IAuthorizationRepository {
         )
     }
 
-    override fun getErrorUserCaseTokenCreator(): UserAccessToken {
-        return UserAccessToken(error = "error")
+    override fun getCancelledAuthToken(): UserAccessToken {
+        return UserAccessToken(error = "cancelled_authorization")
+    }
+
+    override fun getNoAuthToken(): UserAccessToken {
+        return UserAccessToken(error = "no_authorization")
     }
 }

@@ -3,7 +3,7 @@ package ar.scacchipa.twittercloneapp.repository
 import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 
 interface IAuthorizationRepository {
-    suspend fun genAccessToken(
+    suspend fun requestAccessToken(
         transitoryToken: String,
         grantType: String,
         clientId: String,
@@ -11,5 +11,6 @@ interface IAuthorizationRepository {
         codeVerifier: String,
         state: String
     ): UserAccessToken
-    fun getErrorUserCaseTokenCreator() : UserAccessToken
+    fun getCancelledAuthToken() : UserAccessToken
+    fun getNoAuthToken() : UserAccessToken
 }

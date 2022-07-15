@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
+import ar.scacchipa.twittercloneapp.repository.Constants
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -26,6 +27,8 @@ class AuthWebDialogViewModelTest {
 
     @Test
     fun viewModelShouldGenerateCodeUrl() {
+
+
         Assert.assertEquals(
             subject.createTemporaryCodeUrl(),
             "https://twitter.com/i/oauth2/authorize?" +
@@ -47,8 +50,8 @@ class AuthWebDialogViewModelTest {
                 "scope=tweet.read%20tweet.write" +
                 "state=state&code_challenge=challenge&code_challenge_method=plain")
 
-        subject.onReceiveUrl(uri)
-        Assert.assertEquals(subject.userAccessToken.value, null)
+
+        Assert.assertEquals(subject.getUserAccessToken(), null)
     }
 
     @Test
@@ -59,7 +62,7 @@ class AuthWebDialogViewModelTest {
         subject.onReceiveUrl(uri)
 
         Assert.assertTrue(
-            subject.userAccessToken.value ==
+            subject.getUserAccessToken() ==
             UserAccessToken(
                 tokenType = "bearer",
                 expiresIn = 7200,
@@ -71,13 +74,13 @@ class AuthWebDialogViewModelTest {
     }
 
     @Test
-    fun viewModelShouldGenerateErrorUserAccessToken() {
+    fun viewModelShouldGenerateCancelledNoAuthUserAccessToken() {
         val uri = URI("https://twittercloneendava.firebaseapp.com/__/auth/handler?error=access_denied&state=state")
 
         subject.onReceiveUrl(uri)
 
         Assert.assertTrue(
-            subject.userAccessToken.value?.error == "error")
+            subject.getUserAccessToken()?.error == Constants.ERROR_CANCELLED_AUTH)
     }
 }
 

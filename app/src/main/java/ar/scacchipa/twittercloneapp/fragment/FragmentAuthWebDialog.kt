@@ -29,7 +29,7 @@ class FragmentAuthWebDialog : Fragment() {
 
         binding = FragmentAuthWebDialogLayoutBinding.inflate(inflater)
 
-        viewModel.userAccessToken.observe(viewLifecycleOwner) {
+        viewModel.addTokenObserver(viewLifecycleOwner) {
             when {
                 it.error == Constants.ERROR_CANCELLED_AUTH -> {
                     findNavController().navigateUp()

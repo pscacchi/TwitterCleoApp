@@ -16,7 +16,7 @@ class AuthorizationRepositoryTest {
     private var subject: IAuthorizationRepository = AuthorizationRepository(MockAuthDataSource())
 
     @Test
-    fun repoShouldReturnASuccessUserAccessToken() = runTest {
+    fun repoShouldReturnASuccessToken() = runTest {
         val expected = UserAccessToken(
             tokenType = "bearer",
             expiresIn = 7200,
@@ -26,7 +26,7 @@ class AuthorizationRepositoryTest {
             error = "",
             errorDescription = ""
         )
-        val actual = subject.genAccessToken(
+        val actual = subject.requestAccessToken(
             transitoryToken = "SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE",
             grantType = "authorization_code",
             clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
@@ -36,24 +36,24 @@ class AuthorizationRepositoryTest {
         Assert.assertEquals(expected, actual)
     }
     @Test
-    fun repoShouldReturnADeniedUserAccessToken() = runTest {
-        val actual = subject.genAccessToken(
+    fun repoShouldReturnNoAuthToken() = runTest {
+        val actual = subject.requestAccessToken(
             transitoryToken = "incorrect_password",
             grantType = "authorization_code",
             clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
             redirectUri = "https://twittercloneendava.firebaseapp.com/__/auth/handler&",
             codeVerifier = "challenge",
             state = "state")
-        val expected = UserAccessToken(error = "error")
+        val expected = UserAccessToken(error = Constants.ERROR_NO_AUTHORIZATION)
 
         Assert.assertEquals(expected, actual)
     }
 
     @Test
-    fun repoShouldGetErrorUserAccessToken() {
+    fun repoShouldGetCancelledAuthToken() {
         Assert.assertEquals(
-            UserAccessToken(error= "error"),
-            subject.getErrorUserCaseTokenCreator()
+            UserAccessToken(error= Constants.ERROR_CANCELLED_AUTH),
+            subject.getCancelledAuthToken()
         )
     }
 

@@ -12,7 +12,7 @@ class AuthorizationRepository(
     private val genAccessTokenSource: IAuthDataSource = provideAuthSourceDateApi(provideRetrofit()),
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): IAuthorizationRepository {
-    override suspend fun genAccessToken(
+    override suspend fun requestAccessToken(
         transitoryToken: String,
         grantType: String,
         clientId: String,
@@ -30,10 +30,14 @@ class AuthorizationRepository(
         if (response.isSuccessful) {
             response.body()?:UserAccessToken()
         } else {
-            UserAccessToken()
+            UserAccessToken(error = Constants.ERROR_NO_AUTHORIZATION)
         }
     }
-    override fun getErrorUserCaseTokenCreator() : UserAccessToken {
-        return UserAccessToken(error = Constants.ERROR_CODE)
+    override fun getCancelledAuthToken() : UserAccessToken {
+        return UserAccessToken(error = Constants.ERROR_CANCELLED_AUTH)
+    }
+
+    override fun getNoAuthToken(): UserAccessToken {
+        return UserAccessToken(error = Constants.ERROR_NO_AUTHORIZATION)
     }
 }

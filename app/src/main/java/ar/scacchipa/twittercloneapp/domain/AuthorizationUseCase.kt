@@ -14,7 +14,7 @@ open class AuthorizationUseCase(
     open suspend operator fun invoke(
         transitoryToken: String
     ): UserAccessToken {
-        return repository.genAccessToken(
+        return repository.requestAccessToken(
             transitoryToken = transitoryToken,
             grantType = Constants.GRANT_TYPE_AUTHORIZATION_CODE,
             clientId = Constants.CLIENT_ID,
