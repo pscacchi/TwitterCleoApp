@@ -1,8 +1,8 @@
 package ar.scacchipa.twittercloneapp.viewmodel
 
-import android.webkit.WebResourceRequest
-import android.webkit.WebResourceResponse
-import androidx.lifecycle.LifecycleOwner
+import android.webkit.WebResourceError
+import android.webkit.WebViewClient
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +12,7 @@ import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.CancelledAuthCreationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.domain.NoAuthCreationUseCase
+import ar.scacchipa.twittercloneapp.domain.ErrorLookupCreatorUseCase
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.Constants
 import kotlinx.coroutines.launch
@@ -24,10 +24,11 @@ class AuthWebDialogViewModel (
         AuthorizationUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit()))),
     private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase(),
     private val cancelledAuthCreationUseCase: CancelledAuthCreationUseCase = CancelledAuthCreationUseCase(),
-    private val noAuthCreationUseCase: NoAuthCreationUseCase = NoAuthCreationUseCase()
+    private val errorLookupCreatorUseCase: ErrorLookupCreatorUseCase = ErrorLookupCreatorUseCase()
 ): ViewModel() {
 
     private val _userAccessToken = MutableLiveData<UserAccessToken>()
+    val userAccessToken = _userAccessToken as LiveData<UserAccessToken>
 
     fun onReceiveUrl(uri: URI) {
         if (uri.host == URI(Constants.REDIRECT_URI).host) {
@@ -36,18 +37,15 @@ class AuthWebDialogViewModel (
                 this.generateUserAccessToken(code)
             }
             queryParameters["error"]?.let { error ->
-                if (error == "access_denied") {
+                if (error == Constants.ERROR_ACCESS_DENIED) {
                     _userAccessToken.value = cancelledAuthCreationUseCase()
                 }
             }
         }
     }
-    fun onErrorAuthorization(request: WebResourceRequest?,
-                             errorResponse: WebResourceResponse?) {
-        if (request?.url.toString() == "https://mobile.twitter.com/i/api/1.1/onboarding/task.json"
-            && (errorResponse?.statusCode == 400 || errorResponse?.statusCode == 401)) {
-            println("${request?.url.toString()} -> ${errorResponse.statusCode}")
-            _userAccessToken.value = noAuthCreationUseCase()
+    fun onReceivedWebError(error: WebResourceError?) {
+        if (error?.errorCode == WebViewClient.ERROR_HOST_LOOKUP) {
+            _userAccessToken.value = errorLookupCreatorUseCase()
         }
     }
 
@@ -77,12 +75,5 @@ class AuthWebDialogViewModel (
 
     fun createTemporaryCodeUrl(): String {
         return consumableAuthUseCase()
-    }
-
-    fun addTokenObserver(lifecycleOwner: LifecycleOwner, observer: (UserAccessToken)->Unit) {
-        _userAccessToken.observe(lifecycleOwner, observer)
-    }
-    fun getUserAccessToken(): UserAccessToken? {
-        return _userAccessToken.value
     }
 }

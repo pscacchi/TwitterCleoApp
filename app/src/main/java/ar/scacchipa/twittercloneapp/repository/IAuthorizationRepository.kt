@@ -12,5 +12,5 @@ interface IAuthorizationRepository {
         state: String
     ): UserAccessToken
     fun getCancelledAuthToken() : UserAccessToken
-    fun getNoAuthToken() : UserAccessToken
+    fun getErrorLookupToken() : UserAccessToken
 }

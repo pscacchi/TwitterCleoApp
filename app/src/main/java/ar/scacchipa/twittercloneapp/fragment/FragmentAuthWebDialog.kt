@@ -1,12 +1,11 @@
 package ar.scacchipa.twittercloneapp.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
-import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
@@ -29,22 +28,22 @@ class FragmentAuthWebDialog : Fragment() {
 
         binding = FragmentAuthWebDialogLayoutBinding.inflate(inflater)
 
-        viewModel.addTokenObserver(viewLifecycleOwner) {
+        viewModel.userAccessToken.observe(viewLifecycleOwner) {
             when {
                 it.error == Constants.ERROR_CANCELLED_AUTH -> {
                     findNavController().navigateUp()
                 }
-                it.error == Constants.ERROR_NO_AUTHORIZATION -> {
+                it.error == Constants.ERROR_HOST_LOOKUP_TOKEN -> {
                     val action= FragmentAuthWebDialogDirections
                         .actionFragmentLoginAuthWebDialogToFragmentLogin(true)
                     findNavController().navigate(action)
                 }
-                it.accessToken != "" -> {
+                it.accessToken.isNotBlank() -> {
                     val action = FragmentAuthWebDialogDirections
                         .actionFragmentAuthWebDialogToFragmentHome(it.accessToken)
                     findNavController().navigate(action)
                 }
-            }
+           }
         }
 
         binding?.loginWebview?.apply {
@@ -63,18 +62,17 @@ class FragmentAuthWebDialog : Fragment() {
                     request: WebResourceRequest?
                 ): Boolean {
                     request?.url?.let { uri ->
-                        Log.i("WebView", uri.toString())
                         viewModel.onReceiveUrl(URI(uri.toString()))
                     }
                     return super.shouldOverrideUrlLoading(view, request)
                 }
-                override fun onReceivedHttpError(
+
+                override fun onReceivedError(
                     view: WebView?,
                     request: WebResourceRequest?,
-                    errorResponse: WebResourceResponse?
+                    error: WebResourceError?
                 ) {
-                    super.onReceivedHttpError(view, request, errorResponse)
-                    viewModel.onErrorAuthorization(request, errorResponse)
+                    viewModel.onReceivedWebError(error)
                 }
             }
 

@@ -30,14 +30,15 @@ class AuthorizationRepository(
         if (response.isSuccessful) {
             response.body()?:UserAccessToken()
         } else {
-            UserAccessToken(error = Constants.ERROR_NO_AUTHORIZATION)
+            UserAccessToken(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
         }
     }
+
     override fun getCancelledAuthToken() : UserAccessToken {
         return UserAccessToken(error = Constants.ERROR_CANCELLED_AUTH)
     }
 
-    override fun getNoAuthToken(): UserAccessToken {
-        return UserAccessToken(error = Constants.ERROR_NO_AUTHORIZATION)
+    override fun getErrorLookupToken(): UserAccessToken {
+        return UserAccessToken(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
     }
 }

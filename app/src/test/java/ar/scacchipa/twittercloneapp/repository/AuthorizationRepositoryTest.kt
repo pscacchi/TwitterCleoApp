@@ -44,7 +44,7 @@ class AuthorizationRepositoryTest {
             redirectUri = "https://twittercloneendava.firebaseapp.com/__/auth/handler&",
             codeVerifier = "challenge",
             state = "state")
-        val expected = UserAccessToken(error = Constants.ERROR_NO_AUTHORIZATION)
+        val expected = UserAccessToken(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
 
         Assert.assertEquals(expected, actual)
     }

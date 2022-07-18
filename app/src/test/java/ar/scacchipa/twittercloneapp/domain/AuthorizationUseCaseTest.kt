@@ -52,7 +52,7 @@ class MockAuthorizationRespository: IAuthorizationRepository {
         return UserAccessToken(error = "cancelled_authorization")
     }
 
-    override fun getNoAuthToken(): UserAccessToken {
+    override fun getErrorLookupToken(): UserAccessToken {
         return UserAccessToken(error = "no_authorization")
     }
 }

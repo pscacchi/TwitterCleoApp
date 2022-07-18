@@ -6,11 +6,11 @@ import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.IAuthorizationRepository
 
-class NoAuthCreationUseCase(
+class ErrorLookupCreatorUseCase(
     private val repository: IAuthorizationRepository =
         AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit()))
 ) {
     operator fun invoke():UserAccessToken {
-        return repository.getNoAuthToken()
+        return repository.getErrorLookupToken()
     }
 }
