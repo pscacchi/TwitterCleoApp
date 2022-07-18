@@ -12,6 +12,9 @@ object Constants {
     const val GRANT_TYPE_AUTHORIZATION_CODE = "authorization_code"
     const val CODE_VERIFIER_CHALLENGE = "challenge"
 
+    const val SERVER_PARAMETER_CODE = "code"
+    const val SERVER_PARAMETER_ERROR = "error"
+
     const val ERROR_CANCELLED_AUTH = "cancelled_authorization"
     const val ERROR_HOST_LOOKUP_TOKEN = "error_host_lookup"
     const val ERROR_ACCESS_DENIED = "access_denied"

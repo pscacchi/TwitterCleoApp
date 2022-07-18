@@ -33,10 +33,10 @@ class AuthWebDialogViewModel (
     fun onReceiveUrl(uri: URI) {
         if (uri.host == URI(Constants.REDIRECT_URI).host) {
             val queryParameters = getQueryParameters(uri.query)
-            queryParameters["code"]?.let { code ->
+            queryParameters[Constants.SERVER_PARAMETER_CODE]?.let { code ->
                 this.generateUserAccessToken(code)
             }
-            queryParameters["error"]?.let { error ->
+            queryParameters[Constants.SERVER_PARAMETER_ERROR]?.let { error ->
                 if (error == Constants.ERROR_ACCESS_DENIED) {
                     _userAccessToken.value = cancelledAuthCreationUseCase()
                 }
