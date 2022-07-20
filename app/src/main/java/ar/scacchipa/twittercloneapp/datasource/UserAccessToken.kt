@@ -12,7 +12,7 @@ data class UserAccessToken (
     @SerializedName("") val error: String = "",
     @SerializedName("error_description") val errorDescription: String = ""
 ) {
-    fun isCancelationErrorToken(): Boolean {
+    fun isCancellationErrorToken(): Boolean {
         return error == Constants.ERROR_CANCELLED_AUTH
     }
     fun isHostLookupErrorToken(): Boolean {

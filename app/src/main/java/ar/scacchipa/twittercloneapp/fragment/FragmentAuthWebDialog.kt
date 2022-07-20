@@ -29,7 +29,7 @@ class FragmentAuthWebDialog : Fragment() {
 
         viewModel.userAccessToken.observe(viewLifecycleOwner) { token ->
             when {
-                token.isCancelationErrorToken() -> {
+                token.isCancellationErrorToken() -> {
                     findNavController().navigateUp()
                 }
                 token.isHostLookupErrorToken()-> {
