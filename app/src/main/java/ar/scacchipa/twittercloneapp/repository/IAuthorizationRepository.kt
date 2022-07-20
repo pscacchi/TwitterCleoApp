@@ -11,6 +11,4 @@ interface IAuthorizationRepository {
         codeVerifier: String,
         state: String
     ): UserAccessToken
-    fun getCancelledAuthToken() : UserAccessToken
-    fun getErrorLookupToken() : UserAccessToken
 }

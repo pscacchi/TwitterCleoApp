@@ -1,5 +1,6 @@
 package ar.scacchipa.twittercloneapp.datasource
 
+import ar.scacchipa.twittercloneapp.repository.Constants
 import com.google.gson.annotations.SerializedName
 
 data class UserAccessToken (
@@ -10,4 +11,14 @@ data class UserAccessToken (
     @SerializedName("refresh_token") val refreshToken: String = "",
     @SerializedName("") val error: String = "",
     @SerializedName("error_description") val errorDescription: String = ""
-)
+) {
+    fun isCancelationErrorToken(): Boolean {
+        return error == Constants.ERROR_CANCELLED_AUTH
+    }
+    fun isHostLookupErrorToken(): Boolean {
+        return error == Constants.ERROR_HOST_LOOKUP_TOKEN
+    }
+    fun isSuccessToken(): Boolean {
+        return accessToken.isNotBlank()
+    }
+}

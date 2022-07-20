@@ -48,15 +48,6 @@ class AuthorizationRepositoryTest {
 
         Assert.assertEquals(expected, actual)
     }
-
-    @Test
-    fun repoShouldGetCancelledAuthToken() {
-        Assert.assertEquals(
-            UserAccessToken(error= Constants.ERROR_CANCELLED_AUTH),
-            subject.getCancelledAuthToken()
-        )
-    }
-
 }
 
 class MockAuthDataSource: IAuthDataSource {

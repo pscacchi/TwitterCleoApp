@@ -38,7 +38,7 @@ class FragmentLogin : Fragment() {
 
         createDialog(inflater)
 
-        viewModel.addNavigatorObserver(viewLifecycleOwner) { mustNavToLoginAuthWeb ->
+        viewModel.navTpFragAuthWeb.observe(viewLifecycleOwner) { mustNavToLoginAuthWeb ->
             if (mustNavToLoginAuthWeb) {
                 viewModel.onNavToAuthWeb()
                 findNavController().navigate(
@@ -47,7 +47,7 @@ class FragmentLogin : Fragment() {
             }
         }
 
-        viewModel.addMsgChangeObserver(viewLifecycleOwner) { mustShowErrorMsg ->
+        viewModel.mustShowErrorMsg.observe(viewLifecycleOwner) { mustShowErrorMsg ->
             if (mustShowErrorMsg) {
                 this.showErrorDialog()
             } else {

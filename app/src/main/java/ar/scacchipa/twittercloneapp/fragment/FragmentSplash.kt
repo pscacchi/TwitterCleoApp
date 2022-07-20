@@ -23,7 +23,7 @@ class FragmentSplash: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSplashLayoutBinding.inflate(inflater)
-        splashViewModel.addObserver(viewLifecycleOwner) { splashWasSpent ->
+        splashViewModel.splashWasSpent.observe(viewLifecycleOwner) { splashWasSpent ->
             if (splashWasSpent) {
                 findNavController().navigate(R.id.action_fragmentSplash_to_fragmentLogin)
             }

@@ -33,12 +33,4 @@ class AuthorizationRepository(
             UserAccessToken(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
         }
     }
-
-    override fun getCancelledAuthToken() : UserAccessToken {
-        return UserAccessToken(error = Constants.ERROR_CANCELLED_AUTH)
-    }
-
-    override fun getErrorLookupToken(): UserAccessToken {
-        return UserAccessToken(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
-    }
 }

@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.databinding.FragmentAuthWebDialogLayoutBinding
-import ar.scacchipa.twittercloneapp.repository.Constants
 import ar.scacchipa.twittercloneapp.viewmodel.AuthWebDialogViewModel
 import java.net.URI
 
@@ -28,19 +27,19 @@ class FragmentAuthWebDialog : Fragment() {
 
         binding = FragmentAuthWebDialogLayoutBinding.inflate(inflater)
 
-        viewModel.userAccessToken.observe(viewLifecycleOwner) {
+        viewModel.userAccessToken.observe(viewLifecycleOwner) { token ->
             when {
-                it.error == Constants.ERROR_CANCELLED_AUTH -> {
+                token.isCancelationErrorToken() -> {
                     findNavController().navigateUp()
                 }
-                it.error == Constants.ERROR_HOST_LOOKUP_TOKEN -> {
+                token.isHostLookupErrorToken()-> {
                     val action= FragmentAuthWebDialogDirections
                         .actionFragmentLoginAuthWebDialogToFragmentLogin(true)
                     findNavController().navigate(action)
                 }
-                it.accessToken.isNotBlank() -> {
+                token.isSuccessToken() -> {
                     val action = FragmentAuthWebDialogDirections
-                        .actionFragmentAuthWebDialogToFragmentHome(it.accessToken)
+                        .actionFragmentAuthWebDialogToFragmentHome(token.accessToken)
                     findNavController().navigate(action)
                 }
            }

@@ -51,7 +51,7 @@ class AuthWebDialogViewModelTest {
                 "state=state&code_challenge=challenge&code_challenge_method=plain")
 
 
-        Assert.assertEquals(subject.getUserAccessToken(), null)
+        Assert.assertEquals(subject.userAccessToken.value, null)
     }
 
     @Test
@@ -62,7 +62,7 @@ class AuthWebDialogViewModelTest {
         subject.onReceiveUrl(uri)
 
         Assert.assertTrue(
-            subject.getUserAccessToken() ==
+            subject.userAccessToken.value ==
             UserAccessToken(
                 tokenType = "bearer",
                 expiresIn = 7200,
@@ -80,7 +80,7 @@ class AuthWebDialogViewModelTest {
         subject.onReceiveUrl(uri)
 
         Assert.assertTrue(
-            subject.getUserAccessToken()?.error == Constants.ERROR_CANCELLED_AUTH)
+            subject.userAccessToken.value?.error == Constants.ERROR_CANCELLED_AUTH)
     }
 }
 

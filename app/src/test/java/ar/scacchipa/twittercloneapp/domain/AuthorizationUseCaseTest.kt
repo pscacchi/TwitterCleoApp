@@ -47,12 +47,4 @@ class MockAuthorizationRespository: IAuthorizationRepository {
             errorDescription = ""
         )
     }
-
-    override fun getCancelledAuthToken(): UserAccessToken {
-        return UserAccessToken(error = "cancelled_authorization")
-    }
-
-    override fun getErrorLookupToken(): UserAccessToken {
-        return UserAccessToken(error = "no_authorization")
-    }
 }

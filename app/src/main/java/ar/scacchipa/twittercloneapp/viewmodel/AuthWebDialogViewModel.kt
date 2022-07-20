@@ -10,9 +10,7 @@ import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
-import ar.scacchipa.twittercloneapp.domain.CancelledAuthCreationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.domain.ErrorLookupCreatorUseCase
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.Constants
 import kotlinx.coroutines.launch
@@ -22,9 +20,7 @@ import kotlin.collections.set
 class AuthWebDialogViewModel (
     private val authorizationUseCase: AuthorizationUseCase =
         AuthorizationUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit()))),
-    private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase(),
-    private val cancelledAuthCreationUseCase: CancelledAuthCreationUseCase = CancelledAuthCreationUseCase(),
-    private val errorLookupCreatorUseCase: ErrorLookupCreatorUseCase = ErrorLookupCreatorUseCase()
+    private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase()
 ): ViewModel() {
 
     private val _userAccessToken = MutableLiveData<UserAccessToken>()
@@ -38,14 +34,14 @@ class AuthWebDialogViewModel (
             }
             queryParameters[Constants.SERVER_PARAMETER_ERROR]?.let { error ->
                 if (error == Constants.ERROR_ACCESS_DENIED) {
-                    _userAccessToken.value = cancelledAuthCreationUseCase()
+                    _userAccessToken.value = UserAccessToken(error = Constants.ERROR_CANCELLED_AUTH)
                 }
             }
         }
     }
     fun onReceivedWebError(error: WebResourceError?) {
         if (error?.errorCode == WebViewClient.ERROR_HOST_LOOKUP) {
-            _userAccessToken.value = errorLookupCreatorUseCase()
+            _userAccessToken.value = UserAccessToken(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
         }
     }
 
