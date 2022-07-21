@@ -8,6 +8,5 @@ data class UserAccessToken (
     @SerializedName("access_token") val accessToken: String = "",
     @SerializedName("scope") val scope: String = "",
     @SerializedName("refresh_token") val refreshToken: String = "",
-    @SerializedName("") val error: String = "", // sacar
     @SerializedName("error_description") val errorDescription: String = ""
 )
