@@ -1,7 +1,6 @@
 package ar.scacchipa.twittercloneapp.repository
 
 import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
-import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,18 +18,34 @@ class AuthorizationRepository(
         redirectUri: String,
         codeVerifier: String,
         state: String
-    ): UserAccessToken = withContext(dispatcher){
-        val response = genAccessTokenSource.genAccessTokenSourceCode(
-            transitoryToken = transitoryToken,
-            grantType = grantType,
-            clientId = clientId,
-            redirectUri = redirectUri,
-            codeVerifier = codeVerifier,
-            state = state)
-        if (response.isSuccessful) {
-            response.body()?:UserAccessToken()
-        } else {
-            UserAccessToken(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
+    ): TokenResource = withContext(dispatcher) {
+        try {
+            val response = genAccessTokenSource.genAccessTokenSourceCode(
+                transitoryToken = transitoryToken,
+                grantType = grantType,
+                clientId = clientId,
+                redirectUri = redirectUri,
+                codeVerifier = codeVerifier,
+                state = state
+            )
+            if (response.isSuccessful) {
+                response.body()?.let { userAccessToken ->
+                    TokenResource.Success(
+                        tokenType = userAccessToken.tokenType,
+                        expiresIn = userAccessToken.expiresIn,
+                        accessToken = userAccessToken.accessToken,
+                        scope = userAccessToken.scope,
+                        refreshToken = userAccessToken.refreshToken
+                    )
+                } ?: TokenResource.Error()
+            } else {
+                TokenResource.Error(
+                    error = Constants.ERROR_HOST_LOOKUP_TOKEN,
+                    errorDescription = response.body()?.errorDescription?:""
+                )
+            }
+        } catch (e: Exception) {
+            TokenResource.Exception(message = e.message?:"")
         }
     }
 }

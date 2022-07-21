@@ -15,9 +15,9 @@ object Constants {
     const val SERVER_PARAMETER_CODE = "code"
     const val SERVER_PARAMETER_ERROR = "error"
 
-    const val ERROR_CANCELLED_AUTH = "cancelled_authorization"
     const val ERROR_HOST_LOOKUP_TOKEN = "error_host_lookup"
     const val ERROR_ACCESS_DENIED = "access_denied"
+    const val ERROR_UNKNOWN_HOST_EXCEPTION = "error unknown host exception"
 
     const val SCOPE_USERS_READ = "users.read"
     const val SCOPE_TWEET_READ = "tweet.read"

@@ -6,13 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.Constants
+import ar.scacchipa.twittercloneapp.repository.TokenResource
 import kotlinx.coroutines.launch
 import java.net.URI
 import kotlin.collections.set
@@ -23,8 +23,8 @@ class AuthWebDialogViewModel (
     private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase()
 ): ViewModel() {
 
-    private val _userAccessToken = MutableLiveData<UserAccessToken>()
-    val userAccessToken = _userAccessToken as LiveData<UserAccessToken>
+    private val _tokenResource = MutableLiveData<TokenResource>()
+    val tokenResource = _tokenResource as LiveData<TokenResource>
 
     fun onReceiveUrl(uri: URI) {
         if (uri.host == URI(Constants.REDIRECT_URI).host) {
@@ -34,14 +34,14 @@ class AuthWebDialogViewModel (
             }
             queryParameters[Constants.SERVER_PARAMETER_ERROR]?.let { error ->
                 if (error == Constants.ERROR_ACCESS_DENIED) {
-                    _userAccessToken.value = UserAccessToken(error = Constants.ERROR_CANCELLED_AUTH)
+                    _tokenResource.value = TokenResource.Cancel
                 }
             }
         }
     }
     fun onReceivedWebError(error: WebResourceError?) {
         if (error?.errorCode == WebViewClient.ERROR_HOST_LOOKUP) {
-            _userAccessToken.value = UserAccessToken(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
+            _tokenResource.value = TokenResource.Error(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
         }
     }
 
@@ -49,7 +49,7 @@ class AuthWebDialogViewModel (
         transitoryCode: String
     ) {
         viewModelScope.launch {
-            _userAccessToken.value = authorizationUseCase(
+            _tokenResource.value = authorizationUseCase(
                     transitoryToken = transitoryCode,
             )
         }

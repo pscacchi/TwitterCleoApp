@@ -1,11 +1,11 @@
 package ar.scacchipa.twittercloneapp.domain
 
-import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.Constants
 import ar.scacchipa.twittercloneapp.repository.IAuthorizationRepository
+import ar.scacchipa.twittercloneapp.repository.TokenResource
 
 open class AuthorizationUseCase(
     private val repository: IAuthorizationRepository =
@@ -13,7 +13,7 @@ open class AuthorizationUseCase(
 ) {
     open suspend operator fun invoke(
         transitoryToken: String
-    ): UserAccessToken {
+    ): TokenResource {
         return repository.requestAccessToken(
             transitoryToken = transitoryToken,
             grantType = Constants.GRANT_TYPE_AUTHORIZATION_CODE,

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.databinding.FragmentAuthWebDialogLayoutBinding
+import ar.scacchipa.twittercloneapp.repository.TokenResource
 import ar.scacchipa.twittercloneapp.viewmodel.AuthWebDialogViewModel
 import java.net.URI
 
@@ -27,22 +28,26 @@ class FragmentAuthWebDialog : Fragment() {
 
         binding = FragmentAuthWebDialogLayoutBinding.inflate(inflater)
 
-        viewModel.userAccessToken.observe(viewLifecycleOwner) { token ->
-            when {
-                token.isCancellationErrorToken() -> {
-                    findNavController().navigateUp()
-                }
-                token.isHostLookupErrorToken()-> {
-                    val action= FragmentAuthWebDialogDirections
-                        .actionFragmentLoginAuthWebDialogToFragmentLogin(true)
-                    findNavController().navigate(action)
-                }
-                token.isSuccessToken() -> {
+        viewModel.tokenResource.observe(viewLifecycleOwner) { token ->
+            when (token) {
+                is TokenResource.Success -> {
                     val action = FragmentAuthWebDialogDirections
                         .actionFragmentAuthWebDialogToFragmentHome(token.accessToken)
                     findNavController().navigate(action)
                 }
-           }
+                is TokenResource.Error -> {
+                    val action = FragmentAuthWebDialogDirections
+                        .actionFragmentLoginAuthWebDialogToFragmentLogin(true)
+                    findNavController().navigate(action)
+                }
+                is TokenResource.Cancel,
+                is TokenResource.Exception -> {
+                    findNavController().navigateUp()
+                }
+                else -> {
+                    findNavController().navigateUp()
+                }
+            }
         }
 
         binding?.loginWebview?.apply {
