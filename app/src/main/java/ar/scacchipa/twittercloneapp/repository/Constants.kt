@@ -12,7 +12,11 @@ object Constants {
     const val GRANT_TYPE_AUTHORIZATION_CODE = "authorization_code"
     const val CODE_VERIFIER_CHALLENGE = "challenge"
 
-    const val ERROR_CODE = "error"
+    const val SERVER_PARAMETER_CODE = "code"
+    const val SERVER_PARAMETER_ERROR = "error"
+
+    const val ERROR_HOST_LOOKUP_TOKEN = "error_host_lookup"
+    const val ERROR_ACCESS_DENIED = "access_denied"
 
     const val SCOPE_USERS_READ = "users.read"
     const val SCOPE_TWEET_READ = "tweet.read"
@@ -23,5 +27,4 @@ object Constants {
     const val SCOPE_LIKE_READ = "like.read"
     const val SCOPE_LIKE_WRITE = "like.write"
     const val SCOPE_SPACE_READ = "space.read"
-
 }

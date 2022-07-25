@@ -1,6 +1,5 @@
 package ar.scacchipa.twittercloneapp.datasource
 
-import ar.scacchipa.twittercloneapp.repository.Constants
 import com.google.gson.annotations.SerializedName
 
 data class UserAccessToken (
@@ -9,6 +8,5 @@ data class UserAccessToken (
     @SerializedName("access_token") val accessToken: String = "",
     @SerializedName("scope") val scope: String = "",
     @SerializedName("refresh_token") val refreshToken: String = "",
-    @SerializedName("") val error: String = Constants.ERROR_CODE,
     @SerializedName("error_description") val errorDescription: String = ""
 )

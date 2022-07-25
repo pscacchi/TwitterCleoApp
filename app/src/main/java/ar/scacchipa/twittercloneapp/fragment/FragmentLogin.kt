@@ -5,36 +5,67 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.DialogLoginErrorBinding
 import ar.scacchipa.twittercloneapp.databinding.FragmentLoginLayoutBinding
-
+import ar.scacchipa.twittercloneapp.viewmodel.LoginViewModel
 
 class FragmentLogin : Fragment() {
 
-    private var mainBindind: FragmentLoginLayoutBinding? = null
+    private var mainBinding: FragmentLoginLayoutBinding? = null
     private var errorBinding: DialogLoginErrorBinding? = null
     private var errorDialog: AlertDialog? = null
+
+    private val viewModel: LoginViewModel by viewModels()
+    private val args: FragmentLoginArgs by navArgs()
+
+    private var readArgs = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mainBindind = FragmentLoginLayoutBinding.inflate(inflater)
-        mainBindind?.buttonLogin?.setOnClickListener{
-            findNavController().navigate(R.id.action_fragmentLogin_to_fragmentLoginAuthWebDialog)
+
+        mainBinding = FragmentLoginLayoutBinding.inflate(inflater)
+        mainBinding?.buttonLogin?.setOnClickListener{
+            viewModel.onClickLoginButton()
         }
 
         createDialog(inflater)
 
-        return mainBindind?.root
+        viewModel.navTpFragAuthWeb.observe(viewLifecycleOwner) { mustNavToLoginAuthWeb ->
+            if (mustNavToLoginAuthWeb) {
+                viewModel.onNavToAuthWeb()
+                findNavController().navigate(
+                    FragmentLoginDirections.actionFragmentLoginToFragmentLoginAuthWebDialog()
+                )
+            }
+        }
+
+        viewModel.mustShowErrorMsg.observe(viewLifecycleOwner) { mustShowErrorMsg ->
+            if (mustShowErrorMsg) {
+                this.showErrorDialog()
+            } else {
+                this.hideErrorDialog()
+            }
+        }
+
+        if (readArgs and args.showErrorMsg) {
+            viewModel.showErrorMsg()
+            readArgs = false
+        }
+
+        return mainBinding?.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mainBindind = null
+        mainBinding = null
         errorBinding = null
         errorDialog = null
     }
@@ -46,6 +77,7 @@ class FragmentLogin : Fragment() {
             .setCancelable(false)
             .create()
     }
+
     private fun showErrorDialog() {
         errorDialog?.show()
         errorDialog?.window?.setLayout(
@@ -53,11 +85,14 @@ class FragmentLogin : Fragment() {
             ViewGroup.LayoutParams.WRAP_CONTENT)
 
         errorBinding?.okLoginErrorButton?.setOnClickListener {
-            hideErrorDialog()
+            viewModel.onClickMsgButton()
         }
+
+        mainBinding?.root?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary_background))
     }
 
     private fun hideErrorDialog() {
         errorDialog?.hide()
+        mainBinding?.root?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary_background))
     }
 }

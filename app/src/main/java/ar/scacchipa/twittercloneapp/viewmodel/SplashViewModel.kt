@@ -1,6 +1,6 @@
 package ar.scacchipa.twittercloneapp.viewmodel
 
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,17 +10,13 @@ import kotlinx.coroutines.launch
 class SplashViewModel(
     private val splashTimer: SplashTimerUseCase = SplashTimerUseCase()
 ): ViewModel() {
-    private val splashWasSpent = MutableLiveData(false)
+
+    private val _splashWasSpent = MutableLiveData(false)
+    val splashWasSpent = _splashWasSpent as LiveData<Boolean>
 
     fun spendSplash() {
         viewModelScope.launch {
-            splashWasSpent.value = splashTimer.spendSplash()
+            _splashWasSpent.value = splashTimer.spendSplash()
         }
-    }
-    fun getSplashWasSpent(): Boolean {
-        return splashWasSpent.value?:false
-    }
-    fun addObserver(owner: LifecycleOwner, observer: (Boolean) -> Unit) {
-        splashWasSpent.observe(owner, observer)
     }
 }

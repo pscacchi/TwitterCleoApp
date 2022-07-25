@@ -16,17 +16,15 @@ class AuthorizationRepositoryTest {
     private var subject: IAuthorizationRepository = AuthorizationRepository(MockAuthDataSource())
 
     @Test
-    fun repoShouldReturnASuccessUserAccessToken() = runTest {
-        val expected = UserAccessToken(
+    fun repoShouldReturnASuccessToken() = runTest {
+        val expected = TokenResource.Success(
             tokenType = "bearer",
             expiresIn = 7200,
             accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
             scope = "tweet.read tweet.write",
             refreshToken = "LVJQQXMxSUM0QUQ2eHNidkNfYUNScUJoSTY5Sy1ndGxqMmx2WnRPQzF4NklDOjE2NTY1OTUxOTIxMTU6MTowOnJ0OjE",
-            error = "",
-            errorDescription = ""
         )
-        val actual = subject.genAccessToken(
+        val actual = subject.requestAccessToken(
             transitoryToken = "SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE",
             grantType = "authorization_code",
             clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
@@ -36,27 +34,18 @@ class AuthorizationRepositoryTest {
         Assert.assertEquals(expected, actual)
     }
     @Test
-    fun repoShouldReturnADeniedUserAccessToken() = runTest {
-        val actual = subject.genAccessToken(
+    fun repoShouldReturnNoAuthToken() = runTest {
+        val actual = subject.requestAccessToken(
             transitoryToken = "incorrect_password",
             grantType = "authorization_code",
             clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
             redirectUri = "https://twittercloneendava.firebaseapp.com/__/auth/handler&",
             codeVerifier = "challenge",
             state = "state")
-        val expected = UserAccessToken(error = "error")
+        val expected = TokenResource.Error(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
 
         Assert.assertEquals(expected, actual)
     }
-
-    @Test
-    fun repoShouldGetErrorUserAccessToken() {
-        Assert.assertEquals(
-            UserAccessToken(error= "error"),
-            subject.getErrorUserCaseTokenCreator()
-        )
-    }
-
 }
 
 class MockAuthDataSource: IAuthDataSource {
@@ -82,7 +71,6 @@ class MockAuthDataSource: IAuthDataSource {
                     accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
                     scope = "tweet.read tweet.write",
                     refreshToken = "LVJQQXMxSUM0QUQ2eHNidkNfYUNScUJoSTY5Sy1ndGxqMmx2WnRPQzF4NklDOjE2NTY1OTUxOTIxMTU6MTowOnJ0OjE",
-                    error = "",
                     errorDescription = ""
                 )
             )

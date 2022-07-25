@@ -20,9 +20,9 @@ class SplashViewModelTest {
     @Test
     fun checkSplashIsSpent() = runTest {
             val viewModel = SplashViewModel(SplashTimerMock())
-            Assert.assertEquals(false, viewModel.getSplashWasSpent())
+            Assert.assertEquals(false, viewModel.splashWasSpent.value)
             viewModel.spendSplash()
-            Assert.assertEquals(true, viewModel.getSplashWasSpent())
+            Assert.assertEquals(true, viewModel.splashWasSpent.value)
     }
 }
 

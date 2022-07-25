@@ -1,44 +1,47 @@
 package ar.scacchipa.twittercloneapp.viewmodel
 
+import android.webkit.WebResourceError
+import android.webkit.WebViewClient
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.domain.ErrorTokenCreatorUseCase
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.Constants
+import ar.scacchipa.twittercloneapp.repository.TokenResource
 import kotlinx.coroutines.launch
 import java.net.URI
+import kotlin.collections.set
 
 class AuthWebDialogViewModel (
     private val authorizationUseCase: AuthorizationUseCase =
         AuthorizationUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit()))),
-    private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase(),
-    private val errorUserCaseTokenCreator: ErrorTokenCreatorUseCase =
-        ErrorTokenCreatorUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit())))
-
+    private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase()
 ): ViewModel() {
 
-    private val _userAccessToken = MutableLiveData<UserAccessToken>()
-    val userAccessToken: LiveData<UserAccessToken>
-        get() = _userAccessToken
+    private val _tokenResource = MutableLiveData<TokenResource>()
+    val tokenResource = _tokenResource as LiveData<TokenResource>
 
-    fun controlRequest(uri: URI) {
+    fun onReceiveUrl(uri: URI) {
         if (uri.host == URI(Constants.REDIRECT_URI).host) {
             val queryParameters = getQueryParameters(uri.query)
-            queryParameters["code"]?.let { code ->
+            queryParameters[Constants.SERVER_PARAMETER_CODE]?.let { code ->
                 this.generateUserAccessToken(code)
             }
-            queryParameters["error"]?.let { error ->
-                if (error == "access_denied") {
-                    _userAccessToken.value = errorUserCaseTokenCreator()
+            queryParameters[Constants.SERVER_PARAMETER_ERROR]?.let { error ->
+                if (error == Constants.ERROR_ACCESS_DENIED) {
+                    _tokenResource.value = TokenResource.Cancel
                 }
             }
+        }
+    }
+    fun onReceivedWebError(error: WebResourceError?) {
+        if (error?.errorCode == WebViewClient.ERROR_HOST_LOOKUP) {
+            _tokenResource.value = TokenResource.Error(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
         }
     }
 
@@ -46,11 +49,12 @@ class AuthWebDialogViewModel (
         transitoryCode: String
     ) {
         viewModelScope.launch {
-            _userAccessToken.value = authorizationUseCase(
+            _tokenResource.value = authorizationUseCase(
                     transitoryToken = transitoryCode,
             )
         }
     }
+
     private fun getQueryParameters(query: String): HashMap<String, String> {
         val params = query.split("&")
 

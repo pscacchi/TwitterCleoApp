@@ -1,10 +1,10 @@
 package ar.scacchipa.twittercloneapp.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.databinding.FragmentAuthWebDialogLayoutBinding
+import ar.scacchipa.twittercloneapp.repository.TokenResource
 import ar.scacchipa.twittercloneapp.viewmodel.AuthWebDialogViewModel
 import java.net.URI
 
@@ -27,13 +28,25 @@ class FragmentAuthWebDialog : Fragment() {
 
         binding = FragmentAuthWebDialogLayoutBinding.inflate(inflater)
 
-        viewModel.userAccessToken.observe(viewLifecycleOwner) {
-            if (it.accessToken != "") {
-                val action = FragmentAuthWebDialogDirections
-                    .actionFragmentAuthWebDialogToFragmentHome(it.accessToken)
-                findNavController().navigate(action)
-            } else {
-                findNavController().navigateUp()
+        viewModel.tokenResource.observe(viewLifecycleOwner) { token ->
+            when (token) {
+                is TokenResource.Success -> {
+                    val action = FragmentAuthWebDialogDirections
+                        .actionFragmentAuthWebDialogToFragmentHome(token.accessToken)
+                    findNavController().navigate(action)
+                }
+                is TokenResource.Error -> {
+                    val action = FragmentAuthWebDialogDirections
+                        .actionFragmentLoginAuthWebDialogToFragmentLogin(true)
+                    findNavController().navigate(action)
+                }
+                is TokenResource.Cancel,
+                is TokenResource.Exception -> {
+                    findNavController().navigateUp()
+                }
+                else -> {
+                    findNavController().navigateUp()
+                }
             }
         }
 
@@ -53,10 +66,17 @@ class FragmentAuthWebDialog : Fragment() {
                     request: WebResourceRequest?
                 ): Boolean {
                     request?.url?.let { uri ->
-                        Log.i("WebView", uri.toString())
-                        viewModel.controlRequest(URI(uri.toString()))
+                        viewModel.onReceiveUrl(URI(uri.toString()))
                     }
                     return super.shouldOverrideUrlLoading(view, request)
+                }
+
+                override fun onReceivedError(
+                    view: WebView?,
+                    request: WebResourceRequest?,
+                    error: WebResourceError?
+                ) {
+                    viewModel.onReceivedWebError(error)
                 }
             }
 
