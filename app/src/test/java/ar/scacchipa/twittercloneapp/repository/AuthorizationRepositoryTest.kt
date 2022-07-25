@@ -8,6 +8,7 @@ import okhttp3.MediaType
 import okhttp3.ResponseBody
 import org.junit.Assert
 import org.junit.Test
+import org.mockito.Mockito
 import retrofit2.Response
 
 @ExperimentalCoroutinesApi
@@ -46,6 +47,46 @@ class AuthorizationRepositoryTest {
 
         Assert.assertEquals(expected, actual)
     }
+
+    @Test
+    fun whenAuthRepoReceiveRequestWithoutBodyReturnError() = runTest {
+        val mockAuthDataSource = Mockito.mock(IAuthDataSource::class.java)
+        Mockito.`when`(mockAuthDataSource.genAccessTokenSourceCode(
+            transitoryToken = "incorrect_password",
+            grantType = "authorization_code",
+            clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
+            redirectUri = "https://twittercloneendava.firebaseapp.com/__/auth/handler&",
+            codeVerifier = "challenge",
+            state = "state"
+        )).thenReturn(
+            Response.success(null)
+        )
+        val subject = AuthorizationRepository(mockAuthDataSource)
+
+        Assert.assertEquals(TokenResource.Error(), subject.requestAccessToken(
+            transitoryToken = "incorrect_password",
+            grantType = "authorization_code",
+            clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
+            redirectUri = "https://twittercloneendava.firebaseapp.com/__/auth/handler&",
+            codeVerifier = "challenge",
+            state = "state"
+        ))
+    }
+    @Test
+    fun whenAuthorizationRepoCatchException() = runTest {
+        val subject = AuthorizationRepository(
+            genAccessTokenSource = MockAuthDataSource.MockExceptionAuthDataSource()
+        )
+
+        Assert.assertEquals(TokenResource.Exception(), subject.requestAccessToken(
+            transitoryToken = "incorrect_password",
+            grantType = "authorization_code",
+            clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
+            redirectUri = "https://twittercloneendava.firebaseapp.com/__/auth/handler&",
+            codeVerifier = "challenge",
+            state = "state"
+        ))
+    }
 }
 
 class MockAuthDataSource: IAuthDataSource {
@@ -82,5 +123,19 @@ class MockAuthDataSource: IAuthDataSource {
                 )
             )
         }
+    }
+
+    class MockExceptionAuthDataSource(): IAuthDataSource {
+        override suspend fun genAccessTokenSourceCode(
+            transitoryToken: String,
+            grantType: String,
+            clientId: String,
+            redirectUri: String,
+            codeVerifier: String,
+            state: String
+        ): Response<UserAccessToken> {
+            throw Exception()
+        }
+
     }
 }

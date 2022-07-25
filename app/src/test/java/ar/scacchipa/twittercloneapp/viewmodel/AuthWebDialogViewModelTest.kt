@@ -1,14 +1,18 @@
 package ar.scacchipa.twittercloneapp.viewmodel
 
+import android.webkit.WebResourceError
+import android.webkit.WebViewClient
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
+import ar.scacchipa.twittercloneapp.repository.Constants
 import ar.scacchipa.twittercloneapp.repository.TokenResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mockito
 import java.net.URI
 
 @ExperimentalCoroutinesApi
@@ -26,8 +30,6 @@ class AuthWebDialogViewModelTest {
 
     @Test
     fun viewModelShouldGenerateCodeUrl() {
-
-
         Assert.assertEquals(
             subject.createTemporaryCodeUrl(),
             "https://twitter.com/i/oauth2/authorize?" +
@@ -39,18 +41,6 @@ class AuthWebDialogViewModelTest {
                     "code_challenge=challenge&" +
                     "code_challenge_method=plain"
         )
-    }
-
-    @Test
-    fun viewModelShouldNotGenerateUserAccessToken() {
-        val uri = URI("https://mobile.twitter.com/i/oauth2/authorize?response_type=code&" +
-                "client_id=Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ&" +
-                "redirect_uri=https://twittercloneendava.firebaseapp.com/__/auth/handler&" +
-                "scope=tweet.read%20tweet.write" +
-                "state=state&code_challenge=challenge&code_challenge_method=plain")
-
-
-        Assert.assertEquals(subject.tokenResource.value, null)
     }
 
     @Test
@@ -80,6 +70,15 @@ class AuthWebDialogViewModelTest {
 
         Assert.assertTrue(
             subject.tokenResource.value == TokenResource.Cancel)
+    }
+    @Test
+    fun webViewShouldWebResourceErrorToSubject() {
+        val mockedWebResourceError =  Mockito.mock(WebResourceError::class.java)
+        Mockito.`when`(mockedWebResourceError.errorCode).thenReturn(WebViewClient.ERROR_HOST_LOOKUP)
+        subject.onReceivedWebError( mockedWebResourceError )
+        Assert.assertEquals(
+            TokenResource.Error(error= Constants.ERROR_HOST_LOOKUP_TOKEN),
+            subject.tokenResource.value)
     }
 }
 
