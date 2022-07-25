@@ -34,6 +34,7 @@ class AuthorizationRepositoryTest {
             state = "state")
         Assert.assertEquals(expected, actual)
     }
+
     @Test
     fun repoShouldReturnNoAuthToken() = runTest {
         val actual = subject.requestAccessToken(
@@ -72,10 +73,11 @@ class AuthorizationRepositoryTest {
             state = "state"
         ))
     }
+
     @Test
     fun whenAuthorizationRepoCatchException() = runTest {
         val subject = AuthorizationRepository(
-            genAccessTokenSource = MockAuthDataSource.MockExceptionAuthDataSource()
+            genAccessTokenSource = MockExceptionAuthDataSource()
         )
 
         Assert.assertEquals(TokenResource.Exception(), subject.requestAccessToken(
@@ -124,18 +126,17 @@ class MockAuthDataSource: IAuthDataSource {
             )
         }
     }
+}
 
-    class MockExceptionAuthDataSource(): IAuthDataSource {
-        override suspend fun genAccessTokenSourceCode(
-            transitoryToken: String,
-            grantType: String,
-            clientId: String,
-            redirectUri: String,
-            codeVerifier: String,
-            state: String
-        ): Response<UserAccessToken> {
-            throw Exception()
-        }
-
+class MockExceptionAuthDataSource: IAuthDataSource {
+    override suspend fun genAccessTokenSourceCode(
+        transitoryToken: String,
+        grantType: String,
+        clientId: String,
+        redirectUri: String,
+        codeVerifier: String,
+        state: String
+    ): Response<UserAccessToken> {
+        throw Exception()
     }
 }
