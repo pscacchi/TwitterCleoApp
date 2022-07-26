@@ -72,7 +72,7 @@ class AuthWebDialogViewModelTest {
             subject.tokenResource.value == TokenResource.Cancel)
     }
     @Test
-    fun webViewShouldWebResourceErrorToSubject() {
+    fun webViewSendWebResourceErrorToSubject() {
         val mockedWebResourceError =  Mockito.mock(WebResourceError::class.java)
         Mockito.`when`(mockedWebResourceError.errorCode).thenReturn(WebViewClient.ERROR_HOST_LOOKUP)
         subject.onReceivedWebError( mockedWebResourceError )
