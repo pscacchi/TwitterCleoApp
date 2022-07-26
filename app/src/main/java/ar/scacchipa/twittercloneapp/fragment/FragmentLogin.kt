@@ -38,7 +38,7 @@ class FragmentLogin : Fragment() {
 
         createDialog(inflater)
 
-        viewModel.navTpFragAuthWeb.observe(viewLifecycleOwner) { mustNavToLoginAuthWeb ->
+        viewModel.navToFragAuthWeb.observe(viewLifecycleOwner) { mustNavToLoginAuthWeb ->
             if (mustNavToLoginAuthWeb) {
                 viewModel.onNavToAuthWeb()
                 findNavController().navigate(
