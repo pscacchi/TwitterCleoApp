@@ -5,8 +5,8 @@ import android.webkit.WebViewClient
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.repository.Constants
-import ar.scacchipa.twittercloneapp.repository.TokenResource
+import ar.scacchipa.twittercloneapp.utils.Constants
+import ar.scacchipa.twittercloneapp.data.TokenResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert

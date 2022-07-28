@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.datasource
+package ar.scacchipa.twittercloneapp.data
 
 import com.google.gson.annotations.SerializedName
 

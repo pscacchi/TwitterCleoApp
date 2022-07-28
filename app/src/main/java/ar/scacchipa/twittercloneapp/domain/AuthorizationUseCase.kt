@@ -1,11 +1,11 @@
 package ar.scacchipa.twittercloneapp.domain
 
+import ar.scacchipa.twittercloneapp.data.TokenResource
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
-import ar.scacchipa.twittercloneapp.repository.Constants
+import ar.scacchipa.twittercloneapp.utils.Constants
 import ar.scacchipa.twittercloneapp.repository.IAuthorizationRepository
-import ar.scacchipa.twittercloneapp.repository.TokenResource
 
 open class AuthorizationUseCase(
     private val repository: IAuthorizationRepository =

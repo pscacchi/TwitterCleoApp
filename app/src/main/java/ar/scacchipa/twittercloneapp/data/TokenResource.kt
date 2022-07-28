@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.repository
+package ar.scacchipa.twittercloneapp.data
 
 sealed class TokenResource {
 

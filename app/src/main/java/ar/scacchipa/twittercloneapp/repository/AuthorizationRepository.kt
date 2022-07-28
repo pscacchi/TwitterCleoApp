@@ -1,5 +1,7 @@
 package ar.scacchipa.twittercloneapp.repository
 
+import ar.scacchipa.twittercloneapp.data.TokenResource
+import ar.scacchipa.twittercloneapp.utils.toTokenResource
 import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
@@ -18,34 +20,20 @@ class AuthorizationRepository(
         redirectUri: String,
         codeVerifier: String,
         state: String
-    ): TokenResource = withContext(dispatcher) {
-        try {
-            val response = genAccessTokenSource.genAccessTokenSourceCode(
-                transitoryToken = transitoryToken,
-                grantType = grantType,
-                clientId = clientId,
-                redirectUri = redirectUri,
-                codeVerifier = codeVerifier,
-                state = state
-            )
-            if (response.isSuccessful) {
-                response.body()?.let { userAccessToken ->
-                    TokenResource.Success(
-                        tokenType = userAccessToken.tokenType,
-                        expiresIn = userAccessToken.expiresIn,
-                        accessToken = userAccessToken.accessToken,
-                        scope = userAccessToken.scope,
-                        refreshToken = userAccessToken.refreshToken
-                    )
-                } ?: TokenResource.Error()
-            } else {
-                TokenResource.Error(
-                    error = Constants.ERROR_HOST_LOOKUP_TOKEN,
-                    errorDescription = response.body()?.errorDescription?:""
-                )
+    ): TokenResource {
+        return withContext(dispatcher) {
+            try {
+                genAccessTokenSource.genAccessTokenSourceCode(
+                    transitoryToken = transitoryToken,
+                    grantType = grantType,
+                    clientId = clientId,
+                    redirectUri = redirectUri,
+                    codeVerifier = codeVerifier,
+                    state = state
+                ).toTokenResource()
+            } catch (e: Exception) {
+                TokenResource.Exception(message = e.message ?: "")
             }
-        } catch (e: Exception) {
-            TokenResource.Exception(message = e.message?:"")
         }
     }
 }

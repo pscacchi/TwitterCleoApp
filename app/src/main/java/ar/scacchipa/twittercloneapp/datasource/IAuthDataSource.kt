@@ -1,5 +1,6 @@
 package ar.scacchipa.twittercloneapp.datasource
 
+import ar.scacchipa.twittercloneapp.data.UserAccessToken
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

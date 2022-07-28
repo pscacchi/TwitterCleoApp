@@ -1,7 +1,9 @@
 package ar.scacchipa.twittercloneapp.repository
 
+import ar.scacchipa.twittercloneapp.data.TokenResource
 import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
-import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
+import ar.scacchipa.twittercloneapp.data.UserAccessToken
+import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType
@@ -64,7 +66,8 @@ class AuthorizationRepositoryTest {
         )
         val subject = AuthorizationRepository(mockAuthDataSource)
 
-        Assert.assertEquals(TokenResource.Error(), subject.requestAccessToken(
+        Assert.assertEquals(
+            TokenResource.Error(), subject.requestAccessToken(
             transitoryToken = "incorrect_password",
             grantType = "authorization_code",
             clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
@@ -80,7 +83,8 @@ class AuthorizationRepositoryTest {
             genAccessTokenSource = MockExceptionAuthDataSource()
         )
 
-        Assert.assertEquals(TokenResource.Exception(), subject.requestAccessToken(
+        Assert.assertEquals(
+            TokenResource.Exception(), subject.requestAccessToken(
             transitoryToken = "incorrect_password",
             grantType = "authorization_code",
             clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
