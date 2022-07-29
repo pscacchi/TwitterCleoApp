@@ -1,6 +1,6 @@
 package ar.scacchipa.twittercloneapp.repository
 
-import ar.scacchipa.twittercloneapp.data.TokenResource
+import ar.scacchipa.twittercloneapp.data.ResponseDomain
 
 interface IAuthorizationRepository {
     suspend fun requestAccessToken(
@@ -10,5 +10,5 @@ interface IAuthorizationRepository {
         redirectUri: String,
         codeVerifier: String,
         state: String
-    ): TokenResource
+    ): ResponseDomain
 }

@@ -1,17 +1,18 @@
 package ar.scacchipa.twittercloneapp.repository
 
-import ar.scacchipa.twittercloneapp.data.TokenResource
-import ar.scacchipa.twittercloneapp.utils.toTokenResource
+import ar.scacchipa.twittercloneapp.data.*
 import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
+import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class AuthorizationRepository(
     private val genAccessTokenSource: IAuthDataSource = provideAuthSourceDateApi(provideRetrofit()),
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val mapper: IMapper<UserAccessTokenData, UserAccessTokenDomain> = UserAccessTokenDataMapper()
 ): IAuthorizationRepository {
     override suspend fun requestAccessToken(
         transitoryToken: String,
@@ -20,19 +21,31 @@ class AuthorizationRepository(
         redirectUri: String,
         codeVerifier: String,
         state: String
-    ): TokenResource {
+    ): ResponseDomain {
         return withContext(dispatcher) {
             try {
-                genAccessTokenSource.genAccessTokenSourceCode(
+                val token = genAccessTokenSource.genAccessTokenSourceCode(
                     transitoryToken = transitoryToken,
                     grantType = grantType,
                     clientId = clientId,
                     redirectUri = redirectUri,
                     codeVerifier = codeVerifier,
                     state = state
-                ).toTokenResource()
+                )
+                if (token.isSuccessful) {
+                    token.body()?.let { userAccessToken ->
+                        ResponseDomain.Success(
+                            mapper.toDomain(userAccessToken)
+                        )
+                    } ?: ResponseDomain.Error()
+                } else {
+                    ResponseDomain.Error(
+                        error = Constants.ERROR_HOST_LOOKUP_TOKEN,
+                        errorDescription = token.body()?.errorDescription ?: ""
+                    )
+                }
             } catch (e: Exception) {
-                TokenResource.Exception(message = e.message ?: "")
+                ResponseDomain.Exception(message = e.message ?: "")
             }
         }
     }

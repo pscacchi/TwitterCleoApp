@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.scacchipa.twittercloneapp.data.TokenResource
+import ar.scacchipa.twittercloneapp.data.ResponseDomain
 import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
 import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
@@ -23,8 +23,8 @@ class AuthWebDialogViewModel (
     private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase()
 ): ViewModel() {
 
-    private val _tokenResource = MutableLiveData<TokenResource>()
-    val tokenResource = _tokenResource as LiveData<TokenResource>
+    private val _responseDomain = MutableLiveData<ResponseDomain>()
+    val responseDomain = _responseDomain as LiveData<ResponseDomain>
 
     fun onReceiveUrl(uri: URI) {
         if (uri.host == URI(Constants.REDIRECT_URI).host) {
@@ -34,14 +34,14 @@ class AuthWebDialogViewModel (
             }
             queryParameters[Constants.SERVER_PARAMETER_ERROR]?.let { error ->
                 if (error == Constants.ERROR_ACCESS_DENIED) {
-                    _tokenResource.value = TokenResource.Cancel
+                    _responseDomain.value = ResponseDomain.Cancel
                 }
             }
         }
     }
     fun onReceivedWebError(error: WebResourceError?) {
         if (error?.errorCode == WebViewClient.ERROR_HOST_LOOKUP) {
-            _tokenResource.value = TokenResource.Error(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
+            _responseDomain.value = ResponseDomain.Error(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
         }
     }
 
@@ -49,7 +49,7 @@ class AuthWebDialogViewModel (
         transitoryCode: String
     ) {
         viewModelScope.launch {
-            _tokenResource.value = authorizationUseCase(
+            _responseDomain.value = authorizationUseCase(
                     transitoryToken = transitoryCode,
             )
         }

@@ -1,6 +1,6 @@
 package ar.scacchipa.twittercloneapp.datasource
 
-import ar.scacchipa.twittercloneapp.data.UserAccessToken
+import ar.scacchipa.twittercloneapp.data.UserAccessTokenData
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -16,5 +16,5 @@ interface IAuthDataSource {
         @Field("redirect_uri") redirectUri: String,
         @Field("code_verifier") codeVerifier: String,
         @Field("state") state:String
-    ) : Response<UserAccessToken>
+    ) : Response<UserAccessTokenData>
 }
