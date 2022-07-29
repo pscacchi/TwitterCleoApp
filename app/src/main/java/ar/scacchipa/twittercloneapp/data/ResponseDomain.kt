@@ -3,7 +3,7 @@ package ar.scacchipa.twittercloneapp.data
 sealed class ResponseDomain{
 
     data class Success<T>(
-        val data: T?
+        val data: T
     ): ResponseDomain()
 
     data class Error(
