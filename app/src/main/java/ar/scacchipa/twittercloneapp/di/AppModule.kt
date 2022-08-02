@@ -1,5 +1,9 @@
 package ar.scacchipa.twittercloneapp.di
 
+import ar.scacchipa.twittercloneapp.data.IMapper
+import ar.scacchipa.twittercloneapp.data.UserAccessTokenData
+import ar.scacchipa.twittercloneapp.data.UserAccessTokenDataMapper
+import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
@@ -21,8 +25,10 @@ val appModule = module {
 
     single { provideRetrofit() }
 
+    single { UserAccessTokenDataMapper() as IMapper<UserAccessTokenData, UserAccessTokenDomain>}
+
     single { provideAuthSourceDateApi( get() ) as IAuthDataSource }
-    single { AuthorizationRepository( get() ) as IAuthorizationRepository }
+    single { AuthorizationRepository( get(), get() ) as IAuthorizationRepository }
 
     single { AuthorizationUseCase( get() ) }
     single { ConsumableAuthUseCase() }
