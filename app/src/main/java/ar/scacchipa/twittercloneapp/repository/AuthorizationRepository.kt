@@ -1,13 +1,16 @@
 package ar.scacchipa.twittercloneapp.repository
 
+import ar.scacchipa.twittercloneapp.data.*
 import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
+import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class AuthorizationRepository(
     private val genAccessTokenSource: IAuthDataSource,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val mapper: IMapper<UserAccessTokenData, UserAccessTokenDomain> = UserAccessTokenDataMapper()
 ): IAuthorizationRepository {
     override suspend fun requestAccessToken(
         transitoryToken: String,
@@ -16,34 +19,32 @@ class AuthorizationRepository(
         redirectUri: String,
         codeVerifier: String,
         state: String
-    ): TokenResource = withContext(dispatcher) {
-        try {
-            val response = genAccessTokenSource.genAccessTokenSourceCode(
-                transitoryToken = transitoryToken,
-                grantType = grantType,
-                clientId = clientId,
-                redirectUri = redirectUri,
-                codeVerifier = codeVerifier,
-                state = state
-            )
-            if (response.isSuccessful) {
-                response.body()?.let { userAccessToken ->
-                    TokenResource.Success(
-                        tokenType = userAccessToken.tokenType,
-                        expiresIn = userAccessToken.expiresIn,
-                        accessToken = userAccessToken.accessToken,
-                        scope = userAccessToken.scope,
-                        refreshToken = userAccessToken.refreshToken
-                    )
-                } ?: TokenResource.Error()
-            } else {
-                TokenResource.Error(
-                    error = Constants.ERROR_HOST_LOOKUP_TOKEN,
-                    errorDescription = response.body()?.errorDescription?:""
+    ): ResponseDomain {
+        return withContext(dispatcher) {
+            try {
+                val token = genAccessTokenSource.genAccessTokenSourceCode(
+                    transitoryToken = transitoryToken,
+                    grantType = grantType,
+                    clientId = clientId,
+                    redirectUri = redirectUri,
+                    codeVerifier = codeVerifier,
+                    state = state
                 )
+                if (token.isSuccessful) {
+                    token.body()?.let { userAccessToken ->
+                        ResponseDomain.Success(
+                            mapper.toDomain(userAccessToken)
+                        )
+                    } ?: ResponseDomain.Error()
+                } else {
+                    ResponseDomain.Error(
+                        error = Constants.ERROR_HOST_LOOKUP_TOKEN,
+                        errorDescription = token.body()?.errorDescription ?: ""
+                    )
+                }
+            } catch (e: Exception) {
+                ResponseDomain.Exception(message = e.message ?: "")
             }
-        } catch (e: Exception) {
-            TokenResource.Exception(message = e.message?:"")
         }
     }
 }

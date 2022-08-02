@@ -1,7 +1,10 @@
 package ar.scacchipa.twittercloneapp.repository
 
+import ar.scacchipa.twittercloneapp.data.ResponseDomain
+import ar.scacchipa.twittercloneapp.data.UserAccessTokenData
+import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
-import ar.scacchipa.twittercloneapp.datasource.UserAccessToken
+import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType
@@ -18,12 +21,14 @@ class AuthorizationRepositoryTest {
 
     @Test
     fun repoShouldReturnASuccessToken() = runTest {
-        val expected = TokenResource.Success(
-            tokenType = "bearer",
-            expiresIn = 7200,
-            accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
-            scope = "tweet.read tweet.write",
-            refreshToken = "LVJQQXMxSUM0QUQ2eHNidkNfYUNScUJoSTY5Sy1ndGxqMmx2WnRPQzF4NklDOjE2NTY1OTUxOTIxMTU6MTowOnJ0OjE",
+        val expected = ResponseDomain.Success(
+            UserAccessTokenDomain(
+                tokenType = "bearer",
+                expiresIn = 7200,
+                accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
+                scope = "tweet.read tweet.write",
+                refreshToken = "LVJQQXMxSUM0QUQ2eHNidkNfYUNScUJoSTY5Sy1ndGxqMmx2WnRPQzF4NklDOjE2NTY1OTUxOTIxMTU6MTowOnJ0OjE",
+            )
         )
         val actual = subject.requestAccessToken(
             transitoryToken = "SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE",
@@ -31,7 +36,8 @@ class AuthorizationRepositoryTest {
             clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
             redirectUri = "https://twittercloneendava.firebaseapp.com/__/auth/handler&",
             codeVerifier = "challenge",
-            state = "state")
+            state = "state"
+        )
         Assert.assertEquals(expected, actual)
     }
 
@@ -44,7 +50,7 @@ class AuthorizationRepositoryTest {
             redirectUri = "https://twittercloneendava.firebaseapp.com/__/auth/handler&",
             codeVerifier = "challenge",
             state = "state")
-        val expected = TokenResource.Error(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
+        val expected = ResponseDomain.Error(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
 
         Assert.assertEquals(expected, actual)
     }
@@ -64,7 +70,8 @@ class AuthorizationRepositoryTest {
         )
         val subject = AuthorizationRepository(mockAuthDataSource)
 
-        Assert.assertEquals(TokenResource.Error(), subject.requestAccessToken(
+        Assert.assertEquals(
+            ResponseDomain.Error(), subject.requestAccessToken(
             transitoryToken = "incorrect_password",
             grantType = "authorization_code",
             clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
@@ -80,7 +87,8 @@ class AuthorizationRepositoryTest {
             genAccessTokenSource = MockExceptionAuthDataSource()
         )
 
-        Assert.assertEquals(TokenResource.Exception(), subject.requestAccessToken(
+        Assert.assertEquals(
+            ResponseDomain.Exception(), subject.requestAccessToken(
             transitoryToken = "incorrect_password",
             grantType = "authorization_code",
             clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
@@ -99,7 +107,7 @@ class MockAuthDataSource: IAuthDataSource {
         redirectUri: String,
         codeVerifier: String,
         state: String
-    ): Response<UserAccessToken> {
+    ): Response<UserAccessTokenData> {
         if (transitoryToken == "SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE" &&
             grantType == "authorization_code" &&
             clientId == "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ" &&
@@ -108,7 +116,7 @@ class MockAuthDataSource: IAuthDataSource {
             state == "state"
         ) {
             return Response.success(
-                UserAccessToken(
+                UserAccessTokenData(
                     tokenType = "bearer",
                     expiresIn = 7200,
                     accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
@@ -136,7 +144,7 @@ class MockExceptionAuthDataSource: IAuthDataSource {
         redirectUri: String,
         codeVerifier: String,
         state: String
-    ): Response<UserAccessToken> {
+    ): Response<UserAccessTokenData> {
         throw Exception()
     }
 }
