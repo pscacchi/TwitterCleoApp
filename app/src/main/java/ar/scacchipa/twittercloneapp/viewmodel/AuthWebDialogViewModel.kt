@@ -6,11 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
-import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.Constants
 import ar.scacchipa.twittercloneapp.repository.TokenResource
 import kotlinx.coroutines.launch
@@ -22,8 +19,8 @@ class AuthWebDialogViewModel (
     private val consumableAuthUseCase: ConsumableAuthUseCase
 ): ViewModel() {
 
-    private val _tokenResource = MutableLiveData<TokenResource>()
-    val tokenResource = _tokenResource as LiveData<TokenResource>
+    private val _tokenResource = MutableLiveData<TokenResource?>()
+    val tokenResource = _tokenResource as LiveData<TokenResource?>
 
     fun onReceiveUrl(uri: URI) {
         if (uri.host == URI(Constants.REDIRECT_URI).host) {

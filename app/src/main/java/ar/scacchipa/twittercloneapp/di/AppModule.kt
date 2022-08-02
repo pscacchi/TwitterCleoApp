@@ -1,8 +1,6 @@
-package ar.scacchipa.twittercloneapp.component
+package ar.scacchipa.twittercloneapp.di
 
 import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
-import ar.scacchipa.twittercloneapp.datasource.provideAuthSourceDateApi
-import ar.scacchipa.twittercloneapp.datasource.provideRetrofit
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
 import ar.scacchipa.twittercloneapp.domain.SplashTimerUseCase
