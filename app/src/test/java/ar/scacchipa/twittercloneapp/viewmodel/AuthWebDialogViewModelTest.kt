@@ -3,10 +3,11 @@ package ar.scacchipa.twittercloneapp.viewmodel
 import android.webkit.WebResourceError
 import android.webkit.WebViewClient
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import ar.scacchipa.twittercloneapp.data.ResponseDomain
+import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.repository.Constants
-import ar.scacchipa.twittercloneapp.repository.TokenResource
+import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -45,20 +46,24 @@ class AuthWebDialogViewModelTest {
 
     @Test
     fun shouldGenerateSuccessTokenResource() = runTest {
-        val uri = URI("https://twittercloneendava.firebaseapp.com/__/auth/handler?state=state&" +
-                "code=SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE")
+        val uri = URI(
+            "https://twittercloneendava.firebaseapp.com/__/auth/handler?state=state&" +
+                    "code=SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE"
+        )
 
         subject.onReceiveUrl(uri)
 
         Assert.assertTrue(
-            subject.tokenResource.value ==
-            TokenResource.Success(
-                tokenType = "bearer",
-                expiresIn = 7200,
-                accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
-                scope = "tweet.read tweet.write",
-                refreshToken = "LVJQQXMxSUM0QUQ2eHNidkNfYUNScUJoSTY5Sy1ndGxqMmx2WnRPQzF4NklDOjE2NTY1OTUxOTIxMTU6MTowOnJ0OjE"
-            )
+            subject.responseDomain.value ==
+                    ResponseDomain.Success(
+                        UserAccessTokenDomain(
+                            tokenType = "bearer",
+                            expiresIn = 7200,
+                            accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
+                            scope = "tweet.read tweet.write",
+                            refreshToken = "LVJQQXMxSUM0QUQ2eHNidkNfYUNScUJoSTY5Sy1ndGxqMmx2WnRPQzF4NklDOjE2NTY1OTUxOTIxMTU6MTowOnJ0OjE"
+                        )
+                    )
         )
     }
 
@@ -69,7 +74,7 @@ class AuthWebDialogViewModelTest {
         subject.onReceiveUrl(uri)
 
         Assert.assertTrue(
-            subject.tokenResource.value == TokenResource.Cancel)
+            subject.responseDomain.value == ResponseDomain.Cancel)
     }
     @Test
     fun webViewSendWebResourceErrorToSubject() {
@@ -77,24 +82,26 @@ class AuthWebDialogViewModelTest {
         Mockito.`when`(mockedWebResourceError.errorCode).thenReturn(WebViewClient.ERROR_HOST_LOOKUP)
         subject.onReceivedWebError( mockedWebResourceError )
         Assert.assertEquals(
-            TokenResource.Error(error= Constants.ERROR_HOST_LOOKUP_TOKEN),
-            subject.tokenResource.value)
+            ResponseDomain.Error(error= Constants.ERROR_HOST_LOOKUP_TOKEN),
+            subject.responseDomain.value)
     }
 }
 
 class MockAuthorizationUseCase: AuthorizationUseCase() {
     override suspend operator fun invoke(
         transitoryToken: String
-    ): TokenResource {
+    ): ResponseDomain {
         return if (transitoryToken == "SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE") {
-            TokenResource.Success(
+            ResponseDomain.Success(
+                UserAccessTokenDomain(
                 tokenType = "bearer",
                 expiresIn = 7200,
                 accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
                 scope = "tweet.read tweet.write",
                 refreshToken = "LVJQQXMxSUM0QUQ2eHNidkNfYUNScUJoSTY5Sy1ndGxqMmx2WnRPQzF4NklDOjE2NTY1OTUxOTIxMTU6MTowOnJ0OjE")
+            )
         } else {
-            TokenResource.Error(error = "error")
+            ResponseDomain.Error(error = "error")
         }
     }
 }

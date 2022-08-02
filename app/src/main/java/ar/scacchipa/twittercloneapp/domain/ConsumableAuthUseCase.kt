@@ -1,6 +1,6 @@
 package ar.scacchipa.twittercloneapp.domain
 
-import ar.scacchipa.twittercloneapp.repository.Constants
+import ar.scacchipa.twittercloneapp.utils.Constants
 
 open class ConsumableAuthUseCase {
     open operator fun invoke(): String {
