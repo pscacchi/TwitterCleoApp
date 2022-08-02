@@ -5,6 +5,7 @@ import android.webkit.WebViewClient
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
+import ar.scacchipa.twittercloneapp.domain.MockAuthorizationRepository
 import ar.scacchipa.twittercloneapp.repository.Constants
 import ar.scacchipa.twittercloneapp.repository.TokenResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -82,7 +83,7 @@ class AuthWebDialogViewModelTest {
     }
 }
 
-class MockAuthorizationUseCase: AuthorizationUseCase() {
+class MockAuthorizationUseCase: AuthorizationUseCase(MockAuthorizationRepository()) {
     override suspend operator fun invoke(
         transitoryToken: String
     ): TokenResource {
