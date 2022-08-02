@@ -16,26 +16,25 @@ import ar.scacchipa.twittercloneapp.viewmodel.SplashViewModel
 import org.koin.androidx.fragment.dsl.fragment
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import retrofit2.Retrofit
 
 val appModule = module {
 
-    single<Retrofit> { provideRetrofit() }
+    single { provideRetrofit() }
 
-    single<IAuthDataSource> { provideAuthSourceDateApi( get() ) as IAuthDataSource }
-    single<IAuthorizationRepository> { AuthorizationRepository( get() ) as IAuthorizationRepository }
+    single { provideAuthSourceDateApi( get() ) as IAuthDataSource }
+    single { AuthorizationRepository( get() ) as IAuthorizationRepository }
 
-    single<AuthorizationUseCase> { AuthorizationUseCase( get() ) }
-    single<ConsumableAuthUseCase> { ConsumableAuthUseCase() }
-    single<SplashTimerUseCase> { SplashTimerUseCase() }
+    single { AuthorizationUseCase( get() ) }
+    single { ConsumableAuthUseCase() }
+    single { SplashTimerUseCase() }
 
 
-    viewModel<AuthWebDialogViewModel>{ AuthWebDialogViewModel( get(), get() ) }
-    viewModel<LoginViewModel>{ LoginViewModel() }
-    viewModel<SplashViewModel> { SplashViewModel( get() ) }
+    viewModel { AuthWebDialogViewModel( get(), get() ) }
+    viewModel { LoginViewModel() }
+    viewModel { SplashViewModel( get() ) }
 
-    fragment<FragmentAuthWebDialog> { FragmentAuthWebDialog() }
-    fragment<FragmentHome> { FragmentHome() }
-    fragment<FragmentLogin>{ FragmentLogin() }
-    fragment<FragmentSplash>{ FragmentSplash() }
+    fragment { FragmentAuthWebDialog() }
+    fragment { FragmentHome() }
+    fragment { FragmentLogin() }
+    fragment { FragmentSplash() }
 }
