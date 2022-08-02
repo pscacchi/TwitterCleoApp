@@ -18,9 +18,8 @@ import java.net.URI
 import kotlin.collections.set
 
 class AuthWebDialogViewModel (
-    private val authorizationUseCase: AuthorizationUseCase =
-        AuthorizationUseCase(AuthorizationRepository(provideAuthSourceDateApi(provideRetrofit()))),
-    private val consumableAuthUseCase: ConsumableAuthUseCase = ConsumableAuthUseCase()
+    private val authorizationUseCase: AuthorizationUseCase,
+    private val consumableAuthUseCase: ConsumableAuthUseCase
 ): ViewModel() {
 
     private val _tokenResource = MutableLiveData<TokenResource>()

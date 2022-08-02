@@ -11,11 +11,12 @@ import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.FragmentSplashLayoutBinding
 import ar.scacchipa.twittercloneapp.viewmodel.SplashViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentSplash: Fragment() {
 
     private var binding: FragmentSplashLayoutBinding? = null
-    private val splashViewModel: SplashViewModel by viewModels()
+    private val splashViewModel: SplashViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
