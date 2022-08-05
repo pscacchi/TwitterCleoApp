@@ -3,18 +3,18 @@
     <item
         android:id="@+id/home_button"
         android:icon="@drawable/ic_home_selector"
-        android:title="Home"/>
+        android:title="@string/home_menu_title"/>
     <item
         android:id="@+id/search_button"
         android:icon="@drawable/ic_search_selector"
-        android:title="Search" />
+        android:title="@string/search_menu_title" />
     <item
         android:id="@+id/bell_button"
         android:icon="@drawable/ic_bell_selector"
         android:enabled="true"
-        android:title="Bell" />
+        android:title="@string/bell_menu_title" />
     <item
         android:id="@+id/message_button"
         android:icon="@drawable/ic_message_selector"
-        android:title="Message" />
+        android:title="@string/message_menu_title" />
 </menu>
