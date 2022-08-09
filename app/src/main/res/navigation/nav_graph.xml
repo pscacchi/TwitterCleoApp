@@ -44,11 +44,12 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentHome"
-        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentHome"
+        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentMain"
         android:label="FragmentLoginSuccess" >
         <argument
             android:name="bearerToken"
             app:argType="string"
             android:defaultValue=""/>
     </fragment>
+
 </navigation>
