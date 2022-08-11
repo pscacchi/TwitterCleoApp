@@ -9,86 +9,24 @@
     android:orientation="vertical"
     tools:context=".fragment.FragmentSearch">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/searchToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:contentInsetStart="@dimen/big_padding"
-        app:contentInsetRight="@dimen/big_padding"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/profileImageView"
-                android:layout_width="@dimen/normal_icon_size"
-                android:layout_height="@dimen/normal_icon_size"
-                android:layout_alignParentStart="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:foreground="@drawable/fg_rounded"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/img_account_example" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/search_edittext"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/normal_icon_size"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/small_padding"
-                android:layout_marginEnd="@dimen/small_padding"
-                android:padding="@dimen/small_padding"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/config_search_icon"
-                app:layout_constraintStart_toEndOf="@+id/profileImageView"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/config_search_icon"
-                android:layout_width="@dimen/normal_icon_size"
-                android:layout_height="@dimen/normal_icon_size"
-                android:padding="@dimen/small_padding"
-                android:layout_alignParentEnd="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_settings_stroke" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.appcompat.widget.Toolbar>
-
     <View
         android:id="@+id/search_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/holo_orange_dark"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchToolbar"/>
+        app:layout_constraintTop_toBottomOf="parent"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:src="@drawable/ic_add_text_fab"
-        android:layout_width="@dimen/large_icon_size"
-        android:layout_height="@dimen/large_icon_size"
-        android:foreground="@drawable/fg_rounded"
-        android:background="@color/twitter_background"
-        android:padding="@dimen/big_padding"
-        android:layout_marginEnd="@dimen/big_padding"
-        android:layout_marginBottom="@dimen/big_padding"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:textSize="@dimen/large_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/search_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,65 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".fragment.FragmentHome" >
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/homeToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:contentInsetRight="@dimen/big_padding"
-        app:contentInsetStart="@dimen/big_padding"
-        app:layout_constraintBottom_toTopOf="@+id/home_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/profileImageView"
-                android:layout_width="@dimen/normal_icon_size"
-                android:layout_height="@dimen/normal_icon_size"
-                android:layout_alignParentStart="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:foreground="@drawable/fg_rounded"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/img_account_example" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/homeLogoImageView"
-                android:layout_width="@dimen/normal_icon_size"
-                android:layout_height="@dimen/normal_icon_size"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/small_padding"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_twitter_logo" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/featureImageView"
-                android:layout_width="@dimen/normal_icon_size"
-                android:layout_height="@dimen/normal_icon_size"
-                android:layout_alignParentEnd="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/small_padding"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_feature_stroke" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.appcompat.widget.Toolbar>
-
     <View
         android:id="@+id/home_view"
         android:layout_width="0dp"
@@ -74,8 +15,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/homeToolbar"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:textSize="@dimen/large_text_size"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/home_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <androidx.appcompat.widget.AppCompatImageView
         android:src="@drawable/ic_add_text_fab"
         android:layout_width="@dimen/large_icon_size"
