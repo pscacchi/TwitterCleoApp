@@ -34,11 +34,13 @@ class FragmentAuthWebDialog : Fragment() {
             when (token) {
 
                 is ResponseDomain.Success<*> -> {
-                    startActivity(
-                        Intent(
-                            activity,
-                            MainCloneActivity::class.java
-                        ))
+                    val intent = Intent(
+                        activity,
+                        MainCloneActivity::class.java
+                    )
+                    intent.flags =  Intent.FLAG_ACTIVITY_NEW_TASK or
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity( intent )
                 }
                 is ResponseDomain.Error -> {
                     val action = FragmentAuthWebDialogDirections

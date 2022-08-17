@@ -31,6 +31,7 @@ class MainCloneActivity: AppCompatActivity() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
+        navController.setGraph(R.navigation.main_nav_graph)
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
