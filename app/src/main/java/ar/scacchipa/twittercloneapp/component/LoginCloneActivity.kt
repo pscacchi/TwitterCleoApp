@@ -2,17 +2,18 @@ package ar.scacchipa.twittercloneapp.component
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import ar.scacchipa.twittercloneapp.databinding.ActivityMainLayoutBinding
+import ar.scacchipa.twittercloneapp.databinding.ActivityLoginLayoutBinding
 
-class TwitterCloneActivity : AppCompatActivity() {
+class LoginCloneActivity : AppCompatActivity() {
 
-    private var binding: ActivityMainLayoutBinding? = null
+    private var binding: ActivityLoginLayoutBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainLayoutBinding.inflate(layoutInflater)
+        binding = ActivityLoginLayoutBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+
     }
 
     override fun onDestroy() {

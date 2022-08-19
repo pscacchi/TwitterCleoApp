@@ -9,7 +9,6 @@ import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
 import ar.scacchipa.twittercloneapp.domain.SplashTimerUseCase
 import ar.scacchipa.twittercloneapp.fragment.FragmentAuthWebDialog
-import ar.scacchipa.twittercloneapp.fragment.FragmentHome
 import ar.scacchipa.twittercloneapp.fragment.FragmentLogin
 import ar.scacchipa.twittercloneapp.fragment.FragmentSplash
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
@@ -40,7 +39,6 @@ val appModule = module {
     viewModel { SplashViewModel( get() ) }
 
     fragment { FragmentAuthWebDialog() }
-    fragment { FragmentHome() }
     fragment { FragmentLogin() }
     fragment { FragmentSplash() }
 }

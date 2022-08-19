@@ -12,4 +12,8 @@
     <string name="login_error_msg">We had an error to authenticate you. Please review your login information and try again.</string>
     <string name="ok">Ok</string>
     <string name="login_error">Login Error</string>
+    <string name="home_menu_title">Home</string>
+    <string name="search_menu_title">Search</string>
+    <string name="bell_menu_title">Bell</string>
+    <string name="message_menu_title">Message</string>
 </resources>

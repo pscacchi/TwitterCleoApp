@@ -32,23 +32,10 @@
         android:name="ar.scacchipa.twittercloneapp.fragment.FragmentAuthWebDialog"
         android:label="FragmentLoginAuthWebDialog" >
         <action
-            android:id="@+id/action_fragmentAuthWebDialog_to_fragmentHome"
-            app:destination="@id/fragmentHome"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true"/>
-        <action
             android:id="@+id/action_fragmentLoginAuthWebDialog_to_fragmentLogin"
             app:destination="@id/fragmentLogin"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true"/>
     </fragment>
-    <fragment
-        android:id="@+id/fragmentHome"
-        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentHome"
-        android:label="FragmentLoginSuccess" >
-        <argument
-            android:name="bearerToken"
-            app:argType="string"
-            android:defaultValue=""/>
-    </fragment>
+
 </navigation>

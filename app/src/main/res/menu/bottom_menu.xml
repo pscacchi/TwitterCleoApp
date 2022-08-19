@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fragment_home_nav"
+        android:icon="@drawable/ic_home_selector"
+        android:title="@string/home_menu_title"/>
+    <item
+        android:id="@+id/fragment_search_nav"
+        android:icon="@drawable/ic_search_selector"
+        android:title="@string/search_menu_title" />
+    <item
+        android:id="@+id/fragment_bell_nav"
+        android:icon="@drawable/ic_bell_selector"
+        android:enabled="true"
+        android:title="@string/bell_menu_title" />
+    <item
+        android:id="@+id/fragment_message_nav"
+        android:icon="@drawable/ic_message_selector"
+        android:title="@string/message_menu_title" />
+</menu>

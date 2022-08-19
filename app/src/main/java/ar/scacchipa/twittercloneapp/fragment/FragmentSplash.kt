@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.R
@@ -28,18 +27,11 @@ class FragmentSplash: Fragment() {
                 findNavController().navigate(R.id.action_fragmentSplash_to_fragmentLogin)
             }
         }
-        activity?.window?.let { window ->
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or
-                    View.SYSTEM_UI_FLAG_IMMERSIVE or
-                    View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.primary_background)
-            window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.primary_background)
-        }
         splashViewModel.spendSplash()
         return binding?.root
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }

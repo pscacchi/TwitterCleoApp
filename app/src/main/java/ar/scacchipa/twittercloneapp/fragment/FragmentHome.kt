@@ -4,29 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
-import ar.scacchipa.twittercloneapp.databinding.FragmentLoginSuccessBinding
+import ar.scacchipa.twittercloneapp.R
+import ar.scacchipa.twittercloneapp.databinding.FragmentHomeBinding
 
-class FragmentHome : Fragment() {
+class FragmentHome: Fragment() {
 
-    private val args: FragmentHomeArgs by navArgs()
-    private var binding: FragmentLoginSuccessBinding? = null
+    private var binding: FragmentHomeBinding? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLoginSuccessBinding.inflate(inflater)
+
+        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+
+        (activity as AppCompatActivity).supportActionBar
+            ?.setCustomView(R.layout.layout_actionbar_home)
+
         return binding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding?.bearerCode?.text = args.bearerToken
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 }

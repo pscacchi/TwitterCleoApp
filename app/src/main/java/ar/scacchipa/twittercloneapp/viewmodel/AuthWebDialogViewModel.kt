@@ -20,7 +20,7 @@ class AuthWebDialogViewModel (
 ): ViewModel() {
 
     private val _responseDomain = MutableLiveData<ResponseDomain?>()
-    val responseDomain = _responseDomain as LiveData<ResponseDomain?>
+    val responseDomain: LiveData<ResponseDomain?> = _responseDomain
 
     fun onReceiveUrl(uri: URI) {
         if (uri.host == URI(Constants.REDIRECT_URI).host) {
@@ -46,7 +46,7 @@ class AuthWebDialogViewModel (
     ) {
         viewModelScope.launch {
             _responseDomain.value = authorizationUseCase(
-                    transitoryToken = transitoryCode,
+                    transitoryToken = transitoryCode
             )
         }
     }
