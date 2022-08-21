@@ -4,11 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
+import ar.scacchipa.twittercloneapp.domain.RecoveredAccessTokenUseCase
 import ar.scacchipa.twittercloneapp.domain.SplashTimerUseCase
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    private val splashTimer: SplashTimerUseCase
+    private val splashTimer: SplashTimerUseCase,
+    private val recoveredAccessTokenUseCase: RecoveredAccessTokenUseCase
 ): ViewModel() {
 
     private val _splashWasSpent = MutableLiveData(false)
@@ -18,5 +21,9 @@ class SplashViewModel(
         viewModelScope.launch {
             _splashWasSpent.value = splashTimer.spendSplash()
         }
+    }
+
+    fun recoverUserAccessToken(): UserAccessTokenDomain {
+        return recoveredAccessTokenUseCase()
     }
 }

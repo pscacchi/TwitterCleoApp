@@ -7,8 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.scacchipa.twittercloneapp.data.ResponseDomain
+import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
+import ar.scacchipa.twittercloneapp.domain.SavedAccessTokenUseCase
 import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.launch
 import java.net.URI
@@ -16,11 +18,15 @@ import kotlin.collections.set
 
 class AuthWebDialogViewModel (
     private val authorizationUseCase: AuthorizationUseCase,
-    private val consumableAuthUseCase: ConsumableAuthUseCase
+    private val consumableAuthUseCase: ConsumableAuthUseCase,
+    private val savedAccessTokenUseCase: SavedAccessTokenUseCase
 ): ViewModel() {
 
     private val _responseDomain = MutableLiveData<ResponseDomain?>()
     val responseDomain: LiveData<ResponseDomain?> = _responseDomain
+
+    private val _savedAccessToken = MutableLiveData<UserAccessTokenDomain?>()
+    val savedAccessToken: LiveData<UserAccessTokenDomain?> = _savedAccessToken
 
     fun onReceiveUrl(uri: URI) {
         if (uri.host == URI(Constants.REDIRECT_URI).host) {
@@ -35,6 +41,7 @@ class AuthWebDialogViewModel (
             }
         }
     }
+
     fun onReceivedWebError(error: WebResourceError?) {
         if (error?.errorCode == WebViewClient.ERROR_HOST_LOOKUP) {
             _responseDomain.value = ResponseDomain.Error(error = Constants.ERROR_HOST_LOOKUP_TOKEN)
@@ -46,7 +53,7 @@ class AuthWebDialogViewModel (
     ) {
         viewModelScope.launch {
             _responseDomain.value = authorizationUseCase(
-                    transitoryToken = transitoryCode
+                transitoryToken = transitoryCode
             )
         }
     }
@@ -67,5 +74,13 @@ class AuthWebDialogViewModel (
 
     fun createTemporaryCodeUrl(): String {
         return consumableAuthUseCase()
+    }
+
+    fun saveAccessToken(accessToken: UserAccessTokenDomain) {
+        viewModelScope.launch {
+            if (savedAccessTokenUseCase(accessToken)) {
+                _savedAccessToken.value = accessToken
+            }
+        }
     }
 }

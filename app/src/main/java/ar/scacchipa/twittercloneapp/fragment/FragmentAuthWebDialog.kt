@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.component.MainCloneActivity
 import ar.scacchipa.twittercloneapp.data.ResponseDomain
+import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.databinding.FragmentAuthWebDialogLayoutBinding
 import ar.scacchipa.twittercloneapp.viewmodel.AuthWebDialogViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,15 +33,8 @@ class FragmentAuthWebDialog : Fragment() {
 
         viewModel.responseDomain.observe(viewLifecycleOwner) { token ->
             when (token) {
-
                 is ResponseDomain.Success<*> -> {
-                    val intent = Intent(
-                        activity,
-                        MainCloneActivity::class.java
-                    )
-                    intent.flags =  Intent.FLAG_ACTIVITY_NEW_TASK or
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity( intent )
+                    viewModel.saveAccessToken(token.data as UserAccessTokenDomain)
                 }
                 is ResponseDomain.Error -> {
                     val action = FragmentAuthWebDialogDirections
@@ -54,6 +48,15 @@ class FragmentAuthWebDialog : Fragment() {
                 else -> {
                     findNavController().navigateUp()
                 }
+            }
+        }
+
+        viewModel.savedAccessToken.observe(viewLifecycleOwner) { token ->
+            if (token?.accessToken?.isNotEmpty() == true) {
+                startActivity(Intent(
+                    activity,
+                    MainCloneActivity::class.java
+                ))
             }
         }
 

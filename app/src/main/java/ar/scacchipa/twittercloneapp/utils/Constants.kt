@@ -9,6 +9,14 @@ class Constants {
         const val STATE_STATE = "state"
         const val CODE_CHALLENGE_CHALLENGE = "challenge"
         const val CODE_CHALLENGE_METHOD_PLAIN = "plain"
+        const val TOKEN_TYPE_HINT = "access_token"
+        const val TWITTER_SESSION = "twitter_session"
+        const val TOKEN_TYPE = "tokenType"
+        const val EXPIRES_IN = "expiresIn"
+        const val ACCESS_TOKEN = "access_token"
+        const val SCOPE = "scope"
+        const val REFRESH_TOKEN = "refreshToken"
+        const val NO_USER_ACCESS_TOKEN = ""
 
         const val GRANT_TYPE_AUTHORIZATION_CODE = "authorization_code"
         const val CODE_VERIFIER_CHALLENGE = "challenge"
@@ -18,6 +26,7 @@ class Constants {
 
         const val ERROR_HOST_LOOKUP_TOKEN = "error_host_lookup"
         const val ERROR_ACCESS_DENIED = "access_denied"
+        const val ERROR_NO_REVOKE_ACCESS_TOKEN = "error_no_revoke_access_token"
 
         const val SCOPE_USERS_READ = "users.read"
         const val SCOPE_TWEET_READ = "tweet.read"
