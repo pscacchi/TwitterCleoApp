@@ -27,7 +27,7 @@ class FragmentSplash: Fragment() {
 
         splashViewModel.splashWasSpent.observe(viewLifecycleOwner) { splashWasSpent ->
             if (splashWasSpent) {
-                if (splashViewModel.recoverUserAccessToken().accessToken.isEmpty()) {
+                if (splashViewModel.onRecoverUserAccessToken().accessToken.isEmpty()) {
                     findNavController().navigate(R.id.action_fragmentSplash_to_fragmentLogin)
                 } else {
                     startActivity(

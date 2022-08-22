@@ -10,7 +10,7 @@ import ar.scacchipa.twittercloneapp.data.ResponseDomain
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.domain.SavedAccessTokenUseCase
+import ar.scacchipa.twittercloneapp.domain.ISavedAccessTokenUseCase
 import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.launch
 import java.net.URI
@@ -19,7 +19,7 @@ import kotlin.collections.set
 class AuthWebDialogViewModel (
     private val authorizationUseCase: AuthorizationUseCase,
     private val consumableAuthUseCase: ConsumableAuthUseCase,
-    private val savedAccessTokenUseCase: SavedAccessTokenUseCase
+    private val savedAccessTokenUseCase: ISavedAccessTokenUseCase
 ): ViewModel() {
 
     private val _responseDomain = MutableLiveData<ResponseDomain?>()
@@ -76,7 +76,7 @@ class AuthWebDialogViewModel (
         return consumableAuthUseCase()
     }
 
-    fun saveAccessToken(accessToken: UserAccessTokenDomain) {
+    fun onSaveAccessToken(accessToken: UserAccessTokenDomain) {
         viewModelScope.launch {
             if (savedAccessTokenUseCase(accessToken)) {
                 _savedAccessToken.value = accessToken

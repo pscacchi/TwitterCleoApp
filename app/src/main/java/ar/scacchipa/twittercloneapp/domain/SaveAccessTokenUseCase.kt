@@ -7,11 +7,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SavedAccessTokenUseCase(
+class SaveAccessTokenUseCase(
     private val sharedPreferences: SharedPreferences,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
-) {
-    open suspend operator fun invoke(token: UserAccessTokenDomain): Boolean {
+): ISavedAccessTokenUseCase {
+    override suspend operator fun invoke(token: UserAccessTokenDomain): Boolean {
         return withContext(dispatcher) {
             sharedPreferences.edit().apply {
                 putString(Constants.TOKEN_TYPE, token.tokenType)
@@ -23,3 +23,4 @@ class SavedAccessTokenUseCase(
         }
     }
 }
+

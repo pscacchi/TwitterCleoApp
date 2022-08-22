@@ -16,7 +16,6 @@ class Constants {
         const val ACCESS_TOKEN = "access_token"
         const val SCOPE = "scope"
         const val REFRESH_TOKEN = "refreshToken"
-        const val NO_USER_ACCESS_TOKEN = ""
 
         const val GRANT_TYPE_AUTHORIZATION_CODE = "authorization_code"
         const val CODE_VERIFIER_CHALLENGE = "challenge"

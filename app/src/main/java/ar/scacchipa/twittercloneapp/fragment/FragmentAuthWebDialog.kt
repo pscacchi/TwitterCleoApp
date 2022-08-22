@@ -34,7 +34,7 @@ class FragmentAuthWebDialog : Fragment() {
         viewModel.responseDomain.observe(viewLifecycleOwner) { token ->
             when (token) {
                 is ResponseDomain.Success<*> -> {
-                    viewModel.saveAccessToken(token.data as UserAccessTokenDomain)
+                    viewModel.onSaveAccessToken(token.data as UserAccessTokenDomain)
                 }
                 is ResponseDomain.Error -> {
                     val action = FragmentAuthWebDialogDirections

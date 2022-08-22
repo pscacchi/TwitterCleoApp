@@ -33,8 +33,8 @@ val appModule = module {
     single { SplashTimerUseCase() }
 
     single { getSharedPrefs( androidApplication() ) }
-    single { SavedAccessTokenUseCase( get() ) }
-    single { RecoveredAccessTokenUseCase( get() )}
+    single { SaveAccessTokenUseCase( get() ) }
+    single { RecoverAccessTokenUseCase( get() )}
 
     viewModel { AuthWebDialogViewModel( get(), get(), get() ) }
     viewModel { LoginViewModel( ) }

@@ -14,7 +14,7 @@ class RevokeTokenUseCase(
     private val sharedPreferences: SharedPreferences,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {
-    open suspend operator fun invoke(
+    suspend operator fun invoke(
         token: String,
         clientId: String
     ) {
