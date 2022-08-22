@@ -17,9 +17,7 @@
             android:name=".component.LoginCloneActivity"
             android:exported="true"
             android:theme="@style/Theme.TwitterCloneApp"
-            android:clearTaskOnLaunch="true"
-            android:noHistory="true"
-            android:launchMode="singleTask">
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -29,9 +27,7 @@
             android:name=".component.MainCloneActivity"
             android:theme="@style/Theme.TwitterCloneAppWithActionBar"
             android:clearTaskOnLaunch="true"
-            android:noHistory="true"
             android:launchMode="singleTask">
         </activity>
     </application>
-
-</manifest>
+</manifest>git
