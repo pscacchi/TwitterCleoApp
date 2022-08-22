@@ -22,7 +22,6 @@
         app:srcCompat="@drawable/twitter_logo" />
 
     <com.google.android.material.button.MaterialButton
-        style="@style/Theme.TwitterCloneApp"
         android:id="@+id/button_login"
         android:layout_width="200dp"
         android:layout_height="52dp"
