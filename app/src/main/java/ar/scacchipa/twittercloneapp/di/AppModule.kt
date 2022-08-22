@@ -1,5 +1,6 @@
 package ar.scacchipa.twittercloneapp.di
 
+import android.content.SharedPreferences
 import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenData
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenDataMapper
@@ -22,6 +23,7 @@ import org.koin.dsl.module
 val appModule = module {
 
     single { provideRetrofit() }
+    single { getSharedPrefs( androidApplication() ) as SharedPreferences }
 
     single { UserAccessTokenDataMapper() as IMapper<UserAccessTokenData, UserAccessTokenDomain> }
 
@@ -31,10 +33,8 @@ val appModule = module {
     single { AuthorizationUseCase(get()) }
     single { ConsumableAuthUseCase() }
     single { SplashTimerUseCase() }
-
-    single { getSharedPrefs( androidApplication() ) }
-    single { SaveAccessTokenUseCase( get() ) }
-    single { RecoverAccessTokenUseCase( get() )}
+    single { SaveAccessTokenUseCase( get() ) as ISavedAccessTokenUseCase }
+    single { RecoverAccessTokenUseCase( get() ) as IRecoveredAccessTokenUseCase }
 
     viewModel { AuthWebDialogViewModel( get(), get(), get() ) }
     viewModel { LoginViewModel( ) }
