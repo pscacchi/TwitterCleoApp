@@ -14,10 +14,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class SaveAccessTokenUseCaseTest {
+class StoreCredentialsUseCaseTest {
     private val mockSharedPrefs = MockSharedPreferences()
 
-    private val subject = SaveCredentialsUseCase(
+    private val subject = StoreCredentialsUseCase(
         sharedPreferences = mockSharedPrefs,
         dispatcher = Dispatchers.Default
     )

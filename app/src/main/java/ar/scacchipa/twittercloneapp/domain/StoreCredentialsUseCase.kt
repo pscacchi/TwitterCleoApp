@@ -7,10 +7,10 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SaveCredentialsUseCase(
+class StoreCredentialsUseCase(
     private val sharedPreferences: SharedPreferences,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
-): ISavedCredentialsUseCase {
+): IStoreCredentialsUseCase {
     override suspend operator fun invoke(token: UserAccessTokenDomain): Boolean {
         return withContext(dispatcher) {
             sharedPreferences.edit().apply {

@@ -13,11 +13,11 @@ import org.junit.Assert.assertFalse
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class RevokeTokenUseCaseTest {
+class RevokeCredentialsCaseTest {
 
     private val mockSharedPrefs = MockSharedPreferences()
 
-    private val subject = RevokeTokenUseCase(
+    private val subject = RevokeCredentialsUseCase(
         repository = MockRevokeTokenRepository(),
         sharedPreferences = mockSharedPrefs,
         dispatcher = Dispatchers.Default

@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class RevokeTokenUseCase(
+class RevokeCredentialsUseCase(
     private val repository: IRevokeTokenRepository,
     private val sharedPreferences: SharedPreferences,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
