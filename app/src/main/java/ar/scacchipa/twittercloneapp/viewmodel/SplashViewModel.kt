@@ -9,8 +9,8 @@ import ar.scacchipa.twittercloneapp.domain.SplashTimerUseCase
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    private val splashTimer: SplashTimerUseCase,
-    private val checkCredentials: ICheckCredentialsUseCase
+    private val splashTimerUseCase: SplashTimerUseCase,
+    private val checkCredentialsUseCase: ICheckCredentialsUseCase
 ): ViewModel() {
 
     private val _splashWasSpent = MutableLiveData(false)
@@ -18,11 +18,11 @@ class SplashViewModel(
 
     fun spendSplash() {
         viewModelScope.launch {
-            _splashWasSpent.value = splashTimer.spendSplash()
+            _splashWasSpent.value = splashTimerUseCase.spendSplash()
         }
     }
 
     fun onCheckCredentials(): Boolean {
-        return checkCredentials()
+        return checkCredentialsUseCase()
     }
 }

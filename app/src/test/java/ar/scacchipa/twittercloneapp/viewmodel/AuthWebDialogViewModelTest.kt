@@ -26,7 +26,7 @@ class AuthWebDialogViewModelTest {
     private var subject: AuthWebDialogViewModel = AuthWebDialogViewModel(
         authorizationUseCase = MockAuthorizationUseCase(),
         consumableAuthUseCase = MockConsumableAuthUseCase(),
-        savedAccessTokenUseCase = MockStoreCredentialsUseCase()
+        storeCredentialsUseCase = MockStoreCredentialsUseCase()
     )
 
     @get:Rule

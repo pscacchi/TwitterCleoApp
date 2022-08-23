@@ -19,7 +19,7 @@ import kotlin.collections.set
 class AuthWebDialogViewModel (
     private val authorizationUseCase: AuthorizationUseCase,
     private val consumableAuthUseCase: ConsumableAuthUseCase,
-    private val savedAccessTokenUseCase: IStoreCredentialsUseCase
+    private val storeCredentialsUseCase: IStoreCredentialsUseCase
 ): ViewModel() {
 
     private val _responseDomain = MutableLiveData<ResponseDomain?>()
@@ -78,7 +78,7 @@ class AuthWebDialogViewModel (
 
     fun onSaveAccessToken(accessToken: UserAccessTokenDomain) {
         viewModelScope.launch {
-            if (savedAccessTokenUseCase(accessToken)) {
+            if (storeCredentialsUseCase(accessToken)) {
                 _savedAccessToken.value = accessToken
             }
         }
