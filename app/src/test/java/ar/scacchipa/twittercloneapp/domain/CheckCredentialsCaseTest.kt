@@ -6,15 +6,15 @@ import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
 import org.junit.Assert
 import org.junit.Test
 
-class RecoverAccessTokenUseCaseTest {
+class CheckCredentialsCaseTest {
 
     private val mockSharedPrefs = MockSharedPreferences()
-    private val subject = RecoverAccessTokenUseCase(
+    private val subject = CheckCredentialsUseCase(
         sharedPrefs = mockSharedPrefs
     )
 
     @Test
-    fun subjectReturnAAccessToken() {
+    fun subjectFindCredentials() {
 
         val token = MockTokenProvider.userAccessTokenDomain1()
 
@@ -26,8 +26,7 @@ class RecoverAccessTokenUseCaseTest {
             putString(Constants.REFRESH_TOKEN, token.refreshToken)
         }.commit()
 
-        Assert.assertEquals(
-            MockTokenProvider.userAccessTokenDomain1(),
+        Assert.assertTrue(
             subject()
         )
 
@@ -35,6 +34,13 @@ class RecoverAccessTokenUseCaseTest {
             .edit()
             .clear()
             .commit()
+    }
+
+    @Test
+    fun subjectNotFindCredentials() {
+        Assert.assertFalse(
+            subject()
+        )
     }
 }
 

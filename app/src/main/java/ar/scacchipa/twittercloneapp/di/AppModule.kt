@@ -33,8 +33,8 @@ val appModule = module {
     single { AuthorizationUseCase(get()) }
     single { ConsumableAuthUseCase() }
     single { SplashTimerUseCase() }
-    single { SaveAccessTokenUseCase( get() ) as ISavedAccessTokenUseCase }
-    single { RecoverAccessTokenUseCase( get() ) as IRecoveredAccessTokenUseCase }
+    single { SaveCredentialsUseCase( get() ) as ISavedCredentialsUseCase }
+    single { CheckCredentialsUseCase( get() ) as ICheckCredentialsUseCase }
 
     viewModel { AuthWebDialogViewModel( get(), get(), get() ) }
     viewModel { LoginViewModel( ) }

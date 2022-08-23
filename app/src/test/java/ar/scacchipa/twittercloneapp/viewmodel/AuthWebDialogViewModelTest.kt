@@ -7,7 +7,7 @@ import ar.scacchipa.twittercloneapp.data.ResponseDomain
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.domain.ISavedAccessTokenUseCase
+import ar.scacchipa.twittercloneapp.domain.ISavedCredentialsUseCase
 import ar.scacchipa.twittercloneapp.domain.MockAuthorizationRepository
 import ar.scacchipa.twittercloneapp.utils.Constants
 import ar.scacchipa.twittercloneapp.utils.MainCoroutineTestRule
@@ -26,7 +26,7 @@ class AuthWebDialogViewModelTest {
     private var subject: AuthWebDialogViewModel = AuthWebDialogViewModel(
         authorizationUseCase = MockAuthorizationUseCase(),
         consumableAuthUseCase = MockConsumableAuthUseCase(),
-        savedAccessTokenUseCase = MockSavedAccessTokenUseCase()
+        savedAccessTokenUseCase = MockSavedCredentialsUseCase()
     )
 
     @get:Rule
@@ -133,7 +133,7 @@ class AuthWebDialogViewModelTest {
         }
     }
 
-    class MockSavedAccessTokenUseCase : ISavedAccessTokenUseCase {
+    class MockSavedCredentialsUseCase : ISavedCredentialsUseCase {
         override suspend fun invoke(token: UserAccessTokenDomain): Boolean {
             return token == MockTokenProvider.userAccessTokenDomain1()
         }

@@ -27,15 +27,15 @@ class FragmentSplash: Fragment() {
 
         splashViewModel.splashWasSpent.observe(viewLifecycleOwner) { splashWasSpent ->
             if (splashWasSpent) {
-                if (splashViewModel.onRecoverUserAccessToken().accessToken.isEmpty()) {
-                    findNavController().navigate(R.id.action_fragmentSplash_to_fragmentLogin)
-                } else {
+                if (splashViewModel.onCheckCredentials()) {
                     startActivity(
                         Intent(
                             activity,
                             MainCloneActivity::class.java
                         )
                     )
+                } else {
+                    findNavController().navigate(R.id.action_fragmentSplash_to_fragmentLogin)
                 }
             }
         }

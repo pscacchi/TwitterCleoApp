@@ -17,7 +17,7 @@ import org.junit.Test
 class SaveAccessTokenUseCaseTest {
     private val mockSharedPrefs = MockSharedPreferences()
 
-    private val subject = SaveAccessTokenUseCase(
+    private val subject = SaveCredentialsUseCase(
         sharedPreferences = mockSharedPrefs,
         dispatcher = Dispatchers.Default
     )

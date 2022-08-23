@@ -1,11 +1,9 @@
 package ar.scacchipa.twittercloneapp.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
-import ar.scacchipa.twittercloneapp.domain.IRecoveredAccessTokenUseCase
+import ar.scacchipa.twittercloneapp.domain.ICheckCredentialsUseCase
 import ar.scacchipa.twittercloneapp.domain.SplashTimerUseCase
 import ar.scacchipa.twittercloneapp.utils.MainCoroutineTestRule
-import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -22,9 +20,11 @@ class SplashViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
+    private val checkCredentialsUseCase = MockCheckCredentialsUseCase()
+
     private val subject = SplashViewModel(
         MockSplashTimer(),
-        MockRecoveredAccessTokenUseCase()
+        checkCredentialsUseCase
     )
 
     @Test
@@ -35,9 +35,10 @@ class SplashViewModelTest {
     }
 
     @Test
-    fun recoverUserAccessToken() {
+    fun checkCredentialsReturnTrue() {
+        checkCredentialsUseCase
         assertTrue(
-            MockTokenProvider.userAccessTokenDomain1() == subject.onRecoverUserAccessToken()
+            subject.onCheckCredentials()
         )
     }
 
@@ -47,9 +48,9 @@ class SplashViewModelTest {
         }
     }
 
-    class MockRecoveredAccessTokenUseCase() : IRecoveredAccessTokenUseCase {
-        override operator fun invoke(): UserAccessTokenDomain {
-            return MockTokenProvider.userAccessTokenDomain1()
+    class MockCheckCredentialsUseCase : ICheckCredentialsUseCase {
+        override operator fun invoke(): Boolean {
+            return true
         }
     }
 }

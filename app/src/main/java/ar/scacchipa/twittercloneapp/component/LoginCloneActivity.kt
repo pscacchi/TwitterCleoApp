@@ -13,7 +13,6 @@ class LoginCloneActivity : AppCompatActivity() {
 
         binding = ActivityLoginLayoutBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-
     }
 
     override fun onDestroy() {
