@@ -25,7 +25,7 @@ import org.koin.dsl.module
 val appModule = module {
 
     single { provideRetrofit() }
-    single { provideSharedPrefs( androidApplication() ) as SharedPreferences }
+    single { provideCredentialLocalSource( androidApplication() ) as SharedPreferences }
     single { provideAuthSourceDataApi(get()) as IAuthDataSource }
 
     single { UserAccessTokenMapper() as IMapper<UserAccessTokenData, Credential> }
