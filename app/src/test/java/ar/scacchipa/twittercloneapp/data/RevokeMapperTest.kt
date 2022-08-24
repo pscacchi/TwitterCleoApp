@@ -3,9 +3,9 @@ package ar.scacchipa.twittercloneapp.data
 import org.junit.Assert
 import org.junit.Test
 
-class RevokeDataMapperTest {
+class RevokeMapperTest {
 
-    private val subject = RevokeDataMapper()
+    private val subject = RevokeMapper()
 
     @Test
     fun mapFromDataToDomain() {

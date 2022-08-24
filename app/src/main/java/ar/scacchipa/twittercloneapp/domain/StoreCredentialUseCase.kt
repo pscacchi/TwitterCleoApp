@@ -6,8 +6,8 @@ import ar.scacchipa.twittercloneapp.repository.ICredentialRepository
 class StoreCredentialUseCase(
     private val credentialRepository: ICredentialRepository
 ): IStoreCredentialUseCase {
-    override suspend operator fun invoke(credentials: Credential): Boolean {
-        return credentialRepository.storeCredentials( credentials )
+    override suspend operator fun invoke(credential: Credential): Boolean {
+        return credentialRepository.storeCredential( credential )
     }
 }
 

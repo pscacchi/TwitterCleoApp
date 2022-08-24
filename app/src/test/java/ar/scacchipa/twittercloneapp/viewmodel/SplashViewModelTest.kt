@@ -20,11 +20,11 @@ class SplashViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    private val checkCredentialsUseCase = MockCheckCredentialUseCase()
+    private val checkCredentialUseCase = MockCheckCredentialUseCase()
 
     private val subject = SplashViewModel(
         MockSplashTimer(),
-        checkCredentialsUseCase
+        checkCredentialUseCase
     )
 
     @Test
@@ -35,10 +35,10 @@ class SplashViewModelTest {
     }
 
     @Test
-    fun checkCredentialsReturnTrue() {
-        checkCredentialsUseCase
+    fun checkCredentialReturnTrue() {
+        checkCredentialUseCase
         assertTrue(
-            subject.onCheckCredentials()
+            subject.onCheckCredential()
         )
     }
 

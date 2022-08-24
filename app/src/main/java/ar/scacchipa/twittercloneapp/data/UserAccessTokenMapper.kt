@@ -2,7 +2,7 @@ package ar.scacchipa.twittercloneapp.data
 
 import ar.scacchipa.twittercloneapp.utils.Constants
 
-class UserAccessTokenDataMapper: IMapper<UserAccessTokenData, Credential> {
+class UserAccessTokenMapper: IMapper<UserAccessTokenData, Credential> {
     override fun toDomain(value: UserAccessTokenData): Credential {
         return Credential(
             accessToken = value.accessToken,

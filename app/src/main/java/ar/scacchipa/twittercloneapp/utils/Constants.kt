@@ -12,7 +12,6 @@ class Constants {
         const val TOKEN_TYPE_HINT = "access_token"
         const val TWITTER_SESSION = "twitter_session"
         const val TOKEN_TYPE = "tokenType"
-        const val EXPIRES_IN = "expiresIn"
         const val ACCESS_TOKEN = "access_token"
         const val SCOPE = "scope"
         const val REFRESH_TOKEN = "refreshToken"

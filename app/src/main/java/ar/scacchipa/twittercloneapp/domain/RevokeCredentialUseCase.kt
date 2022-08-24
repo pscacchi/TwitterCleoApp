@@ -5,7 +5,7 @@ import ar.scacchipa.twittercloneapp.data.RevokeDomain
 import ar.scacchipa.twittercloneapp.repository.ICredentialRepository
 import ar.scacchipa.twittercloneapp.repository.IRevokeTokenRepository
 
-class RevokeCredentialsUseCase(
+class RevokeCredentialUseCase(
     private val repository: IRevokeTokenRepository,
     private val credentialLocalRepo: ICredentialRepository
 ) {

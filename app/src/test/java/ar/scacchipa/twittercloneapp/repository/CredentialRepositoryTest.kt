@@ -32,7 +32,7 @@ class CredentialRepositoryTest {
             }
             .commit()
 
-        val actualCredential = subject.recoverCredentials()
+        val actualCredential = subject.recoverCredential()
 
         assertEquals(
             expectedCredential,
@@ -48,7 +48,7 @@ class CredentialRepositoryTest {
     fun subjectLocalStoreCredential() = runTest {
         val expectedCredential = MockTokenProvider.credential1()
 
-        subject.storeCredentials(expectedCredential)
+        subject.storeCredential(expectedCredential)
 
         val storedCredential = Credential(
             credentialLocalSource.getString(Constants.ACCESS_TOKEN, "") ?: "",

@@ -27,7 +27,7 @@ class FragmentSplash: Fragment() {
 
         splashViewModel.splashWasSpent.observe(viewLifecycleOwner) { splashWasSpent ->
             if (splashWasSpent) {
-                if (splashViewModel.onCheckCredentials()) {
+                if (splashViewModel.onCheckCredential()) {
                     startActivity(
                         Intent(
                             activity,

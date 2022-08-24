@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class SplashViewModel(
     private val splashTimerUseCase: SplashTimerUseCase,
-    private val checkCredentialsUseCase: ICheckCredentialUseCase
+    private val checkCredentialUseCase: ICheckCredentialUseCase
 ): ViewModel() {
 
     private val _splashWasSpent = MutableLiveData(false)
@@ -22,7 +22,7 @@ class SplashViewModel(
         }
     }
 
-    fun onCheckCredentials(): Boolean {
-        return checkCredentialsUseCase()
+    fun onCheckCredential(): Boolean {
+        return checkCredentialUseCase()
     }
 }

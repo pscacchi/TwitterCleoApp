@@ -12,7 +12,7 @@ class CredentialRepository(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ): ICredentialRepository {
 
-    override fun recoverCredentials(): Credential {
+    override fun recoverCredential(): Credential {
         credentialLocalSource.apply {
             return Credential(
                 getString(Constants.ACCESS_TOKEN, "") ?: "",
@@ -21,7 +21,7 @@ class CredentialRepository(
         }
     }
 
-    override suspend fun storeCredentials(credential: Credential): Boolean {
+    override suspend fun storeCredential(credential: Credential): Boolean {
         return withContext(dispatcher) {
             credentialLocalSource.edit().apply {
                 putString(Constants.ACCESS_TOKEN, credential.accessToken)

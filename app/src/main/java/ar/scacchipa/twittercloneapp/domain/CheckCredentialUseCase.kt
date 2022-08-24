@@ -6,7 +6,7 @@ class CheckCredentialUseCase(
     private val credentialRepository: ICredentialRepository
 ): ICheckCredentialUseCase {
     override operator fun invoke(): Boolean {
-        credentialRepository.recoverCredentials().apply {
+        credentialRepository.recoverCredential().apply {
             return accessToken.isNotEmpty() &&
                     refreshToken.isNotEmpty()
         }

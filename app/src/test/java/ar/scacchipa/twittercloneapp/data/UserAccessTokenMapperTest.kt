@@ -5,12 +5,12 @@ import org.junit.Assert
 import org.junit.Test
 
 
-class UserAccessTokenDataMapperTest {
+class UserAccessTokenMapperTest {
 
-    private val subject = UserAccessTokenDataMapper()
+    private val subject = UserAccessTokenMapper()
 
     @Test
-    fun subjectReturnCredentials() {
+    fun subjectReturnCredential() {
         val expected = MockTokenProvider.credential1()
         val actual = subject.toDomain( MockTokenProvider.userAccessTokenData1() )
         Assert.assertEquals(expected, actual)

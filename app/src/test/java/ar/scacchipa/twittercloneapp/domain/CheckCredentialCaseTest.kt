@@ -6,7 +6,7 @@ import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
 import org.junit.Assert
 import org.junit.Test
 
-class CheckCredentialsCaseTest {
+class CheckCredentialCaseTest {
 
     private var mockCredentialRepo = MockCredentialRepo(
         MockTokenProvider.credential1()
@@ -16,14 +16,14 @@ class CheckCredentialsCaseTest {
     )
 
     @Test
-    fun subjectFindCredentials() {
+    fun subjectFindCredential() {
         Assert.assertTrue(
             subject()
         )
     }
 
     @Test
-    fun subjectNotFindCredentials() {
+    fun subjectNotFindCredential() {
         mockCredentialRepo.credential = MockTokenProvider.credentialNull()
 
         Assert.assertFalse(
@@ -36,11 +36,11 @@ class CheckCredentialsCaseTest {
     class MockCredentialRepo(
         var credential: Credential
     ): ICredentialRepository {
-        override suspend fun storeCredentials(credential: Credential): Boolean {
+        override suspend fun storeCredential(credential: Credential): Boolean {
             throw NotImplementedError("Not yet implemented")
         }
 
-        override fun recoverCredentials(): Credential {
+        override fun recoverCredential(): Credential {
             return credential
         }
 

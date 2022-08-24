@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import ar.scacchipa.twittercloneapp.data.Credential
 import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenData
-import ar.scacchipa.twittercloneapp.data.UserAccessTokenDataMapper
+import ar.scacchipa.twittercloneapp.data.UserAccessTokenMapper
 import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
 import ar.scacchipa.twittercloneapp.domain.*
 import ar.scacchipa.twittercloneapp.fragment.FragmentAuthWebDialog
@@ -28,7 +28,7 @@ val appModule = module {
     single { provideSharedPrefs( androidApplication() ) as SharedPreferences }
     single { provideAuthSourceDataApi(get()) as IAuthDataSource }
 
-    single { UserAccessTokenDataMapper() as IMapper<UserAccessTokenData, Credential> }
+    single { UserAccessTokenMapper() as IMapper<UserAccessTokenData, Credential> }
 
     single { AuthorizationRepository(get(), get()) as IAuthorizationRepository }
     single { CredentialRepository( get() ) as ICredentialRepository }

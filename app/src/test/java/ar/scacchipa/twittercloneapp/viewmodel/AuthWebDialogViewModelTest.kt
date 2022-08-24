@@ -26,7 +26,7 @@ class AuthWebDialogViewModelTest {
     private var subject: AuthWebDialogViewModel = AuthWebDialogViewModel(
         authorizationUseCase = MockAuthorizationUseCase(),
         consumableAuthUseCase = MockConsumableAuthUseCase(),
-        storeCredentialsUseCase = MockStoreCredentialUseCase()
+        storeCredentialUseCase = MockStoreCredentialUseCase()
     )
 
     @get:Rule
@@ -131,8 +131,8 @@ class AuthWebDialogViewModelTest {
     }
 
     class MockStoreCredentialUseCase : IStoreCredentialUseCase {
-        override suspend fun invoke(token: Credential): Boolean {
-            return token == MockTokenProvider.credential1()
+        override suspend fun invoke(credential: Credential): Boolean {
+            return credential == MockTokenProvider.credential1()
         }
     }
 }

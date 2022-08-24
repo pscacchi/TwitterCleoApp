@@ -2,8 +2,8 @@ package ar.scacchipa.twittercloneapp.repository
 
 import ar.scacchipa.twittercloneapp.data.ResponseDomain
 import ar.scacchipa.twittercloneapp.data.RevokeData
-import ar.scacchipa.twittercloneapp.data.RevokeDataMapper
 import ar.scacchipa.twittercloneapp.data.RevokeDomain
+import ar.scacchipa.twittercloneapp.data.RevokeMapper
 import ar.scacchipa.twittercloneapp.datasource.IRevokeTokenDataSource
 import ar.scacchipa.twittercloneapp.utils.Constants
 import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
@@ -21,7 +21,7 @@ class RevokeTokenRepositoryTest {
 
     private val subject = RevokeTokenRepository(
         revokeTokenDataSource = MockRevokeTokenDataSource(),
-        mapper = RevokeDataMapper(),
+        mapper = RevokeMapper(),
         dispatcher = Dispatchers.IO
     )
 
@@ -54,7 +54,7 @@ class RevokeTokenRepositoryTest {
     }
 }
 
-class MockRevokeTokenDataSource(): IRevokeTokenDataSource {
+class MockRevokeTokenDataSource: IRevokeTokenDataSource {
     override suspend fun revokeToken(
         token: String,
         clientId: String,

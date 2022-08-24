@@ -19,7 +19,7 @@ import kotlin.collections.set
 class AuthWebDialogViewModel (
     private val authorizationUseCase: AuthorizationUseCase,
     private val consumableAuthUseCase: ConsumableAuthUseCase,
-    private val storeCredentialsUseCase: IStoreCredentialUseCase
+    private val storeCredentialUseCase: IStoreCredentialUseCase
 ): ViewModel() {
 
     private val _responseDomain = MutableLiveData<ResponseDomain?>()
@@ -78,7 +78,7 @@ class AuthWebDialogViewModel (
 
     fun onLocalStoreCredential(credential: Credential) {
         viewModelScope.launch {
-            if (storeCredentialsUseCase(credential)) {
+            if (storeCredentialUseCase(credential)) {
                 _savedCredential.value = credential
             }
         }

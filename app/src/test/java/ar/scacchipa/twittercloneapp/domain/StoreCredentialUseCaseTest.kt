@@ -9,7 +9,7 @@ import org.junit.Test
 import kotlin.test.assertTrue
 
 @ExperimentalCoroutinesApi
-class StoreCredentialsUseCaseTest {
+class StoreCredentialUseCaseTest {
 
     private val subject = StoreCredentialUseCase(
         credentialRepository = MockCredentialRepo()
@@ -23,7 +23,7 @@ class StoreCredentialsUseCaseTest {
     }
 
     class MockCredentialRepo: ICredentialRepository {
-        override suspend fun storeCredentials(credential: Credential): Boolean {
+        override suspend fun storeCredential(credential: Credential): Boolean {
             if (credential != MockTokenProvider.credential1()) {
                 throw NotImplementedError("Not yet implemented")
             } else {
@@ -31,7 +31,7 @@ class StoreCredentialsUseCaseTest {
             }
         }
 
-        override fun recoverCredentials(): Credential {
+        override fun recoverCredential(): Credential {
             throw NotImplementedError("Not yet implemented")
         }
 
