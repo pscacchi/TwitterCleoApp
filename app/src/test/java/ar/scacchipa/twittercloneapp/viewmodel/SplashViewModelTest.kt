@@ -1,7 +1,7 @@
 package ar.scacchipa.twittercloneapp.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import ar.scacchipa.twittercloneapp.domain.ICheckCredentialsUseCase
+import ar.scacchipa.twittercloneapp.domain.ICheckCredentialUseCase
 import ar.scacchipa.twittercloneapp.domain.SplashTimerUseCase
 import ar.scacchipa.twittercloneapp.utils.MainCoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,7 +20,7 @@ class SplashViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    private val checkCredentialsUseCase = MockCheckCredentialsUseCase()
+    private val checkCredentialsUseCase = MockCheckCredentialUseCase()
 
     private val subject = SplashViewModel(
         MockSplashTimer(),
@@ -48,7 +48,7 @@ class SplashViewModelTest {
         }
     }
 
-    class MockCheckCredentialsUseCase : ICheckCredentialsUseCase {
+    class MockCheckCredentialUseCase : ICheckCredentialUseCase {
         override operator fun invoke(): Boolean {
             return true
         }

@@ -6,11 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ar.scacchipa.twittercloneapp.data.Credential
 import ar.scacchipa.twittercloneapp.data.ResponseDomain
-import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.domain.IStoreCredentialsUseCase
+import ar.scacchipa.twittercloneapp.domain.IStoreCredentialUseCase
 import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.launch
 import java.net.URI
@@ -19,14 +19,14 @@ import kotlin.collections.set
 class AuthWebDialogViewModel (
     private val authorizationUseCase: AuthorizationUseCase,
     private val consumableAuthUseCase: ConsumableAuthUseCase,
-    private val storeCredentialsUseCase: IStoreCredentialsUseCase
+    private val storeCredentialsUseCase: IStoreCredentialUseCase
 ): ViewModel() {
 
     private val _responseDomain = MutableLiveData<ResponseDomain?>()
     val responseDomain: LiveData<ResponseDomain?> = _responseDomain
 
-    private val _savedAccessToken = MutableLiveData<UserAccessTokenDomain?>()
-    val savedAccessToken: LiveData<UserAccessTokenDomain?> = _savedAccessToken
+    private val _savedCredential = MutableLiveData<Credential?>()
+    val savedCredential: LiveData<Credential?> = _savedCredential
 
     fun onReceiveUrl(uri: URI) {
         if (uri.host == URI(Constants.REDIRECT_URI).host) {
@@ -76,10 +76,10 @@ class AuthWebDialogViewModel (
         return consumableAuthUseCase()
     }
 
-    fun onSaveAccessToken(accessToken: UserAccessTokenDomain) {
+    fun onLocalStoreCredential(credential: Credential) {
         viewModelScope.launch {
-            if (storeCredentialsUseCase(accessToken)) {
-                _savedAccessToken.value = accessToken
+            if (storeCredentialsUseCase(credential)) {
+                _savedCredential.value = credential
             }
         }
     }

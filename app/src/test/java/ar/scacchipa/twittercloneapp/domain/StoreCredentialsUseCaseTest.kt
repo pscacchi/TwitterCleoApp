@@ -1,57 +1,42 @@
 package ar.scacchipa.twittercloneapp.domain
 
-import ar.scacchipa.twittercloneapp.utils.Constants.Companion.ACCESS_TOKEN
-import ar.scacchipa.twittercloneapp.utils.Constants.Companion.EXPIRES_IN
-import ar.scacchipa.twittercloneapp.utils.Constants.Companion.REFRESH_TOKEN
-import ar.scacchipa.twittercloneapp.utils.Constants.Companion.SCOPE
-import ar.scacchipa.twittercloneapp.utils.Constants.Companion.TOKEN_TYPE
-import ar.scacchipa.twittercloneapp.utils.MockSharedPreferences
+import ar.scacchipa.twittercloneapp.data.Credential
+import ar.scacchipa.twittercloneapp.repository.ICredentialRepository
 import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
 import org.junit.Test
+import kotlin.test.assertTrue
 
 @ExperimentalCoroutinesApi
 class StoreCredentialsUseCaseTest {
-    private val mockSharedPrefs = MockSharedPreferences()
 
-    private val subject = StoreCredentialsUseCase(
-        sharedPreferences = mockSharedPrefs,
-        dispatcher = Dispatchers.Default
+    private val subject = StoreCredentialUseCase(
+        credentialRepository = MockCredentialRepo()
     )
 
     @Test
     fun saveTokenOnSharedPrefs() = runTest {
-        val token = MockTokenProvider.userAccessTokenDomain1()
+        val token = MockTokenProvider.credential1()
 
-        subject.invoke(token)
+        assertTrue { subject.invoke(token) }
+    }
 
-        assertEquals(
-            token.tokenType,
-            mockSharedPrefs.getString(TOKEN_TYPE, null)
-        )
-        assertEquals(
-            token.expiresIn,
-            mockSharedPrefs.getInt(EXPIRES_IN, 0)
-        )
-        assertEquals(
-            token.accessToken,
-            mockSharedPrefs.getString(ACCESS_TOKEN, null)
-        )
-        assertEquals(
-            token.scope,
-            mockSharedPrefs.getString(SCOPE, null)
-        )
-        assertEquals(
-            token.refreshToken,
-            mockSharedPrefs.getString(REFRESH_TOKEN, null)
-        )
+    class MockCredentialRepo: ICredentialRepository {
+        override suspend fun storeCredentials(credential: Credential): Boolean {
+            if (credential != MockTokenProvider.credential1()) {
+                throw NotImplementedError("Not yet implemented")
+            } else {
+                return true
+            }
+        }
 
-        mockSharedPrefs
-            .edit()
-            .clear()
-            .commit()
+        override fun recoverCredentials(): Credential {
+            throw NotImplementedError("Not yet implemented")
+        }
+
+        override suspend fun removeCredential() {
+            throw NotImplementedError("Not yet implemented")
+        }
     }
 }

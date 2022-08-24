@@ -3,11 +3,11 @@ package ar.scacchipa.twittercloneapp.viewmodel
 import android.webkit.WebResourceError
 import android.webkit.WebViewClient
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import ar.scacchipa.twittercloneapp.data.Credential
 import ar.scacchipa.twittercloneapp.data.ResponseDomain
-import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.domain.IStoreCredentialsUseCase
+import ar.scacchipa.twittercloneapp.domain.IStoreCredentialUseCase
 import ar.scacchipa.twittercloneapp.domain.MockAuthorizationRepository
 import ar.scacchipa.twittercloneapp.utils.Constants
 import ar.scacchipa.twittercloneapp.utils.MainCoroutineTestRule
@@ -26,7 +26,7 @@ class AuthWebDialogViewModelTest {
     private var subject: AuthWebDialogViewModel = AuthWebDialogViewModel(
         authorizationUseCase = MockAuthorizationUseCase(),
         consumableAuthUseCase = MockConsumableAuthUseCase(),
-        storeCredentialsUseCase = MockStoreCredentialsUseCase()
+        storeCredentialsUseCase = MockStoreCredentialUseCase()
     )
 
     @get:Rule
@@ -62,11 +62,8 @@ class AuthWebDialogViewModelTest {
         Assert.assertTrue(
             subject.responseDomain.value ==
                     ResponseDomain.Success(
-                        UserAccessTokenDomain(
-                            tokenType = "bearer",
-                            expiresIn = 7200,
+                        Credential(
                             accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
-                            scope = "tweet.read tweet.write",
                             refreshToken = "LVJQQXMxSUM0QUQ2eHNidkNfYUNScUJoSTY5Sy1ndGxqMmx2WnRPQzF4NklDOjE2NTY1OTUxOTIxMTU6MTowOnJ0OjE"
                         )
                     )
@@ -98,11 +95,11 @@ class AuthWebDialogViewModelTest {
 
     @Test
     fun onSaveAccessTokenStoresInLiveData() {
-        subject.onSaveAccessToken( MockTokenProvider.userAccessTokenDomain1() )
+        subject.onLocalStoreCredential( MockTokenProvider.credential1() )
 
         assertEquals(
-            MockTokenProvider.userAccessTokenDomain1(),
-            subject.savedAccessToken.value
+            MockTokenProvider.credential1(),
+            subject.savedCredential.value
         )
     }
 
@@ -112,7 +109,7 @@ class AuthWebDialogViewModelTest {
         ): ResponseDomain {
             return if (transitoryToken == "SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE") {
                 ResponseDomain.Success(
-                    MockTokenProvider.userAccessTokenDomain1()
+                    MockTokenProvider.credential1()
                 )
             } else {
                 ResponseDomain.Error(error = "error")
@@ -133,9 +130,9 @@ class AuthWebDialogViewModelTest {
         }
     }
 
-    class MockStoreCredentialsUseCase : IStoreCredentialsUseCase {
-        override suspend fun invoke(token: UserAccessTokenDomain): Boolean {
-            return token == MockTokenProvider.userAccessTokenDomain1()
+    class MockStoreCredentialUseCase : IStoreCredentialUseCase {
+        override suspend fun invoke(token: Credential): Boolean {
+            return token == MockTokenProvider.credential1()
         }
     }
 }

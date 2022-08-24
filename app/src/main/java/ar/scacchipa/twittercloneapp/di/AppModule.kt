@@ -1,17 +1,19 @@
 package ar.scacchipa.twittercloneapp.di
 
 import android.content.SharedPreferences
+import ar.scacchipa.twittercloneapp.data.Credential
 import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenData
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenDataMapper
-import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
 import ar.scacchipa.twittercloneapp.domain.*
 import ar.scacchipa.twittercloneapp.fragment.FragmentAuthWebDialog
 import ar.scacchipa.twittercloneapp.fragment.FragmentLogin
 import ar.scacchipa.twittercloneapp.fragment.FragmentSplash
 import ar.scacchipa.twittercloneapp.repository.AuthorizationRepository
+import ar.scacchipa.twittercloneapp.repository.CredentialRepository
 import ar.scacchipa.twittercloneapp.repository.IAuthorizationRepository
+import ar.scacchipa.twittercloneapp.repository.ICredentialRepository
 import ar.scacchipa.twittercloneapp.viewmodel.AuthWebDialogViewModel
 import ar.scacchipa.twittercloneapp.viewmodel.LoginViewModel
 import ar.scacchipa.twittercloneapp.viewmodel.SplashViewModel
@@ -23,18 +25,19 @@ import org.koin.dsl.module
 val appModule = module {
 
     single { provideRetrofit() }
-    single { getSharedPrefs( androidApplication() ) as SharedPreferences }
-
-    single { UserAccessTokenDataMapper() as IMapper<UserAccessTokenData, UserAccessTokenDomain> }
-
+    single { provideSharedPrefs( androidApplication() ) as SharedPreferences }
     single { provideAuthSourceDataApi(get()) as IAuthDataSource }
+
+    single { UserAccessTokenDataMapper() as IMapper<UserAccessTokenData, Credential> }
+
     single { AuthorizationRepository(get(), get()) as IAuthorizationRepository }
+    single { CredentialRepository( get() ) as ICredentialRepository }
 
     single { AuthorizationUseCase(get()) }
     single { ConsumableAuthUseCase() }
     single { SplashTimerUseCase() }
-    single { StoreCredentialsUseCase( get() ) as IStoreCredentialsUseCase }
-    single { CheckCredentialsUseCase( get() ) as ICheckCredentialsUseCase }
+    single { StoreCredentialUseCase( get() ) as IStoreCredentialUseCase }
+    single { CheckCredentialUseCase( get() ) as ICheckCredentialUseCase }
 
     viewModel { AuthWebDialogViewModel( get(), get(), get() ) }
     viewModel { LoginViewModel( ) }

@@ -1,9 +1,9 @@
 package ar.scacchipa.twittercloneapp.repository
 
+import ar.scacchipa.twittercloneapp.data.Credential
 import ar.scacchipa.twittercloneapp.data.ResponseDomain
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenData
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenDataMapper
-import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
 import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,11 +25,8 @@ class AuthorizationRepositoryTest {
     @Test
     fun repoShouldReturnASuccessToken() = runTest {
         val expected = ResponseDomain.Success(
-            UserAccessTokenDomain(
-                tokenType = "bearer",
-                expiresIn = 7200,
+            Credential(
                 accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
-                scope = "tweet.read tweet.write",
                 refreshToken = "LVJQQXMxSUM0QUQ2eHNidkNfYUNScUJoSTY5Sy1ndGxqMmx2WnRPQzF4NklDOjE2NTY1OTUxOTIxMTU6MTowOnJ0OjE",
             )
         )

@@ -10,16 +10,16 @@ class UserAccessTokenDataMapperTest {
     private val subject = UserAccessTokenDataMapper()
 
     @Test
-    fun subjectReturnUserAccessDomain() {
-        val expected = MockTokenProvider.userAccessTokenDomain1()
+    fun subjectReturnCredentials() {
+        val expected = MockTokenProvider.credential1()
         val actual = subject.toDomain( MockTokenProvider.userAccessTokenData1() )
         Assert.assertEquals(expected, actual)
     }
 
     @Test
     fun subjectReturnUserAccessData() {
-        val expected = subject.fromDomain( MockTokenProvider.userAccessTokenDomain1() )
-        val actual = MockTokenProvider.userAccessTokenData1()
+        val expected = MockTokenProvider.mappedUserAccessTokenData1()
+        val actual = subject.fromDomain( MockTokenProvider.credential1() )
         Assert.assertEquals(expected, actual)
     }
 }

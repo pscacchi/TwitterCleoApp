@@ -1,18 +1,13 @@
 package ar.scacchipa.twittercloneapp.domain
 
-import android.content.SharedPreferences
 import ar.scacchipa.twittercloneapp.data.ResponseDomain
 import ar.scacchipa.twittercloneapp.data.RevokeDomain
+import ar.scacchipa.twittercloneapp.repository.ICredentialRepository
 import ar.scacchipa.twittercloneapp.repository.IRevokeTokenRepository
-import ar.scacchipa.twittercloneapp.utils.Constants
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class RevokeCredentialsUseCase(
     private val repository: IRevokeTokenRepository,
-    private val sharedPreferences: SharedPreferences,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val credentialLocalRepo: ICredentialRepository
 ) {
     suspend operator fun invoke(
         token: String,
@@ -27,15 +22,7 @@ class RevokeCredentialsUseCase(
                 val revokeDomain = response.data as RevokeDomain
 
                 if (revokeDomain.revoked) {
-                    withContext(dispatcher) {
-                        sharedPreferences.edit().apply {
-                            remove(Constants.TOKEN_TYPE)
-                            remove(Constants.EXPIRES_IN)
-                            remove(Constants.ACCESS_TOKEN)
-                            remove(Constants.SCOPE)
-                            remove(Constants.REFRESH_TOKEN)
-                        }.commit()
-                    }
+                    credentialLocalRepo.removeCredential()
                 }
             }
             else ->

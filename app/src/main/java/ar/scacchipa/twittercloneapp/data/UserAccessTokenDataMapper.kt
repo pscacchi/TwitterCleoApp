@@ -1,20 +1,19 @@
 package ar.scacchipa.twittercloneapp.data
 
-class UserAccessTokenDataMapper: IMapper<UserAccessTokenData, UserAccessTokenDomain> {
-    override fun toDomain(value: UserAccessTokenData): UserAccessTokenDomain {
-        return UserAccessTokenDomain(
-            tokenType = value.tokenType,
-            expiresIn = value.expiresIn,
+import ar.scacchipa.twittercloneapp.utils.Constants
+
+class UserAccessTokenDataMapper: IMapper<UserAccessTokenData, Credential> {
+    override fun toDomain(value: UserAccessTokenData): Credential {
+        return Credential(
             accessToken = value.accessToken,
-            scope = value.scope,
             refreshToken = value.refreshToken )
     }
-    override fun fromDomain(value: UserAccessTokenDomain): UserAccessTokenData {
+    override fun fromDomain(value: Credential): UserAccessTokenData {
         return UserAccessTokenData(
-            tokenType = value.tokenType,
-            expiresIn = value.expiresIn,
+            tokenType = Constants.TOKEN_TYPE,
+            expiresIn = 7200,
             accessToken = value.accessToken,
-            scope = value.scope,
+            scope = Constants.SCOPE,
             refreshToken = value.refreshToken,
             errorDescription = "" )
     }

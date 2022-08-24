@@ -23,14 +23,7 @@ class MockSharedPreferences: SharedPreferences {
     }
 
     override fun getInt(key: String?, defValue: Int): Int {
-        return if (committed) {
-            when (key) {
-                Constants.EXPIRES_IN -> MockTokenProvider.userAccessTokenDomain1().expiresIn
-                else -> defValue
-            }
-        } else {
-            defValue
-        }
+        throw NotImplementedError("Not yet implemented")
     }
 
     override fun getLong(key: String?, defValue: Long): Long {

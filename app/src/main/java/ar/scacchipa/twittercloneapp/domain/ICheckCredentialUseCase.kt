@@ -1,5 +1,5 @@
 package ar.scacchipa.twittercloneapp.domain
 
-interface ICheckCredentialsUseCase {
+interface ICheckCredentialUseCase {
     operator fun invoke(): Boolean
 }

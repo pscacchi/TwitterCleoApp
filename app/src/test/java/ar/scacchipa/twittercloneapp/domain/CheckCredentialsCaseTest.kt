@@ -1,46 +1,52 @@
 package ar.scacchipa.twittercloneapp.domain
 
-import ar.scacchipa.twittercloneapp.utils.Constants
-import ar.scacchipa.twittercloneapp.utils.MockSharedPreferences
+import ar.scacchipa.twittercloneapp.data.Credential
+import ar.scacchipa.twittercloneapp.repository.ICredentialRepository
 import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
 import org.junit.Assert
 import org.junit.Test
 
 class CheckCredentialsCaseTest {
 
-    private val mockSharedPrefs = MockSharedPreferences()
-    private val subject = CheckCredentialsUseCase(
-        sharedPrefs = mockSharedPrefs
+    private var mockCredentialRepo = MockCredentialRepo(
+        MockTokenProvider.credential1()
+    )
+    private val subject = CheckCredentialUseCase(
+        credentialRepository = mockCredentialRepo
     )
 
     @Test
     fun subjectFindCredentials() {
-
-        val token = MockTokenProvider.userAccessTokenDomain1()
-
-        mockSharedPrefs.edit().apply {
-            putString(Constants.TOKEN_TYPE, token.tokenType)
-            putInt(Constants.EXPIRES_IN, token.expiresIn)
-            putString(Constants.ACCESS_TOKEN, token.accessToken)
-            putString(Constants.SCOPE, token.scope)
-            putString(Constants.REFRESH_TOKEN, token.refreshToken)
-        }.commit()
-
         Assert.assertTrue(
             subject()
         )
-
-        mockSharedPrefs
-            .edit()
-            .clear()
-            .commit()
     }
 
     @Test
     fun subjectNotFindCredentials() {
+        mockCredentialRepo.credential = MockTokenProvider.credentialNull()
+
         Assert.assertFalse(
             subject()
         )
+
+        mockCredentialRepo.credential = MockTokenProvider.credential1()
+    }
+
+    class MockCredentialRepo(
+        var credential: Credential
+    ): ICredentialRepository {
+        override suspend fun storeCredentials(credential: Credential): Boolean {
+            throw NotImplementedError("Not yet implemented")
+        }
+
+        override fun recoverCredentials(): Credential {
+            return credential
+        }
+
+        override suspend fun removeCredential() {
+            throw NotImplementedError("Not yet implemented")
+        }
     }
 }
 

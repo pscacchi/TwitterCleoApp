@@ -28,7 +28,7 @@ class RevokeTokenRepositoryTest {
     @Test
     fun subjectReturnsRevokeTrue() = runTest {
         val response = subject.revokeToken(
-            MockTokenProvider.userAccessTokenDomain1().accessToken,
+            MockTokenProvider.credential1().accessToken,
             Constants.CLIENT_ID
         )
         Assert.assertTrue(
@@ -60,7 +60,7 @@ class MockRevokeTokenDataSource(): IRevokeTokenDataSource {
         clientId: String,
         tokenTypeHint: String
     ): Response<RevokeData> {
-        val expectedToken = MockTokenProvider.userAccessTokenDomain1()
+        val expectedToken = MockTokenProvider.credential1()
         return if (expectedToken.accessToken == token
             && clientId == Constants.CLIENT_ID
             && tokenTypeHint == Constants.TOKEN_TYPE_HINT) {
