@@ -16,8 +16,7 @@
         <activity
             android:name=".component.LoginCloneActivity"
             android:exported="true"
-            android:theme="@style/Theme.TwitterCloneApp"
-            android:noHistory="true">
+            android:theme="@style/Theme.TwitterCloneApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,9 +24,7 @@
         </activity>
         <activity
             android:name=".component.MainCloneActivity"
-            android:theme="@style/Theme.TwitterCloneAppWithActionBar"
-            android:clearTaskOnLaunch="true"
-            android:launchMode="singleTask">
+            android:theme="@style/Theme.TwitterCloneAppWithActionBar">
         </activity>
     </application>
 </manifest>

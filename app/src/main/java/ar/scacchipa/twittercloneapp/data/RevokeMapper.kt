@@ -1,6 +1,6 @@
 package ar.scacchipa.twittercloneapp.data
 
-class RevokeMapper: IMapper<RevokeData, RevokeDomain> {
+class RevokeMapper: IRevokeMapper {
     override fun toDomain(value: RevokeData): RevokeDomain {
         return RevokeDomain(
             revoked = value.revoked

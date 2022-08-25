@@ -28,12 +28,13 @@ class FragmentSplash: Fragment() {
         splashViewModel.splashWasSpent.observe(viewLifecycleOwner) { splashWasSpent ->
             if (splashWasSpent) {
                 if (splashViewModel.onCheckCredential()) {
-                    startActivity(
-                        Intent(
-                            activity,
-                            MainCloneActivity::class.java
-                        )
+                    val intent = Intent(
+                        activity,
+                        MainCloneActivity::class.java
                     )
+                    intent.flags =  Intent.FLAG_ACTIVITY_NEW_TASK or
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity( intent )
                 } else {
                     findNavController().navigate(R.id.action_fragmentSplash_to_fragmentLogin)
                 }

@@ -2,31 +2,27 @@ package ar.scacchipa.twittercloneapp.domain
 
 import ar.scacchipa.twittercloneapp.data.ResponseDomain
 import ar.scacchipa.twittercloneapp.data.RevokeDomain
-import ar.scacchipa.twittercloneapp.repository.ICredentialRepository
+import ar.scacchipa.twittercloneapp.repository.ICredentialLocalRepository
 import ar.scacchipa.twittercloneapp.repository.IRevokeTokenRepository
+import ar.scacchipa.twittercloneapp.utils.Constants
 
 class RevokeCredentialUseCase(
     private val repository: IRevokeTokenRepository,
-    private val credentialLocalRepo: ICredentialRepository
-) {
-    suspend operator fun invoke(
-        token: String,
-        clientId: String
-    ) {
+    private val credentialLocalRepo: ICredentialLocalRepository
+): IRevokeCredentialUseCase {
+    override suspend operator fun invoke(): Boolean {
         val response = repository.revokeToken(
-            token = token,
-            clientId = clientId
+            token = credentialLocalRepo.recoverCredential().accessToken,
+            clientId = Constants.CLIENT_ID
         )
-        when (response) {
-            is ResponseDomain.Success<*> -> {
-                val revokeDomain = response.data as RevokeDomain
-
-                if (revokeDomain.revoked) {
-                    credentialLocalRepo.removeCredential()
-                }
-            }
-            else ->
-                return
+        return if (response is ResponseDomain.Success<*>
+            && (response.data as RevokeDomain).revoked
+        ) {
+            credentialLocalRepo.removeCredential()
+            true
+        } else {
+            false
         }
     }
 }
+

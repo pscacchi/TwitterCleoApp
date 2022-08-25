@@ -1,7 +1,7 @@
 package ar.scacchipa.twittercloneapp.domain
 
 import ar.scacchipa.twittercloneapp.data.Credential
-import ar.scacchipa.twittercloneapp.repository.ICredentialRepository
+import ar.scacchipa.twittercloneapp.repository.ICredentialLocalRepository
 import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -12,7 +12,7 @@ import kotlin.test.assertTrue
 class StoreCredentialUseCaseTest {
 
     private val subject = StoreCredentialUseCase(
-        credentialRepository = MockCredentialRepo()
+        credentialRepository = MockCredentialLocalRepo()
     )
 
     @Test
@@ -22,7 +22,7 @@ class StoreCredentialUseCaseTest {
         assertTrue { subject.invoke(token) }
     }
 
-    class MockCredentialRepo: ICredentialRepository {
+    class MockCredentialLocalRepo: ICredentialLocalRepository {
         override suspend fun storeCredential(credential: Credential): Boolean {
             if (credential != MockTokenProvider.credential1()) {
                 throw NotImplementedError("Not yet implemented")

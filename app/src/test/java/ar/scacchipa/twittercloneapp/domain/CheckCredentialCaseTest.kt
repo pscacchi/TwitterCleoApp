@@ -1,14 +1,14 @@
 package ar.scacchipa.twittercloneapp.domain
 
 import ar.scacchipa.twittercloneapp.data.Credential
-import ar.scacchipa.twittercloneapp.repository.ICredentialRepository
+import ar.scacchipa.twittercloneapp.repository.ICredentialLocalRepository
 import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
 import org.junit.Assert
 import org.junit.Test
 
 class CheckCredentialCaseTest {
 
-    private var mockCredentialRepo = MockCredentialRepo(
+    private var mockCredentialRepo = MockCredentialLocalRepo(
         MockTokenProvider.credential1()
     )
     private val subject = CheckCredentialUseCase(
@@ -33,9 +33,9 @@ class CheckCredentialCaseTest {
         mockCredentialRepo.credential = MockTokenProvider.credential1()
     }
 
-    class MockCredentialRepo(
+    class MockCredentialLocalRepo(
         var credential: Credential
-    ): ICredentialRepository {
+    ): ICredentialLocalRepository {
         override suspend fun storeCredential(credential: Credential): Boolean {
             throw NotImplementedError("Not yet implemented")
         }

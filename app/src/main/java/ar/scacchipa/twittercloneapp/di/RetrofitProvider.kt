@@ -16,5 +16,5 @@ fun provideRetrofit(): Retrofit {
 fun provideAuthSourceDataApi(retrofit: Retrofit): IAuthDataSource =
     retrofit.create(IAuthDataSource::class.java)
 
-fun provideRevokeAccessTokenSourceDataApi(retrofit: Retrofit): IRevokeTokenDataSource =
+fun provideRevokeTokenSourceDataApi(retrofit: Retrofit): IRevokeTokenDataSource =
     retrofit.create(IRevokeTokenDataSource::class.java)

@@ -16,7 +16,7 @@ class CredentialRepositoryTest {
 
     private val credentialLocalSource = MockSharedPreferences()
 
-    val subject = CredentialRepository(
+    val subject = CredentialLocalRepository(
         credentialLocalSource = credentialLocalSource,
         dispatcher = Dispatchers.Default
     )

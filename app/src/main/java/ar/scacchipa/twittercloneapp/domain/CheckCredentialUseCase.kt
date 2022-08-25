@@ -1,9 +1,9 @@
 package ar.scacchipa.twittercloneapp.domain
 
-import ar.scacchipa.twittercloneapp.repository.ICredentialRepository
+import ar.scacchipa.twittercloneapp.repository.ICredentialLocalRepository
 
 class CheckCredentialUseCase(
-    private val credentialRepository: ICredentialRepository
+    private val credentialRepository: ICredentialLocalRepository
 ): ICheckCredentialUseCase {
     override operator fun invoke(): Boolean {
         credentialRepository.recoverCredential().apply {

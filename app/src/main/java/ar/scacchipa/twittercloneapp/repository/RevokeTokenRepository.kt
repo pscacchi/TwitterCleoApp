@@ -1,9 +1,7 @@
 package ar.scacchipa.twittercloneapp.repository
 
-import ar.scacchipa.twittercloneapp.data.IMapper
+import ar.scacchipa.twittercloneapp.data.IRevokeMapper
 import ar.scacchipa.twittercloneapp.data.ResponseDomain
-import ar.scacchipa.twittercloneapp.data.RevokeData
-import ar.scacchipa.twittercloneapp.data.RevokeDomain
 import ar.scacchipa.twittercloneapp.datasource.IRevokeTokenDataSource
 import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.CoroutineDispatcher
@@ -12,7 +10,7 @@ import kotlinx.coroutines.withContext
 
 class RevokeTokenRepository(
     private val revokeTokenDataSource: IRevokeTokenDataSource,
-    private val mapper: IMapper<RevokeData, RevokeDomain>,
+    private val mapper: IRevokeMapper,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): IRevokeTokenRepository {
     override suspend fun revokeToken(
