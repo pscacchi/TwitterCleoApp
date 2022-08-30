@@ -1,6 +1,6 @@
 package ar.scacchipa.twittercloneapp.domain
 
-import ar.scacchipa.twittercloneapp.data.ResponseDomain
+import ar.scacchipa.twittercloneapp.data.repository.ResponseDomain
 import ar.scacchipa.twittercloneapp.data.repository.IAuthorizationRepository
 import ar.scacchipa.twittercloneapp.utils.Constants
 

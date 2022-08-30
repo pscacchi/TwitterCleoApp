@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.viewmodel
+package ar.scacchipa.twittercloneapp.presentation.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import ar.scacchipa.twittercloneapp.presentation.login.LoginViewModel

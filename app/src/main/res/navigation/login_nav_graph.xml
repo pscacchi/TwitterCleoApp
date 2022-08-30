@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentLoginAuthWebDialog"
-        android:name="ar.scacchipa.twittercloneapp.presentation.AuthWebDialog.FragmentAuthWebDialog"
+        android:name="ar.scacchipa.twittercloneapp.presentation.authwebdialog.FragmentAuthWebDialog"
         android:label="FragmentLoginAuthWebDialog" >
         <action
             android:id="@+id/action_fragmentLoginAuthWebDialog_to_fragmentLogin"

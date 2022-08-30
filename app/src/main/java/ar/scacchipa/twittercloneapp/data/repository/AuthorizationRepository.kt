@@ -1,10 +1,8 @@
 package ar.scacchipa.twittercloneapp.data.repository
 
 import ar.scacchipa.twittercloneapp.data.IMapper
-import ar.scacchipa.twittercloneapp.data.ResponseDomain
-import ar.scacchipa.twittercloneapp.data.UserAccessTokenData
-import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
+import ar.scacchipa.twittercloneapp.data.datasource.UserAccessTokenData
 import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

@@ -3,12 +3,13 @@ package ar.scacchipa.twittercloneapp.viewmodel
 import android.webkit.WebResourceError
 import android.webkit.WebViewClient
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import ar.scacchipa.twittercloneapp.data.ResponseDomain
-import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
+import ar.scacchipa.twittercloneapp.data.repository.ResponseDomain
+import ar.scacchipa.twittercloneapp.data.repository.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
 import ar.scacchipa.twittercloneapp.domain.MockAuthorizationRepository
-import ar.scacchipa.twittercloneapp.presentation.AuthWebDialog.AuthWebDialogViewModel
+import ar.scacchipa.twittercloneapp.presentation.authwebdialog.AuthWebDialogViewModel
+import ar.scacchipa.twittercloneapp.presentation.viewmodel.MainCoroutineTestRule
 import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

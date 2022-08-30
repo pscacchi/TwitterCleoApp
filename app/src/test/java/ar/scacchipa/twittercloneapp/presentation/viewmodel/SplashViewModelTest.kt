@@ -3,6 +3,7 @@ package ar.scacchipa.twittercloneapp.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import ar.scacchipa.twittercloneapp.domain.SplashTimerUseCase
 import ar.scacchipa.twittercloneapp.presentation.splash.SplashViewModel
+import ar.scacchipa.twittercloneapp.presentation.viewmodel.MainCoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert

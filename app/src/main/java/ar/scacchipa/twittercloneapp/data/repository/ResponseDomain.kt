@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.data
+package ar.scacchipa.twittercloneapp.data.repository
 
 sealed class ResponseDomain{
 

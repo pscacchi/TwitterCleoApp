@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.presentation.AuthWebDialog
+package ar.scacchipa.twittercloneapp.presentation.authwebdialog
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,7 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.presentation.MainCloneActivity
-import ar.scacchipa.twittercloneapp.data.ResponseDomain
+import ar.scacchipa.twittercloneapp.data.repository.ResponseDomain
 import ar.scacchipa.twittercloneapp.databinding.FragmentAuthWebDialogLayoutBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.net.URI

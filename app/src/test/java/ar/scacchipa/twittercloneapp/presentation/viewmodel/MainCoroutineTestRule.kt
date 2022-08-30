@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.viewmodel
+package ar.scacchipa.twittercloneapp.presentation.viewmodel
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

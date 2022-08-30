@@ -1,6 +1,5 @@
-package ar.scacchipa.twittercloneapp.repository
+package ar.scacchipa.twittercloneapp.utils
 
-import ar.scacchipa.twittercloneapp.utils.Constants
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
