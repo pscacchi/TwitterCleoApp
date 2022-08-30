@@ -1,9 +1,9 @@
 package ar.scacchipa.twittercloneapp.di
 
 import ar.scacchipa.twittercloneapp.data.IMapper
-import ar.scacchipa.twittercloneapp.data.datasource.UserAccessTokenData
-import ar.scacchipa.twittercloneapp.data.repository.UserAccessTokenDataMapper
-import ar.scacchipa.twittercloneapp.data.repository.UserAccessTokenDomain
+import ar.scacchipa.twittercloneapp.data.model.UserAccessTokenData
+import ar.scacchipa.twittercloneapp.data.UserAccessTokenDataMapper
+import ar.scacchipa.twittercloneapp.data.model.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase

@@ -4,7 +4,7 @@ import android.webkit.WebResourceError
 import android.webkit.WebViewClient
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import ar.scacchipa.twittercloneapp.data.repository.ResponseDomain
-import ar.scacchipa.twittercloneapp.data.repository.UserAccessTokenDomain
+import ar.scacchipa.twittercloneapp.data.model.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
 import ar.scacchipa.twittercloneapp.domain.MockAuthorizationRepository

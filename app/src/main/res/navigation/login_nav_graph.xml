@@ -11,8 +11,8 @@
         android:label="FragmentSplash" >
         <action
             android:id="@+id/action_fragmentSplash_to_fragmentLogin"
-            app:destination="@id/fragmentLogin"
-            app:popUpTo="@id/fragmentSplash"
+            app:destination="@+id/fragmentLogin"
+            app:popUpTo="@+id/fragmentSplash"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -25,7 +25,7 @@
             android:defaultValue="false"/>
         <action
             android:id="@+id/action_fragmentLogin_to_fragmentLoginAuthWebDialog"
-            app:destination="@id/fragmentLoginAuthWebDialog" />
+            app:destination="@+id/fragmentLoginAuthWebDialog" />
     </fragment>
     <fragment
         android:id="@+id/fragmentLoginAuthWebDialog"
@@ -34,7 +34,7 @@
         <action
             android:id="@+id/action_fragmentLoginAuthWebDialog_to_fragmentLogin"
             app:destination="@id/fragmentLogin"
-            app:popUpTo="@id/nav_graph"
+            app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true"/>
     </fragment>
 

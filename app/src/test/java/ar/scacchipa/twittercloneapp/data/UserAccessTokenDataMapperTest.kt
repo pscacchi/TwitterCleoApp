@@ -1,8 +1,7 @@
 package ar.scacchipa.twittercloneapp.data
 
-import ar.scacchipa.twittercloneapp.data.datasource.UserAccessTokenData
-import ar.scacchipa.twittercloneapp.data.repository.UserAccessTokenDataMapper
-import ar.scacchipa.twittercloneapp.data.repository.UserAccessTokenDomain
+import ar.scacchipa.twittercloneapp.data.model.UserAccessTokenData
+import ar.scacchipa.twittercloneapp.data.model.UserAccessTokenDomain
 import org.junit.Assert
 import org.junit.Test
 

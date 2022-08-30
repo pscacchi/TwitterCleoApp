@@ -1,7 +1,7 @@
-package ar.scacchipa.twittercloneapp.data.repository
+package ar.scacchipa.twittercloneapp.data
 
-import ar.scacchipa.twittercloneapp.data.IMapper
-import ar.scacchipa.twittercloneapp.data.datasource.UserAccessTokenData
+import ar.scacchipa.twittercloneapp.data.model.UserAccessTokenData
+import ar.scacchipa.twittercloneapp.data.model.UserAccessTokenDomain
 
 class UserAccessTokenDataMapper: IMapper<UserAccessTokenData, UserAccessTokenDomain> {
     override fun toDomain(value: UserAccessTokenData): UserAccessTokenDomain {
