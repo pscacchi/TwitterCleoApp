@@ -2,7 +2,7 @@ package ar.scacchipa.twittercloneapp.domain
 
 import ar.scacchipa.twittercloneapp.data.ResponseDomain
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenData
-import ar.scacchipa.twittercloneapp.repository.IAuthorizationRepository
+import ar.scacchipa.twittercloneapp.data.repository.IAuthorizationRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert

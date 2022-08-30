@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.fragment
+package ar.scacchipa.twittercloneapp.presentation.splash
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.FragmentSplashLayoutBinding
-import ar.scacchipa.twittercloneapp.viewmodel.SplashViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentSplash: Fragment() {

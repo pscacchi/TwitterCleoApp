@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".component.LoginCloneActivity">
+    tools:context=".presentation.LoginCloneActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/login_host_fragment"

@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.component
+package ar.scacchipa.twittercloneapp
 
 import android.app.Application
 import ar.scacchipa.twittercloneapp.di.appModule

@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.viewmodel
+package ar.scacchipa.twittercloneapp.presentation.AuthWebDialog
 
 import android.webkit.WebResourceError
 import android.webkit.WebViewClient

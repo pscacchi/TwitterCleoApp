@@ -4,7 +4,9 @@ import ar.scacchipa.twittercloneapp.data.ResponseDomain
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenData
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenDataMapper
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenDomain
-import ar.scacchipa.twittercloneapp.datasource.IAuthDataSource
+import ar.scacchipa.twittercloneapp.data.repository.AuthorizationRepository
+import ar.scacchipa.twittercloneapp.data.repository.IAuthorizationRepository
+import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
 import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

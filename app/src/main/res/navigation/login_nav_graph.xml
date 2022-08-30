@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentSplash"
-        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentSplash"
+        android:name="ar.scacchipa.twittercloneapp.presentation.splash.FragmentSplash"
         android:label="FragmentSplash" >
         <action
             android:id="@+id/action_fragmentSplash_to_fragmentLogin"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentLogin"
-        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentLogin"
+        android:name="ar.scacchipa.twittercloneapp.presentation.login.FragmentLogin"
         android:label="FragmentLogin" >
         <argument
             android:name="showErrorMsg"
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentLoginAuthWebDialog"
-        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentAuthWebDialog"
+        android:name="ar.scacchipa.twittercloneapp.presentation.AuthWebDialog.FragmentAuthWebDialog"
         android:label="FragmentLoginAuthWebDialog" >
         <action
             android:id="@+id/action_fragmentLoginAuthWebDialog_to_fragmentLogin"

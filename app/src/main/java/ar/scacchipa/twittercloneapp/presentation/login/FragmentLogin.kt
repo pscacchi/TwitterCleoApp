@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.fragment
+package ar.scacchipa.twittercloneapp.presentation.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,6 @@ import androidx.navigation.fragment.navArgs
 import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.DialogLoginErrorBinding
 import ar.scacchipa.twittercloneapp.databinding.FragmentLoginLayoutBinding
-import ar.scacchipa.twittercloneapp.viewmodel.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentLogin : Fragment() {

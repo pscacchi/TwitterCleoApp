@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.repository
+package ar.scacchipa.twittercloneapp.data.repository
 
 import ar.scacchipa.twittercloneapp.data.ResponseDomain
 
