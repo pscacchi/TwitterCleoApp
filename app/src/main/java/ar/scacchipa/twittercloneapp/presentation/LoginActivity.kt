@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ar.scacchipa.twittercloneapp.databinding.ActivityLoginLayoutBinding
 
-class LoginCloneActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private var binding: ActivityLoginLayoutBinding? = null
 

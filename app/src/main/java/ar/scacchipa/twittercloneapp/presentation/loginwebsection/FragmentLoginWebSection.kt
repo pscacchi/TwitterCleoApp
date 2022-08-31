@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.databinding.FragmentLoginWebSectionLayoutBinding
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
-import ar.scacchipa.twittercloneapp.presentation.MainCloneActivity
+import ar.scacchipa.twittercloneapp.presentation.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.net.URI
 
@@ -35,7 +35,7 @@ class FragmentLoginWebSection : Fragment() {
                 is ResponseDomain.Success<*> -> {
                     val intent = Intent(
                         activity,
-                        MainCloneActivity::class.java
+                        MainActivity::class.java
                     )
                     intent.flags =  Intent.FLAG_ACTIVITY_NEW_TASK or
                             Intent.FLAG_ACTIVITY_CLEAR_TASK

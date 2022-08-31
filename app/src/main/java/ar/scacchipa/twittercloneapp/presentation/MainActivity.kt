@@ -11,7 +11,7 @@ import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.ActivityMainLayoutBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainCloneActivity: AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityMainLayoutBinding
 
