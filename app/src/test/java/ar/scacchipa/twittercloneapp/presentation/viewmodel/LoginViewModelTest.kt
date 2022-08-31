@@ -31,14 +31,14 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun onNavToAuthWebShouldStoreFalseAtNavToAuthWeb() {
-        subject.onNavToAuthWeb()
-        Assert.assertEquals(false, subject.navToFragAuthWeb.value)
+    fun onNavToLoginWebShouldStoreFalseAtNavToLoginWeb() {
+        subject.onNavToLoginWebSection()
+        Assert.assertEquals(false, subject.navToFragLoginWebSection.value)
     }
 
     @Test
-    fun onClickLoginButtonShouldStoreTrueAtNavToFragAuthWeb() {
+    fun onClickLoginButtonShouldStoreTrueAtNavToFragLoginWebSection() {
         subject.onClickLoginButton()
-        Assert.assertEquals(true, subject.navToFragAuthWeb.value)
+        Assert.assertEquals(true, subject.navToFragLoginWebSection.value)
     }
 }

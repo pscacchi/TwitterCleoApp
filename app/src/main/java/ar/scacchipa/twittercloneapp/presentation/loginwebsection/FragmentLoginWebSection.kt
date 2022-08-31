@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.presentation.authwebdialog
+package ar.scacchipa.twittercloneapp.presentation.loginwebsection
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,23 +11,23 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import ar.scacchipa.twittercloneapp.databinding.FragmentAuthWebDialogLayoutBinding
+import ar.scacchipa.twittercloneapp.databinding.FragmentLoginWebSectionLayoutBinding
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.presentation.MainCloneActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.net.URI
 
-class FragmentAuthWebDialog : Fragment() {
+class FragmentLoginWebSection : Fragment() {
 
-    private val viewModel: AuthWebDialogViewModel by viewModel()
-    private var binding: FragmentAuthWebDialogLayoutBinding? = null
+    private val viewModel: LoginWebSectionViewModel by viewModel()
+    private var binding: FragmentLoginWebSectionLayoutBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentAuthWebDialogLayoutBinding.inflate(inflater)
+        binding = FragmentLoginWebSectionLayoutBinding.inflate(inflater)
 
         viewModel.responseDomain.observe(viewLifecycleOwner) { token ->
             when (token) {
@@ -42,8 +42,8 @@ class FragmentAuthWebDialog : Fragment() {
                     startActivity( intent )
                 }
                 is ResponseDomain.Error -> {
-                    val action = FragmentAuthWebDialogDirections
-                        .actionFragmentLoginAuthWebDialogToFragmentLogin(true)
+                    val action = FragmentLoginWebSectionDirections
+                        .actionFragmentLoginWebSectionToFragmentLogin(true)
                     findNavController().navigate(action)
                 }
                 is ResponseDomain.Cancel,

@@ -3,12 +3,12 @@ package ar.scacchipa.twittercloneapp.viewmodel
 import android.webkit.WebResourceError
 import android.webkit.WebViewClient
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import ar.scacchipa.twittercloneapp.domain.MockAuthorizationRepository
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.domain.model.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.domain.usecase.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.usecase.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.domain.MockAuthorizationRepository
-import ar.scacchipa.twittercloneapp.presentation.authwebdialog.AuthWebDialogViewModel
+import ar.scacchipa.twittercloneapp.presentation.loginwebsection.LoginWebSectionViewModel
 import ar.scacchipa.twittercloneapp.presentation.viewmodel.MainCoroutineTestRule
 import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,8 +20,8 @@ import org.mockito.Mockito
 import java.net.URI
 
 @ExperimentalCoroutinesApi
-class AuthWebDialogViewModelTest {
-    private var subject: AuthWebDialogViewModel = AuthWebDialogViewModel(
+class LoginWebSectionViewModelTest {
+    private var subject: LoginWebSectionViewModel = LoginWebSectionViewModel(
         authorizationUseCase = MockAuthorizationUseCase(),
         consumableAuthUseCase = MockConsumableAuthUseCase()
     )

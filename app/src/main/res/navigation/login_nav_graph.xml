@@ -24,15 +24,15 @@
             app:argType="boolean"
             android:defaultValue="false"/>
         <action
-            android:id="@+id/action_fragmentLogin_to_fragmentLoginAuthWebDialog"
-            app:destination="@+id/fragmentLoginAuthWebDialog" />
+            android:id="@+id/action_fragmentLogin_to_fragmentLoginWebSection"
+            app:destination="@+id/fragmentLoginWebSection" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentLoginAuthWebDialog"
-        android:name="ar.scacchipa.twittercloneapp.presentation.authwebdialog.FragmentAuthWebDialog"
-        android:label="FragmentLoginAuthWebDialog" >
+        android:id="@+id/fragmentLoginWebSection"
+        android:name="ar.scacchipa.twittercloneapp.presentation.loginwebsection.FragmentLoginWebSection"
+        android:label="FragmentLoginWebSection">
         <action
-            android:id="@+id/action_fragmentLoginAuthWebDialog_to_fragmentLogin"
+            android:id="@+id/action_fragmentLoginWebSection_to_fragmentLogin"
             app:destination="@id/fragmentLogin"
             app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true"/>

@@ -8,12 +8,12 @@ import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
 import ar.scacchipa.twittercloneapp.domain.usecase.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.usecase.ConsumableAuthUseCase
 import ar.scacchipa.twittercloneapp.domain.usecase.SplashTimerUseCase
-import ar.scacchipa.twittercloneapp.presentation.authwebdialog.FragmentAuthWebDialog
+import ar.scacchipa.twittercloneapp.presentation.loginwebsection.FragmentLoginWebSection
 import ar.scacchipa.twittercloneapp.presentation.login.FragmentLogin
 import ar.scacchipa.twittercloneapp.presentation.splash.FragmentSplash
 import ar.scacchipa.twittercloneapp.data.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.data.repository.IAuthorizationRepository
-import ar.scacchipa.twittercloneapp.presentation.authwebdialog.AuthWebDialogViewModel
+import ar.scacchipa.twittercloneapp.presentation.loginwebsection.LoginWebSectionViewModel
 import ar.scacchipa.twittercloneapp.presentation.login.LoginViewModel
 import ar.scacchipa.twittercloneapp.presentation.splash.SplashViewModel
 import org.koin.androidx.fragment.dsl.fragment
@@ -34,11 +34,11 @@ val appModule = module {
     single { SplashTimerUseCase() }
 
 
-    viewModel { AuthWebDialogViewModel( get(), get() ) }
+    viewModel { LoginWebSectionViewModel( get(), get() ) }
     viewModel { LoginViewModel() }
     viewModel { SplashViewModel( get() ) }
 
-    fragment { FragmentAuthWebDialog() }
+    fragment { FragmentLoginWebSection() }
     fragment { FragmentLogin() }
     fragment { FragmentSplash() }
 }

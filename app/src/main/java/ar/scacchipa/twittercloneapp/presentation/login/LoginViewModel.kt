@@ -9,8 +9,8 @@ class LoginViewModel: ViewModel() {
     private val _mustShowErrorMsg = MutableLiveData(false)
     val mustShowErrorMsg = _mustShowErrorMsg as LiveData<Boolean>
 
-    private val _navToFragAuthWeb = MutableLiveData(false)
-    val navToFragAuthWeb = _navToFragAuthWeb as LiveData<Boolean>
+    private val _navToFragLoginWebSection = MutableLiveData(false)
+    val navToFragLoginWebSection = _navToFragLoginWebSection as LiveData<Boolean>
 
     fun showErrorMsg() {
         _mustShowErrorMsg.value = true
@@ -20,11 +20,11 @@ class LoginViewModel: ViewModel() {
         _mustShowErrorMsg.value = false
     }
 
-    fun onNavToAuthWeb() {
-        _navToFragAuthWeb.value = false
+    fun onNavToLoginWebSection() {
+        _navToFragLoginWebSection.value = false
     }
 
     fun onClickLoginButton() {
-        _navToFragAuthWeb.value = true
+        _navToFragLoginWebSection.value = true
     }
 }

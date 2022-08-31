@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.presentation.authwebdialog
+package ar.scacchipa.twittercloneapp.presentation.loginwebsection
 
 import android.webkit.WebResourceError
 import android.webkit.WebViewClient
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import java.net.URI
 import kotlin.collections.set
 
-class AuthWebDialogViewModel (
+class LoginWebSectionViewModel (
     private val authorizationUseCase: AuthorizationUseCase,
     private val consumableAuthUseCase: ConsumableAuthUseCase
 ): ViewModel() {
