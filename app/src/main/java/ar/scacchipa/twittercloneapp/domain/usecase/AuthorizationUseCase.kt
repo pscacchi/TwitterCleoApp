@@ -1,7 +1,7 @@
-package ar.scacchipa.twittercloneapp.domain
+package ar.scacchipa.twittercloneapp.domain.usecase
 
-import ar.scacchipa.twittercloneapp.data.repository.ResponseDomain
 import ar.scacchipa.twittercloneapp.data.repository.IAuthorizationRepository
+import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.utils.Constants
 
 open class AuthorizationUseCase(

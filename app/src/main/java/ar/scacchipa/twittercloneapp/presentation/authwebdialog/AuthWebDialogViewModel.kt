@@ -6,9 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.scacchipa.twittercloneapp.data.repository.ResponseDomain
-import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
-import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
+import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
+import ar.scacchipa.twittercloneapp.domain.usecase.AuthorizationUseCase
+import ar.scacchipa.twittercloneapp.domain.usecase.ConsumableAuthUseCase
 import ar.scacchipa.twittercloneapp.utils.Constants
 import kotlinx.coroutines.launch
 import java.net.URI

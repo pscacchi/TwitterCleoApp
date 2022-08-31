@@ -118,6 +118,8 @@ Asynchronous task are handled with [coroutines](https://developer.android.com/ko
                         / sourcedata
                         / repository
                     / domain
+                        / model
+                        / usecase
                     / presentation
                        / home (activities | fragments | viewmodels)
                        / login (activities | fragments | viewmodels)

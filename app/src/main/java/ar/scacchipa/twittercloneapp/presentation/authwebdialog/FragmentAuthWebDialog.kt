@@ -11,9 +11,9 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import ar.scacchipa.twittercloneapp.presentation.MainCloneActivity
-import ar.scacchipa.twittercloneapp.data.repository.ResponseDomain
 import ar.scacchipa.twittercloneapp.databinding.FragmentAuthWebDialogLayoutBinding
+import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
+import ar.scacchipa.twittercloneapp.presentation.MainCloneActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.net.URI
 

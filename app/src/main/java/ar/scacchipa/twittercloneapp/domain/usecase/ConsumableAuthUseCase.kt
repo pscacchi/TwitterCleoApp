@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.domain
+package ar.scacchipa.twittercloneapp.domain.usecase
 
 import ar.scacchipa.twittercloneapp.utils.Constants
 

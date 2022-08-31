@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.scacchipa.twittercloneapp.domain.SplashTimerUseCase
+import ar.scacchipa.twittercloneapp.domain.usecase.SplashTimerUseCase
 import kotlinx.coroutines.launch
 
 class SplashViewModel(

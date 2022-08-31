@@ -3,11 +3,11 @@ package ar.scacchipa.twittercloneapp.di
 import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.model.UserAccessTokenData
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenDataMapper
-import ar.scacchipa.twittercloneapp.data.model.UserAccessTokenDomain
+import ar.scacchipa.twittercloneapp.domain.model.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
-import ar.scacchipa.twittercloneapp.domain.AuthorizationUseCase
-import ar.scacchipa.twittercloneapp.domain.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.domain.SplashTimerUseCase
+import ar.scacchipa.twittercloneapp.domain.usecase.AuthorizationUseCase
+import ar.scacchipa.twittercloneapp.domain.usecase.ConsumableAuthUseCase
+import ar.scacchipa.twittercloneapp.domain.usecase.SplashTimerUseCase
 import ar.scacchipa.twittercloneapp.presentation.authwebdialog.FragmentAuthWebDialog
 import ar.scacchipa.twittercloneapp.presentation.login.FragmentLogin
 import ar.scacchipa.twittercloneapp.presentation.splash.FragmentSplash

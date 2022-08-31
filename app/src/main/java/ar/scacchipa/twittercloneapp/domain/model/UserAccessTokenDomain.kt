@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.data.model
+package ar.scacchipa.twittercloneapp.domain.model
 
 data class UserAccessTokenDomain(
     val tokenType: String,

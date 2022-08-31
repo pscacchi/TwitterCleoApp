@@ -1,5 +1,6 @@
 package ar.scacchipa.twittercloneapp.domain
 
+import ar.scacchipa.twittercloneapp.domain.usecase.SplashTimerUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
