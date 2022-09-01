@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.presentation.loginwebsection
+package ar.scacchipa.twittercloneapp.presentation.starter.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.databinding.FragmentLoginWebSectionLayoutBinding
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
-import ar.scacchipa.twittercloneapp.presentation.MainActivity
+import ar.scacchipa.twittercloneapp.presentation.main.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.net.URI
 

@@ -1,7 +1,8 @@
-package ar.scacchipa.twittercloneapp.presentation.viewmodel
+package ar.scacchipa.twittercloneapp.presentation.starter.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import ar.scacchipa.twittercloneapp.presentation.login.LoginViewModel
+import ar.scacchipa.twittercloneapp.presentation.starter.login.LoginViewModel
+import ar.scacchipa.twittercloneapp.utils.MainCoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
 import org.junit.Rule

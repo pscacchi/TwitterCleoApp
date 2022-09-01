@@ -121,8 +121,12 @@ Asynchronous task are handled with [coroutines](https://developer.android.com/ko
                         / model
                         / usecase
                     / presentation
-                       / home (activities | fragments | viewmodels)
-                       / login (activities | fragments | viewmodels)
+                       / start
+                          / splash
+                          / login
+                       / main
+                          / home
+                          / search
                     / di
                 /res
             /androidTest
@@ -133,8 +137,12 @@ Asynchronous task are handled with [coroutines](https://developer.android.com/ko
                     / repository
                 / domain
                     / presentation
-                       / home (activities | fragments | viewmodels)
-                       / login (activities | fragments | viewmodels)
+                       / start
+                          / splash
+                          / login
+                       / main
+                          / home
+                          / search
                 / di
 
 * For default, /androidTest/ui/ was adding, but this will not be implemented.

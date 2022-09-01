@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/secondary_background"
-    tools:context=".presentation.loginwebsection.FragmentLoginWebSection">
+    tools:context=".presentation.starter.login.FragmentLoginWebSection">
 
     <WebView
         android:id="@+id/login_webview"

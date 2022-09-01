@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.viewmodel
+package ar.scacchipa.twittercloneapp.presentation.starter.login
 
 import android.webkit.WebResourceError
 import android.webkit.WebViewClient
@@ -8,9 +8,8 @@ import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.domain.model.UserAccessTokenDomain
 import ar.scacchipa.twittercloneapp.domain.usecase.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.usecase.ConsumableAuthUseCase
-import ar.scacchipa.twittercloneapp.presentation.loginwebsection.LoginWebSectionViewModel
-import ar.scacchipa.twittercloneapp.presentation.viewmodel.MainCoroutineTestRule
 import ar.scacchipa.twittercloneapp.utils.Constants
+import ar.scacchipa.twittercloneapp.utils.MainCoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert

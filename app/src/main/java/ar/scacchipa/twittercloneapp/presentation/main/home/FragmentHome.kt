@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.presentation.home
+package ar.scacchipa.twittercloneapp.presentation.main.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

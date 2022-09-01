@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.presentation.loginwebsection
+package ar.scacchipa.twittercloneapp.presentation.starter.login
 
 import android.webkit.WebResourceError
 import android.webkit.WebViewClient

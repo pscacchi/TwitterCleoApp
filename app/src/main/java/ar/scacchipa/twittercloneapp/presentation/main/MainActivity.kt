@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.presentation
+package ar.scacchipa.twittercloneapp.presentation.main
 
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".presentation.search.FragmentSearch">
+    tools:context=".presentation.main.search.FragmentSearch">
 
     <View
         android:id="@+id/search_view"
