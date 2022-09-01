@@ -121,9 +121,8 @@ Asynchronous task are handled with [coroutines](https://developer.android.com/ko
                         / model
                         / usecase
                     / presentation
-                       / start
-                          / splash
-                          / login
+                       / splash
+                       / login
                        / main
                           / home
                           / search
@@ -137,9 +136,8 @@ Asynchronous task are handled with [coroutines](https://developer.android.com/ko
                     / repository
                 / domain
                     / presentation
-                       / start
-                          / splash
-                          / login
+                       / splash
+                       / login
                        / main
                           / home
                           / search
