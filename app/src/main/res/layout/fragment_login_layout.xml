@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_background"
-    tools:context=".presentation.starter.login.FragmentLogin">
+    tools:context="ar.scacchipa.twittercloneapp.presentation.login.FragmentLogin">
 
     <ImageView
         android:id="@+id/login_twitter_logo_imageview"

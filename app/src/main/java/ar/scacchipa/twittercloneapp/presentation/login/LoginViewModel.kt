@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.presentation.starter.login
+package ar.scacchipa.twittercloneapp.presentation.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
