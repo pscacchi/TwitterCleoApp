@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_background"
-    tools:context=".fragment.FragmentLogin">
+    tools:context="ar.scacchipa.twittercloneapp.presentation.login.FragmentLogin">
 
     <ImageView
         android:id="@+id/login_twitter_logo_imageview"
@@ -22,7 +22,6 @@
         app:srcCompat="@drawable/twitter_logo" />
 
     <com.google.android.material.button.MaterialButton
-        style="@style/Theme.TwitterCloneApp"
         android:id="@+id/button_login"
         android:layout_width="200dp"
         android:layout_height="52dp"

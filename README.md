@@ -113,21 +113,34 @@ Asynchronous task are handled with [coroutines](https://developer.android.com/ko
         /src
             /main
                 /java
-                    /ar.scacchipa.twittercloneapp
-                        /di
-                        /component
-                        /domain
-                        /ui
-                        /repository
-                        /datasource
+                    / data
+                        / model
+                        / sourcedata
+                        / repository
+                    / domain
+                        / model
+                        / usecase
+                    / presentation
+                       / splash
+                       / login
+                       / main
+                          / home
+                          / search
+                    / di
                 /res
-        /androidTest
-            /ui
-        /test
-            /di
-            /component
-            /domain
-            /repository
-            /datasource
+            /androidTest
+                /ui
+            /test
+                / data
+                    / sourcedata
+                    / repository
+                / domain
+                    / presentation
+                       / splash
+                       / login
+                       / main
+                          / home
+                          / search
+                / di
 
 * For default, /androidTest/ui/ was adding, but this will not be implemented.

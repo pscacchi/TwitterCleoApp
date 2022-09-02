@@ -1,5 +1,6 @@
 package ar.scacchipa.twittercloneapp.domain
 
+import ar.scacchipa.twittercloneapp.domain.usecase.ConsumableAuthUseCase
 import org.junit.Assert
 import org.junit.Test
 

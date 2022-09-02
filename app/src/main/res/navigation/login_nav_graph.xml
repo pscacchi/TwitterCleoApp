@@ -7,34 +7,34 @@
 
     <fragment
         android:id="@+id/fragmentSplash"
-        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentSplash"
+        android:name="ar.scacchipa.twittercloneapp.presentation.splash.FragmentSplash"
         android:label="FragmentSplash" >
         <action
             android:id="@+id/action_fragmentSplash_to_fragmentLogin"
-            app:destination="@id/fragmentLogin"
-            app:popUpTo="@id/fragmentSplash"
+            app:destination="@+id/fragmentLogin"
+            app:popUpTo="@+id/fragmentSplash"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/fragmentLogin"
-        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentLogin"
+        android:name="ar.scacchipa.twittercloneapp.presentation.login.FragmentLogin"
         android:label="FragmentLogin" >
         <argument
             android:name="showErrorMsg"
             app:argType="boolean"
             android:defaultValue="false"/>
         <action
-            android:id="@+id/action_fragmentLogin_to_fragmentLoginAuthWebDialog"
-            app:destination="@id/fragmentLoginAuthWebDialog" />
+            android:id="@+id/action_fragmentLogin_to_fragmentLoginWebSection"
+            app:destination="@+id/fragmentLoginWebSection" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentLoginAuthWebDialog"
-        android:name="ar.scacchipa.twittercloneapp.fragment.FragmentAuthWebDialog"
-        android:label="FragmentLoginAuthWebDialog" >
+        android:id="@+id/fragmentLoginWebSection"
+        android:name="ar.scacchipa.twittercloneapp.presentation.login.FragmentLoginWebSection"
+        android:label="FragmentLoginWebSection">
         <action
-            android:id="@+id/action_fragmentLoginAuthWebDialog_to_fragmentLogin"
+            android:id="@+id/action_fragmentLoginWebSection_to_fragmentLogin"
             app:destination="@id/fragmentLogin"
-            app:popUpTo="@id/nav_graph"
+            app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true"/>
     </fragment>
 
