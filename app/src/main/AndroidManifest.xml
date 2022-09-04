@@ -4,7 +4,7 @@
     package="ar.scacchipa.twittercloneapp">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:name=".component.TwitterCloneApp"
+        android:name=".TwitterCloneApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         tools:targetApi="31">
         <activity
-            android:name=".component.LoginCloneActivity"
+            android:name=".presentation.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.TwitterCloneApp"
             android:noHistory="true">
@@ -24,10 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".component.MainCloneActivity"
-            android:theme="@style/Theme.TwitterCloneAppWithActionBar"
-            android:clearTaskOnLaunch="true"
-            android:launchMode="singleTask">
+            android:name=".presentation.MainActivity"
+            android:theme="@style/Theme.TwitterCloneAppWithActionBar">
         </activity>
     </application>
 </manifest>

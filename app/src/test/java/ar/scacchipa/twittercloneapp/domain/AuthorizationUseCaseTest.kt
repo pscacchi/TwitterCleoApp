@@ -1,8 +1,9 @@
 package ar.scacchipa.twittercloneapp.domain
 
-import ar.scacchipa.twittercloneapp.data.ResponseDomain
-import ar.scacchipa.twittercloneapp.data.UserAccessTokenData
-import ar.scacchipa.twittercloneapp.repository.IAuthorizationRepository
+import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
+import ar.scacchipa.twittercloneapp.data.repository.IAuthorizationRepository
+import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
+import ar.scacchipa.twittercloneapp.domain.usecase.AuthorizationUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -18,7 +19,7 @@ class AuthorizationUseCaseTest {
         Assert.assertEquals(
             authorizationUseCase("SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE"),
             ResponseDomain.Success(
-                UserAccessTokenData(
+                UserAccessToken(
                     tokenType = "bearer",
                     expiresIn = 7200,
                     accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
@@ -40,7 +41,7 @@ class MockAuthorizationRepository: IAuthorizationRepository {
         state: String
     ): ResponseDomain {
         return ResponseDomain.Success(
-            UserAccessTokenData(
+            UserAccessToken(
                 tokenType = "bearer",
                 expiresIn = 7200,
                 accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",

@@ -1,7 +1,8 @@
 package ar.scacchipa.twittercloneapp.domain
 
-import ar.scacchipa.twittercloneapp.data.Credential
-import ar.scacchipa.twittercloneapp.repository.ICredentialRepository
+import ar.scacchipa.twittercloneapp.domain.model.Credential
+import ar.scacchipa.twittercloneapp.domain.usecase.StoreCredentialUseCase
+import ar.scacchipa.twittercloneapp.data.repository.ICredentialRepository
 import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

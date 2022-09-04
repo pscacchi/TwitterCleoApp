@@ -1,7 +1,7 @@
 package ar.scacchipa.twittercloneapp.utils
 
-import ar.scacchipa.twittercloneapp.data.Credential
-import ar.scacchipa.twittercloneapp.data.UserAccessTokenData
+import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
+import ar.scacchipa.twittercloneapp.domain.model.Credential
 
 class MockTokenProvider {
     companion object {
@@ -15,8 +15,8 @@ class MockTokenProvider {
             return Credential("", "")
         }
 
-        fun userAccessTokenData1(): UserAccessTokenData {
-            return UserAccessTokenData(
+        fun userAccessTokenData1(): UserAccessToken {
+            return UserAccessToken(
                 tokenType = "bearer",
                 expiresIn = 7200,
                 accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
@@ -24,8 +24,8 @@ class MockTokenProvider {
                 refreshToken = "LVJQQXMxSUM0QUQ2eHNidkNfYUNScUJoSTY5Sy1ndGxqMmx2WnRPQzF4NklDOjE2NTY1OTUxOTIxMTU6MTowOnJ0OjE",
                 errorDescription = "")
         }
-        fun mappedUserAccessTokenData1(): UserAccessTokenData {
-            return UserAccessTokenData(
+        fun mappedUserAccessTokenData1(): UserAccessToken {
+            return UserAccessToken(
                 tokenType = Constants.TOKEN_TYPE,
                 expiresIn = 7200,
                 accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",
