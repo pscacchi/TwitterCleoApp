@@ -5,6 +5,12 @@ import ar.scacchipa.twittercloneapp.domain.model.Credential
 
 class MockTokenProvider {
     companion object {
+        fun transitoryToken1(): String {
+            return "SGVvLWIyclkweEJudVZWSFFyR3RqQUVadEdlSFZJRk1JLXRacllVb3BxRFhhOjE2NTcxMTQyMDA2ODY6MTowOmFjOjE"
+        }
+        fun incorrectTransitoryToken(): String {
+            return "Incorrect transitory token"
+        }
         fun credential1(): Credential {
             return Credential(
                 accessToken = "OU1tZ2dUanRYMjhGUEVnOUlHUGlYUUlyWVI3Ukhpd1gweW9ET051OW9HR2hTOjE2NTY1OTUxOTIxMTU6MToxOmF0OjE",

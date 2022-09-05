@@ -34,7 +34,7 @@ val appModule = module {
     single { AuthorizationRepository( get(), get() ) as IAuthorizationRepository }
     single { CredentialRepository( get() ) as ICredentialRepository }
 
-    single { AuthorizationUseCase( get(), get() ) }
+    single { AuthorizationUseCase( get(), get() ) as AuthorizationUseCase }
     single { CheckInUseCase( get() ) as CheckInUseCase }
 
     viewModel { LoginWebSectionViewModel( get() ) }

@@ -1,20 +1,19 @@
-package ar.scacchipa.twittercloneapp.repository
+package ar.scacchipa.twittercloneapp.data.repository
 
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenMapper
-import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
-import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
-import ar.scacchipa.twittercloneapp.data.repository.AuthorizationRepository
-import ar.scacchipa.twittercloneapp.data.repository.IAuthorizationRepository
 import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
+import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
 import ar.scacchipa.twittercloneapp.domain.model.Credential
+import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.utils.Constants
+import io.mockk.coEvery
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import org.junit.Assert
 import org.junit.Test
-import org.mockito.Mockito
 import retrofit2.Response
 
 @ExperimentalCoroutinesApi
@@ -60,17 +59,16 @@ class AuthorizationRepositoryTest {
 
     @Test
     fun whenAuthRepoReceiveRequestWithoutBodyReturnError() = runTest {
-        val mockAuthDataSource = Mockito.mock(IAuthDataSource::class.java)
-        Mockito.`when`(mockAuthDataSource.genAccessTokenSourceCode(
+        val mockAuthDataSource = mockk<IAuthDataSource>()
+        coEvery { mockAuthDataSource.genAccessTokenSourceCode(
             transitoryToken = "incorrect_password",
             grantType = "authorization_code",
             clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
             redirectUri = "https://twittercloneendava.firebaseapp.com/__/auth/handler&",
             codeVerifier = "challenge",
             state = "state"
-        )).thenReturn(
-            Response.success(null)
-        )
+        ) } returns Response.success(null)
+
         val subject = AuthorizationRepository(mockAuthDataSource, UserAccessTokenMapper())
 
         Assert.assertEquals(

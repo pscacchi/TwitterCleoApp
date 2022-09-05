@@ -10,7 +10,7 @@ open class AuthorizationUseCase(
     private val authRepository: IAuthorizationRepository,
     private val credentialRepository: ICredentialRepository
 ) {
-    open suspend operator fun invoke(
+    suspend operator fun invoke(
         transitoryToken: String
     ): ResponseDomain {
         val accessTokenRequest = authRepository.requestAccessToken(

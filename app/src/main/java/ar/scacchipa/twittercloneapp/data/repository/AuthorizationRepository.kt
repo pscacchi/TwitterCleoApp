@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class AuthorizationRepository(
+open class AuthorizationRepository(
     private val genAccessTokenSource: IAuthDataSource,
     private val mapper: IMapper<UserAccessToken, Credential>,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO

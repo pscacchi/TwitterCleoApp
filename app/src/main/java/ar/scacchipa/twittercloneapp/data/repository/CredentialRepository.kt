@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class CredentialRepository(
+open class CredentialRepository(
     private val credentialLocalSource: SharedPreferences,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ): ICredentialRepository {
