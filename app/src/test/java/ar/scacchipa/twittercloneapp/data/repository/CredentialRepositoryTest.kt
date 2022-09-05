@@ -93,7 +93,7 @@ class CredentialRepositoryTest {
     }
 
     @Test
-    fun recoveryCredentialDoesNotFindCredentials() = runTest {
+    fun getEmptyCredential() = runTest {
         val expectedCredential = null
 
         val actualCredential = subject.recoverCredential()
@@ -104,7 +104,6 @@ class CredentialRepositoryTest {
         )
 
         hashMap.clear()
-
     }
 }
 
