@@ -33,15 +33,6 @@ open class CredentialRepository(
             }.commit()
         }
     }
-
-    override suspend fun removeCredential() {
-        withContext(dispatcher) {
-            credentialLocalSource.edit().apply {
-                remove(Constants.ACCESS_TOKEN)
-                remove(Constants.REFRESH_TOKEN)
-            }.commit()
-        }
-    }
 }
 
 

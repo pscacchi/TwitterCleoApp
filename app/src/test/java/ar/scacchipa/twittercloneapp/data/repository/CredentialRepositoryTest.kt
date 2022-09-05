@@ -13,7 +13,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 @ExperimentalCoroutinesApi
@@ -46,13 +45,6 @@ class CredentialRepositoryTest {
             mockSharedEditor.putString(any(), any())
         } answers {
             hashMap[firstArg()] = secondArg()
-            mockSharedEditor
-        }
-
-        coEvery {
-            mockSharedEditor.remove( any() )
-        } answers {
-            hashMap.remove( firstArg() )
             mockSharedEditor
         }
 
@@ -98,21 +90,6 @@ class CredentialRepositoryTest {
             storedCredential
         )
 
-    }
-
-    @Test
-    fun subjectDeleteCredentialFromLocalRepo() = runTest {
-        val expectedCredential = MockTokenProvider.credential1()
-
-        hashMap[Constants.ACCESS_TOKEN] = expectedCredential.accessToken
-        hashMap[Constants.REFRESH_TOKEN] = expectedCredential.refreshToken
-
-        subject.removeCredential()
-
-        assertFalse { mockCredentialSource.contains(Constants.ACCESS_TOKEN) }
-        assertFalse { mockCredentialSource.contains(Constants.REFRESH_TOKEN) }
-
-        hashMap.clear()
     }
 
     @Test
