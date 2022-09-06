@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/secondary_background"
-    tools:context="ar.scacchipa.twittercloneapp.presentation.login.FragmentLoginWebSection">
+    tools:context="ar.scacchipa.twittercloneapp.presentation.login.FragmentLoginWebSection"
+    style="@style/Theme.TwitterCloneApp">
 
     <WebView
         android:id="@+id/login_webview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        style="@style/Theme.TwitterCloneApp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
