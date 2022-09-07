@@ -3,7 +3,7 @@ package ar.scacchipa.twittercloneapp.domain.usecase
 import ar.scacchipa.twittercloneapp.data.repository.ICredentialRepository
 import kotlinx.coroutines.delay
 
-open class CheckInUseCase (
+open class StarterInUseCase (
     private val credentialRepository: ICredentialRepository
 ) {
     suspend operator fun invoke(): Boolean {

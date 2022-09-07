@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.scacchipa.twittercloneapp.domain.usecase.CheckInUseCase
+import ar.scacchipa.twittercloneapp.domain.usecase.StarterInUseCase
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    private val checkInUseCase: CheckInUseCase
+    private val checkInUseCase: StarterInUseCase
 ): ViewModel() {
 
     private val _mustLogin = MutableLiveData<Boolean?>()

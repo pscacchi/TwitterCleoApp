@@ -1,7 +1,7 @@
 package ar.scacchipa.twittercloneapp.presentation.splash
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import ar.scacchipa.twittercloneapp.domain.usecase.CheckInUseCase
+import ar.scacchipa.twittercloneapp.domain.usecase.StarterInUseCase
 import ar.scacchipa.twittercloneapp.utils.MainCoroutineTestRule
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -20,7 +20,7 @@ class SplashViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    private val mockCheckInUseCase = mockk<CheckInUseCase>()
+    private val mockCheckInUseCase = mockk<StarterInUseCase>()
 
     private val subject = SplashViewModel(
         checkInUseCase = mockCheckInUseCase
