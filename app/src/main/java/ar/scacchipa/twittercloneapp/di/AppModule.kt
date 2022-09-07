@@ -9,7 +9,7 @@ import ar.scacchipa.twittercloneapp.data.repository.CredentialRepository
 import ar.scacchipa.twittercloneapp.data.repository.ICredentialRepository
 import ar.scacchipa.twittercloneapp.domain.model.Credential
 import ar.scacchipa.twittercloneapp.domain.usecase.AuthorizationUseCase
-import ar.scacchipa.twittercloneapp.domain.usecase.StarterInUseCase
+import ar.scacchipa.twittercloneapp.domain.usecase.StarterUseCase
 import ar.scacchipa.twittercloneapp.presentation.login.FragmentLogin
 import ar.scacchipa.twittercloneapp.presentation.login.FragmentLoginWebSection
 import ar.scacchipa.twittercloneapp.presentation.login.LoginViewModel
@@ -32,7 +32,7 @@ val appModule = module {
     single { CredentialRepository( get(), get(), get() ) as ICredentialRepository }
 
     single { AuthorizationUseCase( get() ) as AuthorizationUseCase }
-    single { StarterInUseCase( get() ) as StarterInUseCase }
+    single { StarterUseCase( get() ) as StarterUseCase }
 
     viewModel { LoginWebSectionViewModel( get() ) }
     viewModel { LoginViewModel() }

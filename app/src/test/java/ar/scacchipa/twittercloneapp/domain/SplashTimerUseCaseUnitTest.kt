@@ -1,7 +1,7 @@
 package ar.scacchipa.twittercloneapp.domain
 
 import ar.scacchipa.twittercloneapp.data.repository.CredentialRepository
-import ar.scacchipa.twittercloneapp.domain.usecase.StarterInUseCase
+import ar.scacchipa.twittercloneapp.domain.usecase.StarterUseCase
 import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
 import io.mockk.every
 import io.mockk.mockk
@@ -15,7 +15,7 @@ class SplashTimerUseCaseUnitTest {
 
     private val mockCredentialRepository = mockk<CredentialRepository>()
 
-    private val subject = StarterInUseCase(
+    private val subject = StarterUseCase(
         credentialRepository = mockCredentialRepository
     )
 
