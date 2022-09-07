@@ -14,6 +14,8 @@ import ar.scacchipa.twittercloneapp.presentation.login.FragmentLogin
 import ar.scacchipa.twittercloneapp.presentation.login.FragmentLoginWebSection
 import ar.scacchipa.twittercloneapp.presentation.login.LoginViewModel
 import ar.scacchipa.twittercloneapp.presentation.login.LoginWebSectionViewModel
+import ar.scacchipa.twittercloneapp.presentation.main.home.FragmentHome
+import ar.scacchipa.twittercloneapp.presentation.main.search.FragmentSearch
 import ar.scacchipa.twittercloneapp.presentation.splash.FragmentSplash
 import ar.scacchipa.twittercloneapp.presentation.splash.SplashViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -34,11 +36,13 @@ val appModule = module {
     single { AuthorizationUseCase( get() ) as AuthorizationUseCase }
     single { StarterUseCase( get() ) as StarterUseCase }
 
-    viewModel { LoginWebSectionViewModel( get() ) }
-    viewModel { LoginViewModel() }
     viewModel { SplashViewModel( get() ) }
+    viewModel { LoginViewModel() }
+    viewModel { LoginWebSectionViewModel( get() ) }
 
-    fragment { FragmentLoginWebSection() }
-    fragment { FragmentLogin() }
     fragment { FragmentSplash() }
+    fragment { FragmentLogin() }
+    fragment { FragmentLoginWebSection() }
+    fragment { FragmentHome() }
+    fragment { FragmentSearch() }
 }

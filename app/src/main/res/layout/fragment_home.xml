@@ -22,11 +22,11 @@
         android:layout_height="wrap_content"
         android:text="Home"
         android:textSize="@dimen/large_text_size"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/home_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:src="@drawable/ic_add_text_fab"
         android:layout_width="@dimen/large_icon_size"
