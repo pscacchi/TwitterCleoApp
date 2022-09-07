@@ -8,7 +8,7 @@ open class CheckInUseCase (
 ) {
     suspend operator fun invoke(): Boolean {
         delay(5000)
-        return credentialRepository.recoverCredential() == null
+        return credentialRepository.recoverLocalCredential() == null
     }
 }
 

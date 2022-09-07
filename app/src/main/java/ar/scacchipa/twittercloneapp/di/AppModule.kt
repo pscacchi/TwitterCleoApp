@@ -5,9 +5,7 @@ import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenMapper
 import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
 import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
-import ar.scacchipa.twittercloneapp.data.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.data.repository.CredentialRepository
-import ar.scacchipa.twittercloneapp.data.repository.IAuthorizationRepository
 import ar.scacchipa.twittercloneapp.data.repository.ICredentialRepository
 import ar.scacchipa.twittercloneapp.domain.model.Credential
 import ar.scacchipa.twittercloneapp.domain.usecase.AuthorizationUseCase
@@ -31,10 +29,9 @@ val appModule = module {
 
     single { UserAccessTokenMapper() as IMapper<UserAccessToken, Credential> }
 
-    single { AuthorizationRepository( get(), get() ) as IAuthorizationRepository }
-    single { CredentialRepository( get() ) as ICredentialRepository }
+    single { CredentialRepository( get(), get(), get() ) as ICredentialRepository }
 
-    single { AuthorizationUseCase( get(), get() ) as AuthorizationUseCase }
+    single { AuthorizationUseCase( get() ) as AuthorizationUseCase }
     single { CheckInUseCase( get() ) as CheckInUseCase }
 
     viewModel { LoginWebSectionViewModel( get() ) }

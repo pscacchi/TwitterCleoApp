@@ -1,6 +1,5 @@
 package ar.scacchipa.twittercloneapp.domain
 
-import ar.scacchipa.twittercloneapp.data.repository.AuthorizationRepository
 import ar.scacchipa.twittercloneapp.data.repository.CredentialRepository
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.domain.usecase.AuthorizationUseCase
@@ -16,12 +15,9 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class AuthorizationUseCaseTest {
 
-
-    private val mockAuthRepository = mockk<AuthorizationRepository>()
     private val mockCredentialRepository = mockk<CredentialRepository>()
 
     private val authorizationUseCase = AuthorizationUseCase(
-        authRepository = mockAuthRepository,
         credentialRepository = mockCredentialRepository
     )
 
@@ -29,7 +25,7 @@ class AuthorizationUseCaseTest {
     fun authorizationUseCaseReturnsASuccessCredential() = runTest {
 
         coEvery {
-            mockAuthRepository.requestAccessToken(
+            mockCredentialRepository.getExternalCredential(
                 transitoryToken = MockTokenProvider.transitoryToken1(),
                 grantType = Constants.GRANT_TYPE_AUTHORIZATION_CODE,
                 clientId = Constants.CLIENT_ID,
@@ -41,7 +37,7 @@ class AuthorizationUseCaseTest {
 
         var wasStored = false
         coEvery {
-            mockCredentialRepository.storeCredential( MockTokenProvider.credential1() )
+            mockCredentialRepository.storeLocalCredential( MockTokenProvider.credential1() )
         } coAnswers {
             wasStored = true
             true
@@ -61,19 +57,18 @@ class AuthorizationUseCaseTest {
     fun authorizationUseCaseReturnsAError() = runTest {
 
         coEvery {
-            mockAuthRepository.requestAccessToken(
+            mockCredentialRepository.getExternalCredential(
                 transitoryToken = MockTokenProvider.incorrectTransitoryToken(),
                 grantType = Constants.GRANT_TYPE_AUTHORIZATION_CODE,
                 clientId = Constants.CLIENT_ID,
                 redirectUri = Constants.REDIRECT_URI,
                 codeVerifier = Constants.CODE_VERIFIER_CHALLENGE,
-                state = Constants.STATE_STATE
-            )
+                state = Constants.STATE_STATE )
         } returns( ResponseDomain.Error() )
 
         var wasStored = false
         coEvery {
-            mockCredentialRepository.storeCredential(MockTokenProvider.credential1())
+            mockCredentialRepository.storeLocalCredential(MockTokenProvider.credential1())
         } coAnswers {
             wasStored = false
             false

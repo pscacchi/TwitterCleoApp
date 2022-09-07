@@ -22,7 +22,7 @@ class SplashTimerUseCaseUnitTest {
     @Test
     fun subjectReturnTrue() = runTest {
         every {
-            mockCredentialRepository.recoverCredential()
+            mockCredentialRepository.recoverLocalCredential()
         } returns null
 
         assertEquals(true, subject())
@@ -32,7 +32,7 @@ class SplashTimerUseCaseUnitTest {
     @Test
     fun subjectReturnFalse() = runTest {
         every {
-            mockCredentialRepository.recoverCredential()
+            mockCredentialRepository.recoverLocalCredential()
         } returns ( MockTokenProvider.credential1() )
         assertEquals(false, subject())
         assertEquals(5000, this.testScheduler.currentTime )
