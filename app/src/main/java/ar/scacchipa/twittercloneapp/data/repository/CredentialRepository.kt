@@ -15,7 +15,7 @@ open class CredentialRepository(
     private val credentialLocalSource: SharedPreferences,
     private val accessTokenExternalSource: IAuthDataSource,
     private val mapper: IMapper<UserAccessToken, Credential>,
-    private val dispatcherDefault: CoroutineDispatcher = Dispatchers.IO,
+    private val dispatcherDefault: CoroutineDispatcher = Dispatchers.Default,
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
 ): ICredentialRepository {
 
