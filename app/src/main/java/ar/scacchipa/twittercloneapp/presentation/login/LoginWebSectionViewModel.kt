@@ -70,7 +70,7 @@ class LoginWebSectionViewModel (
                 "client_id=${Constants.CLIENT_ID}&" +
                 "redirect_uri=${Constants.REDIRECT_URI}&" +
                 "scope=${getScope()}&" +
-                "state=${Constants.STATE_STATE}&" +
+                "state=${Constants.STATE}&" +
                 "code_challenge=${Constants.CODE_CHALLENGE_CHALLENGE}&" +
                 "code_challenge_method=${Constants.CODE_CHALLENGE_METHOD_PLAIN}"
     }
