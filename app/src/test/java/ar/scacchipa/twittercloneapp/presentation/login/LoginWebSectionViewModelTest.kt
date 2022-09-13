@@ -88,5 +88,26 @@ class LoginWebSectionViewModelTest {
             subject.responseDomain.value
         )
     }
+
+    @Test
+    fun subjectGetsConsumableAuthCode() {
+        val scopeExpected = listOf(
+            "users.read", "tweet.read", "tweet.write", "offline.access",
+            "list.read", "follows.read", "like.read", "like.write",
+            "space.read").joinToString("%20")
+
+        val expected = "https://twitter.com/i/oauth2/authorize?" +
+                    "response_type=code&" +
+                    "client_id=${Constants.CLIENT_ID}&" +
+                    "redirect_uri=${Constants.REDIRECT_URI}&" +
+                    "scope=${scopeExpected}&" +
+                    "state=state&" +
+                    "code_challenge=challenge&" +
+                    "code_challenge_method=plain"
+
+        assertEquals(
+            expected,
+            subject.getConsumableAuthCode())
+    }
 }
 

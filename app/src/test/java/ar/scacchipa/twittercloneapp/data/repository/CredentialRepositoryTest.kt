@@ -127,7 +127,7 @@ class CredentialRepositoryTest {
     }
 
     @Test
-    fun subjectRecoverStoredCredential() {
+    fun subjectRecoverStoredCredential() = runTest {
         val expectedCredential = MockTokenProvider.credential1()
 
         hashMap[Constants.ACCESS_TOKEN] = MockTokenProvider.credential1().accessToken

@@ -9,7 +9,6 @@ class Constants {
         const val STATE_STATE = "state"
         const val CODE_CHALLENGE_CHALLENGE = "challenge"
         const val CODE_CHALLENGE_METHOD_PLAIN = "plain"
-        const val TOKEN_TYPE_HINT = "access_token"
         const val TWITTER_SESSION = "twitter_session"
         const val TOKEN_TYPE = "tokenType"
         const val ACCESS_TOKEN = "access_token"
