@@ -19,7 +19,7 @@ open class CredentialRepository(
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
 ): ICredentialRepository {
 
-    override fun recoverLocalCredential(): Credential? {
+    override suspend fun recoverLocalCredential(): Credential? {
         credentialLocalSource.apply {
             if ( !contains(Constants.ACCESS_TOKEN)
                 || !contains(Constants.REFRESH_TOKEN) ) {
