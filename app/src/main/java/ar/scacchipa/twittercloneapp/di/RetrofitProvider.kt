@@ -12,5 +12,5 @@ fun provideRetrofit(): Retrofit {
         .build()
 }
 
-fun provideAuthSourceDateApi(retrofit: Retrofit): IAuthDataSource =
+fun provideAuthSourceDataApi(retrofit: Retrofit): IAuthDataSource =
     retrofit.create(IAuthDataSource::class.java)

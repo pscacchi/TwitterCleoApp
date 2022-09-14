@@ -1,9 +1,12 @@
 package ar.scacchipa.twittercloneapp.data.repository
 
+import ar.scacchipa.twittercloneapp.domain.model.Credential
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 
-interface IAuthorizationRepository {
-    suspend fun requestAccessToken(
+interface ICredentialRepository {
+    suspend fun storeLocalCredential(credential: Credential): Boolean
+    suspend fun recoverLocalCredential(): Credential?
+    suspend fun getExternalCredential(
         transitoryToken: String,
         grantType: String,
         clientId: String,

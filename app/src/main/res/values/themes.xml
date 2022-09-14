@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar" />
+    <style name="Base.Theme.MyApplication" parent="Theme.Material3.Light.NoActionBar" />
     <style name="Theme.TwitterCloneApp" parent="Base.Theme.MyApplication">
         <item name="android:textSize">@dimen/normal_text_size</item>
         <item name="android:background">@color/primary_background</item>
@@ -19,5 +19,8 @@
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:navigationBarColor">@color/on_primary</item>
         <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <style name="Theme.TwitterButton" parent="Theme.Material3.Light">
+        <item name="backgroundTint">@color/twitter_background</item>
     </style>
 </resources>

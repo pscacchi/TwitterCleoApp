@@ -1,12 +1,13 @@
-package ar.scacchipa.twittercloneapp.presentation.starter
+package ar.scacchipa.twittercloneapp.presentation.splash
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import ar.scacchipa.twittercloneapp.domain.usecase.SplashTimerUseCase
-import ar.scacchipa.twittercloneapp.presentation.splash.SplashViewModel
+import ar.scacchipa.twittercloneapp.domain.usecase.StarterUseCase
 import ar.scacchipa.twittercloneapp.utils.MainCoroutineTestRule
+import io.mockk.coEvery
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
@@ -19,17 +20,20 @@ class SplashViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    @Test
-    fun checkSplashIsSpent() = runTest {
-            val viewModel = SplashViewModel(SplashTimerMock())
-            Assert.assertEquals(false, viewModel.splashWasSpent.value)
-            viewModel.spendSplash()
-            Assert.assertEquals(true, viewModel.splashWasSpent.value)
-    }
-}
+    private val mockCheckInUseCase = mockk<StarterUseCase>()
 
-class SplashTimerMock: SplashTimerUseCase() {
-    override suspend fun spendSplash(): Boolean {
-        return true
+    private val subject = SplashViewModel(
+        starterUseCase = mockCheckInUseCase
+    )
+
+    @Test
+    fun checkCredentialReturnTrue() = runTest {
+        coEvery {
+            mockCheckInUseCase.invoke()
+        } returns true
+        subject.spendSplash()
+        assertTrue(
+            subject.mustLogin.value == true
+        )
     }
 }

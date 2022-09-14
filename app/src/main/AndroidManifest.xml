@@ -27,5 +27,4 @@
             android:theme="@style/Theme.TwitterCloneAppWithActionBar">
         </activity>
     </application>
-
 </manifest>

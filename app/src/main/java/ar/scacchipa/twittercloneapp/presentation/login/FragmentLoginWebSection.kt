@@ -31,7 +31,6 @@ class FragmentLoginWebSection : Fragment() {
 
         viewModel.responseDomain.observe(viewLifecycleOwner) { token ->
             when (token) {
-
                 is ResponseDomain.Success<*> -> {
                     val intent = Intent(
                         activity,
@@ -39,6 +38,7 @@ class FragmentLoginWebSection : Fragment() {
                     )
                     intent.flags =  Intent.FLAG_ACTIVITY_NEW_TASK or
                             Intent.FLAG_ACTIVITY_CLEAR_TASK
+
                     startActivity( intent )
                 }
                 is ResponseDomain.Error -> {
@@ -86,7 +86,7 @@ class FragmentLoginWebSection : Fragment() {
                 }
             }
 
-            loadUrl(viewModel.createTemporaryCodeUrl())
+            loadUrl(viewModel.getConsumableAuthCode())
         }
         return binding?.root
     }

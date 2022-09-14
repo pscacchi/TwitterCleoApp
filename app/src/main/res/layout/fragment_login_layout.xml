@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.TwitterCloneApp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_background"
@@ -22,6 +23,7 @@
         app:srcCompat="@drawable/twitter_logo" />
 
     <com.google.android.material.button.MaterialButton
+        style="@style/Theme.TwitterButton"
         android:id="@+id/button_login"
         android:layout_width="200dp"
         android:layout_height="52dp"
