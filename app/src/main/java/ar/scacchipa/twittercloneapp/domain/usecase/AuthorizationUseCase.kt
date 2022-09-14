@@ -17,7 +17,7 @@ open class AuthorizationUseCase(
             clientId = Constants.CLIENT_ID,
             redirectUri = Constants.REDIRECT_URI,
             codeVerifier = Constants.CODE_VERIFIER_CHALLENGE,
-            state = Constants.STATE_STATE
+            state = Constants.STATE
         )
 
         if (accessTokenRequest is ResponseDomain.Success<*>) {

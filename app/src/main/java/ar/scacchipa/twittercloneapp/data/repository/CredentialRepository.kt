@@ -1,8 +1,8 @@
 package ar.scacchipa.twittercloneapp.data.repository
 
-import android.content.SharedPreferences
 import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
+import ar.scacchipa.twittercloneapp.data.datasource.ILocalSource
 import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
 import ar.scacchipa.twittercloneapp.domain.model.Credential
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
@@ -12,32 +12,33 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 open class CredentialRepository(
-    private val credentialLocalSource: SharedPreferences,
+    private val credentialLocalSource: ILocalSource,
     private val accessTokenExternalSource: IAuthDataSource,
     private val mapper: IMapper<UserAccessToken, Credential>,
     private val dispatcherDefault: CoroutineDispatcher = Dispatchers.Default,
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
 ): ICredentialRepository {
 
-    override fun recoverLocalCredential(): Credential? {
+    override suspend fun recoverLocalCredential(): Credential? {
         credentialLocalSource.apply {
             if ( !contains(Constants.ACCESS_TOKEN)
                 || !contains(Constants.REFRESH_TOKEN) ) {
                 return null
             }
             return Credential(
-                getString(Constants.ACCESS_TOKEN, "") ?: "",
-                getString(Constants.REFRESH_TOKEN, "") ?: ""
+                get(Constants.ACCESS_TOKEN) ?: "",
+                get(Constants.REFRESH_TOKEN) ?: ""
             )
         }
     }
 
     override suspend fun storeLocalCredential(credential: Credential): Boolean {
         return withContext(dispatcherDefault) {
-            credentialLocalSource.edit().apply {
-                putString(Constants.ACCESS_TOKEN, credential.accessToken)
-                putString(Constants.REFRESH_TOKEN, credential.refreshToken)
-            }.commit()
+            credentialLocalSource.apply {
+                save(Constants.ACCESS_TOKEN, credential.accessToken)
+                save(Constants.REFRESH_TOKEN, credential.refreshToken)
+            }
+            true
         }
     }
     override suspend fun getExternalCredential(

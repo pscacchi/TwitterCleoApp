@@ -6,10 +6,9 @@ class Constants {
         const val REDIRECT_URI = "https://twittercloneendava.firebaseapp.com/__/auth/handler"
 
         const val RESPONSE_TYPE_CODE = "code"
-        const val STATE_STATE = "state"
+        const val STATE = "state"
         const val CODE_CHALLENGE_CHALLENGE = "challenge"
         const val CODE_CHALLENGE_METHOD_PLAIN = "plain"
-        const val TOKEN_TYPE_HINT = "access_token"
         const val TWITTER_SESSION = "twitter_session"
         const val TOKEN_TYPE = "tokenType"
         const val ACCESS_TOKEN = "access_token"
@@ -24,7 +23,6 @@ class Constants {
 
         const val ERROR_HOST_LOOKUP_TOKEN = "error_host_lookup"
         const val ERROR_ACCESS_DENIED = "access_denied"
-        const val ERROR_NO_REVOKE_ACCESS_TOKEN = "error_no_revoke_access_token"
 
         const val SCOPE_USERS_READ = "users.read"
         const val SCOPE_TWEET_READ = "tweet.read"

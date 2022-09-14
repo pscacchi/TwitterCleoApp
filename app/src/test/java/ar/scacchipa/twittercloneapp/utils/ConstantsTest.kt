@@ -11,7 +11,7 @@ class ConstantsTest {
         assertEquals("https://twittercloneendava.firebaseapp.com/__/auth/handler", Constants.REDIRECT_URI,)
 
         assertEquals("code", Constants.RESPONSE_TYPE_CODE)
-        assertEquals("state", Constants.STATE_STATE)
+        assertEquals("state", Constants.STATE)
         assertEquals("challenge", Constants.CODE_CHALLENGE_CHALLENGE)
         assertEquals("plain", Constants.CODE_CHALLENGE_METHOD_PLAIN)
 

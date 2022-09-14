@@ -31,7 +31,7 @@ class AuthorizationUseCaseTest {
                 clientId = Constants.CLIENT_ID,
                 redirectUri = Constants.REDIRECT_URI,
                 codeVerifier = Constants.CODE_VERIFIER_CHALLENGE,
-                state = Constants.STATE_STATE
+                state = Constants.STATE
             )
         } returns( ResponseDomain.Success(MockTokenProvider.credential1()) )
 
@@ -63,7 +63,7 @@ class AuthorizationUseCaseTest {
                 clientId = Constants.CLIENT_ID,
                 redirectUri = Constants.REDIRECT_URI,
                 codeVerifier = Constants.CODE_VERIFIER_CHALLENGE,
-                state = Constants.STATE_STATE )
+                state = Constants.STATE )
         } returns( ResponseDomain.Error() )
 
         var wasStored = false
