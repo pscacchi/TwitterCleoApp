@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.databinding.FragmentLoginWebSectionLayoutBinding
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.presentation.MainActivity
-import ar.scacchipa.twittercloneapp.utils.Constants
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.net.URI
 

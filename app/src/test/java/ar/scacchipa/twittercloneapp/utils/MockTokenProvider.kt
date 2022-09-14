@@ -17,9 +17,6 @@ class MockTokenProvider {
                 refreshToken = "LVJQQXMxSUM0QUQ2eHNidkNfYUNScUJoSTY5Sy1ndGxqMmx2WnRPQzF4NklDOjE2NTY1OTUxOTIxMTU6MTowOnJ0OjE"
             )
         }
-        fun credentialNull(): Credential {
-            return Credential("", "")
-        }
 
         fun userAccessTokenData1(): UserAccessToken {
             return UserAccessToken(

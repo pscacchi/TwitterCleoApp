@@ -2,7 +2,7 @@ package ar.scacchipa.twittercloneapp.data.datasource
 
 import android.content.SharedPreferences
 
-class SharedPrefsLocalStorage(
+class SharedPrefsLocalSource(
     private val prefs: SharedPreferences
 ): ILocalSource {
     override fun save(key: String, value: String) {

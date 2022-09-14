@@ -7,12 +7,12 @@ import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
-class SharedPrefsLocalStorageTest {
+class SharedPrefsLocalSourceTest {
 
     private val mockSharedEditor = mockk<SharedPreferences.Editor>()
     private val mockSharedPreferences = mockk<SharedPreferences>()
 
-    private val subject = SharedPrefsLocalStorage(
+    private val subject = SharedPrefsLocalSource(
         prefs = mockSharedPreferences
     )
 
