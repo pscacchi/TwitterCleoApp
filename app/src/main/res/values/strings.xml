@@ -16,4 +16,5 @@
     <string name="search_menu_title">Search</string>
     <string name="bell_menu_title">Bell</string>
     <string name="message_menu_title">Message</string>
+    <string name="log_out_menu_title">Log out</string>
 </resources>
