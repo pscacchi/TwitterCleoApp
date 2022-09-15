@@ -14,6 +14,7 @@ import kotlinx.coroutines.withContext
 open class CredentialRepository(
     private val credentialLocalSource: ILocalSource,
     private val accessTokenExternalSource: IAuthDataSource,
+    private val variable: Boolean,
     private val mapper: IMapper<UserAccessToken, Credential>,
     private val dispatcherDefault: CoroutineDispatcher = Dispatchers.Default,
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
