@@ -14,4 +14,5 @@ interface ICredentialRepository {
         codeVerifier: String,
         state: String
     ): ResponseDomain
+    suspend fun revokeCredential(): Boolean
 }

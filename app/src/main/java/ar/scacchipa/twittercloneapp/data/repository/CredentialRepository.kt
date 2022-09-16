@@ -3,6 +3,7 @@ package ar.scacchipa.twittercloneapp.data.repository
 import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
 import ar.scacchipa.twittercloneapp.data.datasource.ILocalSource
+import ar.scacchipa.twittercloneapp.data.datasource.IRevokeTokenDataSource
 import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
 import ar.scacchipa.twittercloneapp.domain.model.Credential
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
@@ -14,7 +15,7 @@ import kotlinx.coroutines.withContext
 open class CredentialRepository(
     private val credentialLocalSource: ILocalSource,
     private val accessTokenExternalSource: IAuthDataSource,
-    private val variable: Boolean,
+    private val revokeDataSource: IRevokeTokenDataSource,
     private val mapper: IMapper<UserAccessToken, Credential>,
     private val dispatcherDefault: CoroutineDispatcher = Dispatchers.Default,
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
@@ -76,6 +77,27 @@ open class CredentialRepository(
                 ResponseDomain.Exception(message = e.message ?: "")
             }
         }
+    }
+
+    override suspend fun revokeCredential(): Boolean {
+        credentialLocalSource.get(Constants.ACCESS_TOKEN)
+            ?.let { accessToken ->
+                val providerRevokeData = revokeDataSource.revokeToken(
+                    token = accessToken,
+                    clientId = Constants.CLIENT_ID,
+                    tokenTypeHint = Constants.ACCESS_TOKEN
+                )
+                if (providerRevokeData.isSuccessful) {
+                    providerRevokeData.body()?.let { body ->
+                        if (body.revoked) {
+                            credentialLocalSource.remove(Constants.ACCESS_TOKEN)
+                            credentialLocalSource.remove(Constants.REFRESH_TOKEN)
+                            return true
+                        }
+                    }
+                }
+            }
+        return false
     }
 }
 

@@ -11,12 +11,12 @@ class SplashViewModel(
     private val starterUseCase: StarterUseCase
 ): ViewModel() {
 
-    private val _mustLogin = MutableLiveData<Boolean?>()
+    private val _mustLogin = MutableLiveData<Boolean?>(null)
     val mustLogin = _mustLogin as LiveData<Boolean?>
 
     fun spendSplash() {
         viewModelScope.launch {
-            _mustLogin.value = starterUseCase()
+            _mustLogin.value = starterUseCase( )
         }
     }
 }

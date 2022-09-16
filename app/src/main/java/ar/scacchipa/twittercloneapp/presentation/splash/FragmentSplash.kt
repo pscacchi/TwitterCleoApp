@@ -25,20 +25,27 @@ class FragmentSplash: Fragment() {
         binding = FragmentSplashLayoutBinding.inflate(inflater)
 
         splashViewModel.mustLogin.observe(viewLifecycleOwner) { mustLogin ->
-            if (mustLogin == true) {
-                findNavController().navigate(R.id.action_fragmentSplash_to_fragmentLogin)
-            } else {
-                val intent = Intent(
-                    activity,
-                    MainActivity::class.java
-                )
-                intent.flags =  Intent.FLAG_ACTIVITY_NEW_TASK or
-                        Intent.FLAG_ACTIVITY_CLEAR_TASK
+            when (mustLogin) {
+                null -> splashViewModel.spendSplash()
 
-                startActivity( intent )
+                true -> {
+                    findNavController().navigate(R.id.action_fragmentSplash_to_fragmentLogin)
+                }
+
+                false -> {
+                    val intent = Intent(
+                        activity,
+                        MainActivity::class.java
+                    )
+
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                    startActivity(intent)
+                }
             }
         }
-        splashViewModel.spendSplash()
+
         return binding?.root
     }
 

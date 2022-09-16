@@ -1,5 +1,4 @@
-package ar.scacchipa.twittercloneapp.data.datasource;
-
+package ar.scacchipa.twittercloneapp.data.datasource
 
 class MockLocalStorage: ILocalSource {
     private val values = mutableMapOf<String, String>()
@@ -14,5 +13,9 @@ class MockLocalStorage: ILocalSource {
 
     override fun contains(key: String): Boolean {
         return values.contains(key)
+    }
+
+    override fun remove(key: String) {
+        values.remove(key)
     }
 }
