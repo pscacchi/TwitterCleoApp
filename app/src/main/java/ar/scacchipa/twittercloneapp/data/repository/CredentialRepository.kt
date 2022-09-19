@@ -1,9 +1,8 @@
 package ar.scacchipa.twittercloneapp.data.repository
 
 import ar.scacchipa.twittercloneapp.data.IMapper
-import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
+import ar.scacchipa.twittercloneapp.data.datasource.IAuthExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ILocalSource
-import ar.scacchipa.twittercloneapp.data.datasource.IRevokeTokenDataSource
 import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
 import ar.scacchipa.twittercloneapp.domain.model.Credential
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
@@ -14,8 +13,7 @@ import kotlinx.coroutines.withContext
 
 open class CredentialRepository(
     private val credentialLocalSource: ILocalSource,
-    private val accessTokenExternalSource: IAuthDataSource,
-    private val revokeDataSource: IRevokeTokenDataSource,
+    private val authExternalSource: IAuthExternalSource,
     private val mapper: IMapper<UserAccessToken, Credential>,
     private val dispatcherDefault: CoroutineDispatcher = Dispatchers.Default,
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
@@ -53,7 +51,7 @@ open class CredentialRepository(
     ): ResponseDomain {
         return withContext(dispatcherIO) {
             try {
-                val token = accessTokenExternalSource.genAccessTokenSourceCode(
+                val token = authExternalSource.genAccessTokenSourceCode(
                     transitoryToken = transitoryToken,
                     grantType = grantType,
                     clientId = clientId,
@@ -82,7 +80,7 @@ open class CredentialRepository(
     override suspend fun revokeCredential(): Boolean {
         credentialLocalSource.get(Constants.ACCESS_TOKEN)
             ?.let { accessToken ->
-                val providerRevokeData = revokeDataSource.revokeToken(
+                val providerRevokeData = authExternalSource.revokeToken(
                     token = accessToken,
                     clientId = Constants.CLIENT_ID,
                     tokenTypeHint = Constants.ACCESS_TOKEN

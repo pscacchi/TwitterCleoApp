@@ -3,9 +3,8 @@ package ar.scacchipa.twittercloneapp.di
 import android.content.SharedPreferences
 import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenMapper
-import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
+import ar.scacchipa.twittercloneapp.data.datasource.IAuthExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ILocalSource
-import ar.scacchipa.twittercloneapp.data.datasource.IRevokeTokenDataSource
 import ar.scacchipa.twittercloneapp.data.datasource.SharedPrefsLocalSource
 import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
 import ar.scacchipa.twittercloneapp.data.repository.CredentialRepository
@@ -34,12 +33,11 @@ val appModule = module {
 
     single { provideCredentialLocalSource( androidApplication() ) as SharedPreferences }
     single { SharedPrefsLocalSource( get() ) as ILocalSource }
-    single { provideAuthSourceDataApi( get() ) as IAuthDataSource }
-    single { provideRevokeTokenSourceDataApi( get() ) as IRevokeTokenDataSource}
+    single { provideAuthSourceDataApi( get() ) as IAuthExternalSource }
 
     single { UserAccessTokenMapper() as IMapper<UserAccessToken, Credential> }
 
-    single { CredentialRepository( get(), get(), get(), get() ) as ICredentialRepository }
+    single { CredentialRepository( get(), get(), get() ) as ICredentialRepository }
 
     single { AuthorizationUseCase( get() ) as AuthorizationUseCase }
     single { StarterUseCase( get() ) as StarterUseCase }

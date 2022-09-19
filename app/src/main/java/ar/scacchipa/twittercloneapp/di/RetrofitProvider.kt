@@ -1,7 +1,6 @@
 package ar.scacchipa.twittercloneapp.di
 
-import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
-import ar.scacchipa.twittercloneapp.data.datasource.IRevokeTokenDataSource
+import ar.scacchipa.twittercloneapp.data.datasource.IAuthExternalSource
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,8 +12,5 @@ fun provideRetrofit(): Retrofit {
         .build()
 }
 
-fun provideAuthSourceDataApi(retrofit: Retrofit): IAuthDataSource =
-    retrofit.create(IAuthDataSource::class.java)
-
-fun provideRevokeTokenSourceDataApi(retrofit: Retrofit): IRevokeTokenDataSource =
-    retrofit.create(IRevokeTokenDataSource::class.java)
+fun provideAuthSourceDataApi(retrofit: Retrofit): IAuthExternalSource =
+    retrofit.create(IAuthExternalSource::class.java)
