@@ -18,14 +18,6 @@ class SharedPrefsLocalSourceTest {
 
     @Before
     fun setup() {
-
-
-
-    }
-
-    @Test
-    fun subjectSaveKeyAndValue() {
-
         every {
             mockSharedPreferences.edit()
         } returns mockSharedEditor
@@ -37,8 +29,18 @@ class SharedPrefsLocalSourceTest {
         }
 
         every {
+            mockSharedEditor.remove( any() )
+        } answers {
+            this.callOriginal()
+        }
+
+        every {
             mockSharedEditor.commit()
         } returns true
+    }
+
+    @Test
+    fun subjectSaveKeyAndValue() {
 
         subject.save("aKey", "aValue")
 
@@ -68,8 +70,20 @@ class SharedPrefsLocalSourceTest {
         } returns true
 
         subject.contains("aKey3")
+
         verify {
             mockSharedPreferences.contains("aKey3")
+        }
+    }
+
+    @Test
+    fun subjectRemoveAKey() {
+        subject.remove("aKey4")
+
+        verify {
+            mockSharedPreferences.edit()
+            mockSharedEditor.remove("aKey4")
+            mockSharedEditor.commit()
         }
     }
 }

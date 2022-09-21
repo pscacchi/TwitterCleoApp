@@ -19,4 +19,11 @@ class SharedPrefsLocalSource(
     override fun contains(key: String): Boolean {
         return prefs.contains(key)
     }
+
+    override fun remove(key: String) {
+        with(prefs.edit()) {
+            remove(key)
+            commit()
+        }
+    }
 }

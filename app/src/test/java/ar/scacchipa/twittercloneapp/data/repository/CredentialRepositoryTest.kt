@@ -1,14 +1,16 @@
 package ar.scacchipa.twittercloneapp.data.repository
 
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenMapper
-import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
+import ar.scacchipa.twittercloneapp.data.datasource.IAuthExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.MockLocalStorage
+import ar.scacchipa.twittercloneapp.data.model.RevokeData
 import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
 import ar.scacchipa.twittercloneapp.domain.model.Credential
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.utils.Constants
 import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,12 +27,12 @@ import retrofit2.Response
 class CredentialRepositoryTest {
 
     private var mockCredentialLocalSource = MockLocalStorage()
-    private val mockAccessTokenExternalSource = mockk<IAuthDataSource>()
+    private val mockAuthExternalSource = mockk<IAuthExternalSource>()
     private val hashMap = mutableMapOf<String, String>()
 
     private val subject = CredentialRepository(
         credentialLocalSource = mockCredentialLocalSource,
-        accessTokenExternalSource = mockAccessTokenExternalSource,
+        authExternalSource = mockAuthExternalSource,
         mapper = UserAccessTokenMapper(),
         dispatcherDefault = Dispatchers.Default,
         dispatcherIO = Dispatchers.Default
@@ -40,7 +42,7 @@ class CredentialRepositoryTest {
     fun setup() {
 
         coEvery {
-            mockAccessTokenExternalSource.genAccessTokenSourceCode(
+            mockAuthExternalSource.genAccessTokenSourceCode(
                 transitoryToken = MockTokenProvider.transitoryToken1(),
                 grantType = "authorization_code",
                 clientId = "Yzg1a01Hcm16RTdKdmptZmhJdEs6MTpjaQ",
@@ -60,7 +62,7 @@ class CredentialRepositoryTest {
         )
 
         coEvery {
-            mockAccessTokenExternalSource.genAccessTokenSourceCode(
+            mockAuthExternalSource.genAccessTokenSourceCode(
                 "incorrect_password",
                 grantType = any(),
                 clientId = any(),
@@ -76,7 +78,7 @@ class CredentialRepositoryTest {
         )
 
         coEvery {
-            mockAccessTokenExternalSource.genAccessTokenSourceCode(
+            mockAuthExternalSource.genAccessTokenSourceCode(
                 transitoryToken = "request_without_body",
                 grantType = any(),
                 clientId = any(),
@@ -87,7 +89,7 @@ class CredentialRepositoryTest {
         } returns Response.success(null)
 
         coEvery {
-            mockAccessTokenExternalSource.genAccessTokenSourceCode(
+            mockAuthExternalSource.genAccessTokenSourceCode(
                 transitoryToken = "throw_exception",
                 grantType = any(),
                 clientId = any(),
@@ -212,7 +214,70 @@ class CredentialRepositoryTest {
                 state = "state"
             ))
     }
+
+    @Test
+    fun subjectRevokeCredentialReturnsTrue() = runTest {
+
+        mockCredentialLocalSource.save(
+            Constants.ACCESS_TOKEN,
+            MockTokenProvider.credential1().accessToken
+        )
+
+        coEvery {
+            mockAuthExternalSource.revokeToken(
+                token = MockTokenProvider.credential1().accessToken,
+                clientId = Constants.CLIENT_ID,
+                tokenTypeHint = Constants.ACCESS_TOKEN
+            )
+        } returns Response.success(
+            RevokeData(true)
+        )
+
+        subject.revokeCredential()
+
+        coVerify {
+            mockAuthExternalSource.revokeToken(
+                token = MockTokenProvider.credential1().accessToken,
+                clientId = Constants.CLIENT_ID,
+                tokenTypeHint = Constants.ACCESS_TOKEN
+            )
+            mockCredentialLocalSource.remove(Constants.ACCESS_TOKEN)
+            mockCredentialLocalSource.remove(Constants.REFRESH_TOKEN)
+        }
+
+        mockCredentialLocalSource = MockLocalStorage()
+    }
+
+    @Test
+    fun subjectRevokeCredentialReturnsFalse() = runTest {
+
+        mockCredentialLocalSource.save(
+            Constants.ACCESS_TOKEN,
+            MockTokenProvider.credential1().accessToken
+        )
+
+        coEvery {
+            mockAuthExternalSource.revokeToken(
+                token = MockTokenProvider.credential1().accessToken,
+                clientId = Constants.CLIENT_ID,
+                tokenTypeHint = Constants.ACCESS_TOKEN
+            )
+        } returns Response.success(
+            RevokeData(false)
+        )
+
+        subject.revokeCredential()
+
+        coVerify {
+            mockAuthExternalSource.revokeToken(
+                token = MockTokenProvider.credential1().accessToken,
+                clientId = Constants.CLIENT_ID,
+                tokenTypeHint = Constants.ACCESS_TOKEN
+            )
+            mockCredentialLocalSource.remove(Constants.ACCESS_TOKEN)
+            mockCredentialLocalSource.remove(Constants.REFRESH_TOKEN)
+        }
+
+        mockCredentialLocalSource = MockLocalStorage()
+    }
 }
-
-
-

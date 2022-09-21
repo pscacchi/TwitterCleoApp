@@ -9,7 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.FragmentSplashLayoutBinding
-import ar.scacchipa.twittercloneapp.presentation.MainActivity
+import ar.scacchipa.twittercloneapp.presentation.main.MainActivity
+import ar.scacchipa.twittercloneapp.utils.Constants
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentSplash: Fragment() {
@@ -25,20 +26,35 @@ class FragmentSplash: Fragment() {
         binding = FragmentSplashLayoutBinding.inflate(inflater)
 
         splashViewModel.mustLogin.observe(viewLifecycleOwner) { mustLogin ->
-            if (mustLogin == true) {
-                findNavController().navigate(R.id.action_fragmentSplash_to_fragmentLogin)
-            } else {
-                val intent = Intent(
-                    activity,
-                    MainActivity::class.java
-                )
-                intent.flags =  Intent.FLAG_ACTIVITY_NEW_TASK or
-                        Intent.FLAG_ACTIVITY_CLEAR_TASK
+            when (mustLogin) {
+                null -> splashViewModel.spendSplash()
 
-                startActivity( intent )
+                true -> {
+                    findNavController().navigate(R.id.action_fragmentSplash_to_fragmentLogin)
+                }
+
+                false -> {
+                    val intent = Intent(
+                        activity,
+                        MainActivity::class.java
+                    )
+
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                    startActivity(intent)
+                }
             }
         }
-        splashViewModel.spendSplash()
+
+        if (activity
+                ?.intent
+                ?.getBooleanExtra(
+                    Constants.ACTIVITY_ACTION_SKIP_SPLASH, false) == true
+        ) {
+            splashViewModel.skipSplash()
+        }
+
         return binding?.root
     }
 

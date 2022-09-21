@@ -3,7 +3,7 @@ package ar.scacchipa.twittercloneapp.di
 import android.content.SharedPreferences
 import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenMapper
-import ar.scacchipa.twittercloneapp.data.datasource.IAuthDataSource
+import ar.scacchipa.twittercloneapp.data.datasource.IAuthExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ILocalSource
 import ar.scacchipa.twittercloneapp.data.datasource.SharedPrefsLocalSource
 import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
@@ -11,7 +11,9 @@ import ar.scacchipa.twittercloneapp.data.repository.CredentialRepository
 import ar.scacchipa.twittercloneapp.data.repository.ICredentialRepository
 import ar.scacchipa.twittercloneapp.domain.model.Credential
 import ar.scacchipa.twittercloneapp.domain.usecase.AuthorizationUseCase
+import ar.scacchipa.twittercloneapp.domain.usecase.RevokeCredentialUseCase
 import ar.scacchipa.twittercloneapp.domain.usecase.StarterUseCase
+import ar.scacchipa.twittercloneapp.presentation.main.MainActivityViewModel
 import ar.scacchipa.twittercloneapp.presentation.login.FragmentLogin
 import ar.scacchipa.twittercloneapp.presentation.login.FragmentLoginWebSection
 import ar.scacchipa.twittercloneapp.presentation.login.LoginViewModel
@@ -28,9 +30,10 @@ import org.koin.dsl.module
 val appModule = module {
 
     single { provideRetrofit() }
+
     single { provideCredentialLocalSource( androidApplication() ) as SharedPreferences }
     single { SharedPrefsLocalSource( get() ) as ILocalSource }
-    single { provideAuthSourceDataApi( get() ) as IAuthDataSource }
+    single { provideAuthSourceDataApi( get() ) as IAuthExternalSource }
 
     single { UserAccessTokenMapper() as IMapper<UserAccessToken, Credential> }
 
@@ -38,10 +41,12 @@ val appModule = module {
 
     single { AuthorizationUseCase( get() ) as AuthorizationUseCase }
     single { StarterUseCase( get() ) as StarterUseCase }
+    single { RevokeCredentialUseCase( get() ) as RevokeCredentialUseCase }
 
     viewModel { SplashViewModel( get() ) }
     viewModel { LoginViewModel() }
     viewModel { LoginWebSectionViewModel( get() ) }
+    viewModel { MainActivityViewModel( get() ) }
 
     fragment { FragmentSplash() }
     fragment { FragmentLogin() }

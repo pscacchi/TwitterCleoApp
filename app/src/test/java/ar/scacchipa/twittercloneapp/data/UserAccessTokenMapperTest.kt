@@ -4,7 +4,6 @@ import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
 import org.junit.Assert
 import org.junit.Test
 
-
 class UserAccessTokenMapperTest {
 
     private val subject = UserAccessTokenMapper()

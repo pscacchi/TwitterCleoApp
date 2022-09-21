@@ -1,5 +1,6 @@
-package ar.scacchipa.twittercloneapp.presentation
+package ar.scacchipa.twittercloneapp.presentation.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.ActionBar
@@ -13,11 +14,15 @@ import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.ActivityMainLayoutBinding
 import ar.scacchipa.twittercloneapp.databinding.LayoutActionbarHomeBinding
 import ar.scacchipa.twittercloneapp.databinding.LayoutActionbarSearchBinding
+import ar.scacchipa.twittercloneapp.presentation.LoginActivity
+import ar.scacchipa.twittercloneapp.utils.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityMainLayoutBinding
+    private val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +60,7 @@ class MainActivity: AppCompatActivity() {
 
         binding.drawerView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_item_log_out -> println("log out")
+                R.id.nav_item_log_out -> viewModel.onLogOut()
             }
             true
         }
@@ -66,6 +71,22 @@ class MainActivity: AppCompatActivity() {
         this.supportActionBar?.apply {
             displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
             elevation = 0f
+        }
+
+        viewModel.credentialStatus.observe(this) { status ->
+            if (status == false) {
+                val intent = Intent(
+                    this,
+                    LoginActivity::class.java
+                ).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                    putExtra(Constants.ACTIVITY_ACTION_SKIP_SPLASH, true)
+                }
+
+                startActivity( intent )
+            }
         }
     }
 
