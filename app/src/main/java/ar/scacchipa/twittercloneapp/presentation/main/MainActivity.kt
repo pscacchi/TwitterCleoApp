@@ -1,4 +1,4 @@
-package ar.scacchipa.twittercloneapp.presentation
+package ar.scacchipa.twittercloneapp.presentation.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,6 +14,7 @@ import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.ActivityMainLayoutBinding
 import ar.scacchipa.twittercloneapp.databinding.LayoutActionbarHomeBinding
 import ar.scacchipa.twittercloneapp.databinding.LayoutActionbarSearchBinding
+import ar.scacchipa.twittercloneapp.presentation.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

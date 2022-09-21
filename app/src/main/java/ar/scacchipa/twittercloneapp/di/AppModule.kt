@@ -13,7 +13,7 @@ import ar.scacchipa.twittercloneapp.domain.model.Credential
 import ar.scacchipa.twittercloneapp.domain.usecase.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.domain.usecase.RevokeCredentialUseCase
 import ar.scacchipa.twittercloneapp.domain.usecase.StarterUseCase
-import ar.scacchipa.twittercloneapp.presentation.MainActivityViewModel
+import ar.scacchipa.twittercloneapp.presentation.main.MainActivityViewModel
 import ar.scacchipa.twittercloneapp.presentation.login.FragmentLogin
 import ar.scacchipa.twittercloneapp.presentation.login.FragmentLoginWebSection
 import ar.scacchipa.twittercloneapp.presentation.login.LoginViewModel
