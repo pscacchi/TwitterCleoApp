@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import ar.scacchipa.twittercloneapp.domain.usecase.StarterUseCase
 import ar.scacchipa.twittercloneapp.utils.MainCoroutineTestRule
 import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -21,37 +20,20 @@ class SplashViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    private val mockStarterUseCase = mockk<StarterUseCase>()
+    private val mockCheckInUseCase = mockk<StarterUseCase>()
 
     private val subject = SplashViewModel(
-        starterUseCase = mockStarterUseCase
+        starterUseCase = mockCheckInUseCase
     )
 
     @Test
-    fun subjectShouldGoToLogin() = runTest {
+    fun checkCredentialReturnTrue() = runTest {
         coEvery {
-            mockStarterUseCase.invoke()
-        } returns SplashState.GoToLogin
+            mockCheckInUseCase.invoke()
+        } returns true
         subject.spendSplash()
-        coVerify {
-            mockStarterUseCase()
-        }
         assertTrue(
-            subject.splashState.value == SplashState.GoToLogin
-        )
-    }
-
-    @Test
-    fun subjectShouldSkipLogin() = runTest {
-        coEvery {
-            mockStarterUseCase.invoke()
-        } returns SplashState.SkipLogin
-        subject.spendSplash()
-        coVerify {
-            mockStarterUseCase()
-        }
-        assertTrue(
-            subject.splashState.value == SplashState.SkipLogin
+            subject.mustLogin.value == true
         )
     }
 }

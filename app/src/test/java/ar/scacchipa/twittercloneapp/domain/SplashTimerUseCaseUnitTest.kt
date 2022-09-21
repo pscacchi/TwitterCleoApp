@@ -2,7 +2,6 @@ package ar.scacchipa.twittercloneapp.domain
 
 import ar.scacchipa.twittercloneapp.data.repository.CredentialRepository
 import ar.scacchipa.twittercloneapp.domain.usecase.StarterUseCase
-import ar.scacchipa.twittercloneapp.presentation.splash.SplashState
 import ar.scacchipa.twittercloneapp.utils.MockTokenProvider
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -21,22 +20,21 @@ class SplashTimerUseCaseUnitTest {
     )
 
     @Test
-    fun subjectReturnsGoToLogin() = runTest {
+    fun subjectReturnTrue() = runTest {
         coEvery {
             mockCredentialRepository.recoverLocalCredential()
         } returns  null
 
-        assertEquals(SplashState.GoToLogin, subject())
+        assertEquals(true, subject())
         assertEquals(5000, this.testScheduler.currentTime )
     }
 
     @Test
-    fun subjectReturnsSkipLoginFalse() = runTest {
+    fun subjectReturnFalse() = runTest {
         coEvery {
             mockCredentialRepository.recoverLocalCredential()
         } returns ( MockTokenProvider.credential1() )
-
-        assertEquals(SplashState.SkipLogin, subject())
+        assertEquals(false, subject())
         assertEquals(5000, this.testScheduler.currentTime )
     }
 }
