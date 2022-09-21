@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.FragmentSplashLayoutBinding
 import ar.scacchipa.twittercloneapp.presentation.main.MainActivity
+import ar.scacchipa.twittercloneapp.utils.Constants
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentSplash: Fragment() {
@@ -44,6 +45,14 @@ class FragmentSplash: Fragment() {
                     startActivity(intent)
                 }
             }
+        }
+
+        if (activity
+                ?.intent
+                ?.getBooleanExtra(
+                    Constants.ACTIVITY_ACTION_SKIP_SPLASH, false) == true
+        ) {
+            splashViewModel.skipSplash()
         }
 
         return binding?.root

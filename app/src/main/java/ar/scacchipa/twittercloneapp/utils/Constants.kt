@@ -33,5 +33,7 @@ class Constants {
         const val SCOPE_LIKE_READ = "like.read"
         const val SCOPE_LIKE_WRITE = "like.write"
         const val SCOPE_SPACE_READ = "space.read"
+
+        const val ACTIVITY_ACTION_SKIP_SPLASH = "skipSplashView"
     }
 }

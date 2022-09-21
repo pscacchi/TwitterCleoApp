@@ -19,4 +19,10 @@ class SplashViewModel(
             _mustLogin.value = starterUseCase( )
         }
     }
+
+    fun skipSplash() {
+        viewModelScope.launch {
+            _mustLogin.value = true
+        }
+    }
 }

@@ -15,6 +15,7 @@ import ar.scacchipa.twittercloneapp.databinding.ActivityMainLayoutBinding
 import ar.scacchipa.twittercloneapp.databinding.LayoutActionbarHomeBinding
 import ar.scacchipa.twittercloneapp.databinding.LayoutActionbarSearchBinding
 import ar.scacchipa.twittercloneapp.presentation.LoginActivity
+import ar.scacchipa.twittercloneapp.utils.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -77,9 +78,12 @@ class MainActivity: AppCompatActivity() {
                 val intent = Intent(
                     this,
                     LoginActivity::class.java
-                )
-                intent.flags =  Intent.FLAG_ACTIVITY_NEW_TASK or
-                        Intent.FLAG_ACTIVITY_CLEAR_TASK
+                ).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                    putExtra(Constants.ACTIVITY_ACTION_SKIP_SPLASH, true)
+                }
 
                 startActivity( intent )
             }

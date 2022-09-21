@@ -7,6 +7,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -35,5 +36,12 @@ class SplashViewModelTest {
         assertTrue(
             subject.mustLogin.value == true
         )
+    }
+
+    @Test
+    fun checkSkipSplash() = runTest {
+        subject.skipSplash()
+
+        assertEquals(subject.mustLogin.value, true)
     }
 }
