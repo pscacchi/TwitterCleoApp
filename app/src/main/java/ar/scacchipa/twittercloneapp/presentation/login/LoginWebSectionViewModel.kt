@@ -17,8 +17,8 @@ class LoginWebSectionViewModel (
     private val authorizationUseCase: AuthorizationUseCase
 ): ViewModel() {
 
-    private val _responseDomain = MutableLiveData<ResponseDomain?>()
-    val responseDomain: LiveData<ResponseDomain?> = _responseDomain
+    private val _responseDomain = MutableLiveData<ResponseDomain>()
+    val responseDomain: LiveData<ResponseDomain> = _responseDomain
 
     fun onReceiveUrl(uri: URI) {
         if (uri.host == URI(Constants.REDIRECT_URI).host) {
