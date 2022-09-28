@@ -94,20 +94,42 @@ class LoginWebSectionViewModelTest {
         val scopeExpected = listOf(
             "users.read", "tweet.read", "tweet.write", "offline.access",
             "list.read", "follows.read", "like.read", "like.write",
-            "space.read").joinToString("%20")
+            "space.read"
+        ).joinToString("%20")
 
         val expected = "https://twitter.com/i/oauth2/authorize?" +
-                    "response_type=code&" +
-                    "client_id=${Constants.CLIENT_ID}&" +
-                    "redirect_uri=${Constants.REDIRECT_URI}&" +
-                    "scope=${scopeExpected}&" +
-                    "state=state&" +
-                    "code_challenge=challenge&" +
-                    "code_challenge_method=plain"
+                "response_type=code&" +
+                "client_id=${Constants.CLIENT_ID}&" +
+                "redirect_uri=${Constants.REDIRECT_URI}&" +
+                "scope=${scopeExpected}&" +
+                "state=state&" +
+                "code_challenge=challenge&" +
+                "code_challenge_method=plain"
 
         assertEquals(
             expected,
-            subject.getConsumableAuthCode())
+            subject.getConsumableAuthCode()
+        )
+    }
+
+    @Test
+    fun subjectHandleTheException() = runTest {
+        val uri = URI(
+            "https://twittercloneendava.firebaseapp.com/__/auth/handler?state=state&" +
+                    "code=throw_exception"
+        )
+
+        coEvery {
+            mockAuthUseCae.invoke("throw_exception")
+        } throws java.lang.RuntimeException("error happened")
+
+
+        subject.onReceiveUrl( uri )
+
+        assertEquals(
+            ResponseDomain.Exception(),
+            subject.responseDomain.value
+        )
     }
 }
 
