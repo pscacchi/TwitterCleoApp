@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.domain.usecase.AuthorizationUseCase
 import ar.scacchipa.twittercloneapp.utils.Constants
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import java.net.URI
 import kotlin.collections.set
@@ -43,10 +44,15 @@ class LoginWebSectionViewModel (
     private fun getCredential(
         transitoryCode: String
     ) {
-        viewModelScope.launch {
-            _responseDomain.value = authorizationUseCase(
+        viewModelScope.launch(
+            CoroutineExceptionHandler { _, _ ->
+            _responseDomain.value = ResponseDomain.Exception()
+        }) {
+            authorizationUseCase(
                 transitoryToken = transitoryCode
-            )
+            ).let {
+                _responseDomain.value = it
+            }
         }
     }
 
