@@ -33,7 +33,7 @@
         android:layout_height="@dimen/large_icon_size"
         android:foreground="@drawable/fg_rounded"
         android:background="@color/twitter_background"
-        android:padding="@dimen/big_padding"
+        android:padding="8dp"
         android:layout_marginEnd="@dimen/big_padding"
         android:layout_marginBottom="@dimen/big_padding"
         app:layout_constraintRight_toRightOf="parent"
