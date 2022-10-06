@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.TwitterCloneApp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/medium_padding"
+    android:paddingTop="@dimen/medium_padding"
+    app:layout_constraintBottom_toBottomOf="@+id/view_comment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ic_reference_type"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="@dimen/margin_medium"
+        app:layout_constraintEnd_toStartOf="@+id/txt_reference"
+        app:layout_constraintTop_toTopOf="@+id/txt_reference"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_reference"
+        tools:srcCompat="@drawable/ic_tweet_retweet" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_reference"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/on_primary"
+        android:textSize="@dimen/author_text_size"
+        app:layout_constraintBottom_toTopOf="@id/txt_owner"
+        app:layout_constraintEnd_toEndOf="@+id/txt_tweet"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_tweet"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Kieron Dotson Retweeted" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_profile"
+        android:layout_width="@dimen/large_icon_size"
+        android:layout_height="@dimen/large_icon_size"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_small"
+        app:layout_constraintEnd_toStartOf="@+id/txt_tweet"
+        app:layout_constraintTop_toTopOf="@+id/txt_owner"
+        android:foreground="@drawable/fg_rounded"
+        tools:srcCompat="@drawable/img_account_example" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_tweet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_start_tweet_text"
+        android:textSize="@dimen/tweet_text_size"
+        android:layout_marginTop="@dimen/margin_micro"
+        android:layout_marginEnd="@dimen/margin_external"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_owner"
+        tools:text="@string/lorem_ipsum"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_owner"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_micro"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:textColor="@color/black"
+        android:fontFamily="@font/roboto_thinitalic"
+        app:layout_constraintBottom_toTopOf="@+id/txt_tweet"
+        app:layout_constraintStart_toStartOf="@+id/txt_tweet"
+        app:layout_constraintTop_toBottomOf="@+id/txt_reference"
+        app:layout_constraintEnd_toStartOf="@+id/img_tick"
+        tools:text="Tabitha Potter"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_tick"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="@dimen/margin_medium"
+        app:layout_constraintStart_toEndOf="@+id/txt_owner"
+        app:layout_constraintTop_toTopOf="@+id/txt_owner"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_owner"
+        app:layout_constraintEnd_toStartOf="@+id/txt_creation_info"
+        app:srcCompat="@drawable/ic_tick"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_creation_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/on_primary"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_owner"
+        app:layout_constraintEnd_toEndOf="@+id/txt_tweet"
+        app:layout_constraintStart_toEndOf="@+id/img_tick"
+        app:layout_constraintTop_toTopOf="@+id/txt_owner"
+        tools:text="\@mis_potter . 14h"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/view_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/retweet_view"
+        app:layout_constraintStart_toStartOf="@+id/txt_tweet"
+        app:layout_constraintTop_toBottomOf="@+id/txt_tweet">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_comments"
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:layout_margin="@dimen/margin_micro"
+            android:gravity="center"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_tweet_msg"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textview_comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_micro"
+            android:textColor="@color/on_primary"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="@dimen/small_text_size"
+            tools:text="12"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/retweet_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/view_like"
+        app:layout_constraintStart_toEndOf="@+id/view_comment"
+        app:layout_constraintTop_toBottomOf="@+id/txt_tweet">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_retweet"
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:layout_margin="@dimen/margin_micro"
+            android:gravity="center"
+            app:srcCompat="@drawable/ic_tweet_retweet"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textview_retweet_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_micro"
+            android:gravity="center"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/on_primary"
+            tools:text="26"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/view_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/view_share"
+        app:layout_constraintStart_toEndOf="@+id/retweet_view"
+        app:layout_constraintTop_toBottomOf="@+id/txt_tweet">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_like"
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:layout_margin="@dimen/margin_micro"
+            android:gravity="center"
+            app:srcCompat="@drawable/ic_tweet_like"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_like_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_micro"
+            android:gravity="center"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/on_primary"
+            tools:text="37"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/view_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/txt_tweet"
+        app:layout_constraintStart_toEndOf="@+id/view_like"
+        app:layout_constraintTop_toBottomOf="@+id/txt_tweet">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_share"
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:layout_margin="@dimen/margin_micro"
+            android:gravity="center"
+            app:srcCompat="@drawable/ic_tweet_share"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
