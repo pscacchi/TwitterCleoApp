@@ -3,18 +3,18 @@ package ar.scacchipa.twittercloneapp.data.repository
 import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.datasource.FileExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ITweetExternalSource
-import ar.scacchipa.twittercloneapp.data.model.me.UserMeWrapper
-import ar.scacchipa.twittercloneapp.data.model.tweet.TweetsDataWrapper
+import ar.scacchipa.twittercloneapp.data.model.TweetsDataWrapper
+import ar.scacchipa.twittercloneapp.data.model.UserWrapper
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
-import ar.scacchipa.twittercloneapp.domain.model.TweetInfo
-import ar.scacchipa.twittercloneapp.domain.model.UserMeInfo
+import ar.scacchipa.twittercloneapp.domain.model.TweetCardInfo
+import ar.scacchipa.twittercloneapp.domain.model.UserInfo
 
 class TweetRepository(
     private val tweetExternalSource: ITweetExternalSource,
     private val fileExternalSource: FileExternalSource,
     private val credentialRepository: ICredentialRepository,
-    private val userMeMapper: IMapper<UserMeWrapper, UserMeInfo>,
-    private val tweetsMapper: IMapper<TweetsDataWrapper, List<TweetInfo>>
+    private val userMeMapper: IMapper<UserWrapper, UserInfo>,
+    private val tweetsMapper: IMapper<TweetsDataWrapper, List<TweetCardInfo>>
 ) : ITweetRepository {
     override suspend fun getUserMeInfo(): ResponseDomain {
         credentialRepository.recoverLocalCredential()?.let { credential ->
@@ -52,7 +52,7 @@ class TweetRepository(
         return ResponseDomain.Error()
     }
 
-    private suspend fun addProfileImageByteArray(tweets: List<TweetInfo>): List<TweetInfo> {
+    private suspend fun addProfileImageByteArray(tweets: List<TweetCardInfo>): List<TweetCardInfo> {
         return tweets.map { tweetInfo ->
             tweetInfo.copy(
                 profileBitmapByteArray = fileExternalSource.getFile(tweetInfo.profileImageUrl)

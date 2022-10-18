@@ -1,14 +1,14 @@
 package ar.scacchipa.twittercloneapp.data
 
-import ar.scacchipa.twittercloneapp.data.model.tweet.ReferenceTweetData
-import ar.scacchipa.twittercloneapp.data.model.tweet.TweetsDataWrapper
-import ar.scacchipa.twittercloneapp.data.model.tweet.UsersTweetData
+import ar.scacchipa.twittercloneapp.data.model.ReferenceTweetData
+import ar.scacchipa.twittercloneapp.data.model.TweetsDataWrapper
+import ar.scacchipa.twittercloneapp.data.model.UsersData
 import ar.scacchipa.twittercloneapp.domain.model.PublicMetricInfo
 import ar.scacchipa.twittercloneapp.domain.model.ReferencedType
-import ar.scacchipa.twittercloneapp.domain.model.TweetInfo
+import ar.scacchipa.twittercloneapp.domain.model.TweetCardInfo
 
-class TweetWrapperMapper : IMapper<TweetsDataWrapper, List<TweetInfo>> {
-    override fun toDomain(value: TweetsDataWrapper): List<TweetInfo> {
+class TweetWrapperMapper : IMapper<TweetsDataWrapper, List<TweetCardInfo>> {
+    override fun toDomain(value: TweetsDataWrapper): List<TweetCardInfo> {
         return value.tweets.map { tweetData ->
             val userData = value.includes.users.first { usersData ->
                 usersData.id == tweetData.authorId
@@ -23,7 +23,7 @@ class TweetWrapperMapper : IMapper<TweetsDataWrapper, List<TweetInfo>> {
                 referencedTweet?.authorId,
                 value.includes.users)
 
-            TweetInfo(
+            TweetCardInfo(
                 text = tweetData.text,
                 publicMetrics = PublicMetricInfo(
                     retweetCount = tweetData.publicMetricData.retweetCount
@@ -46,10 +46,10 @@ class TweetWrapperMapper : IMapper<TweetsDataWrapper, List<TweetInfo>> {
         }
     }
 
-    override fun fromDomain(value: List<TweetInfo>): TweetsDataWrapper {
+    override fun fromDomain(value: List<TweetCardInfo>): TweetsDataWrapper {
         TODO("Not yet implemented")
     }
-    private fun getRefUserName(wantedId: String?, userList: List<UsersTweetData>) : String {
+    private fun getRefUserName(wantedId: String?, userList: List<UsersData>) : String {
         return userList.find { userData ->
             userData.id == wantedId
         }?.name ?: ""

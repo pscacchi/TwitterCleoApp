@@ -22,7 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityMainLayoutBinding
-    private val viewModel: MainActivityViewModel by viewModel()
+    val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

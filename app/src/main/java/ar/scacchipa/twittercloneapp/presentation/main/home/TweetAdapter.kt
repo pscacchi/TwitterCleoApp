@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.LayoutCardTweetBinding
 import ar.scacchipa.twittercloneapp.domain.model.ReferencedType
-import ar.scacchipa.twittercloneapp.domain.model.TweetInfo
+import ar.scacchipa.twittercloneapp.domain.model.TweetCardInfo
 
 class TweetAdapter(
-    private val tweets: List<TweetInfo>
+    private val tweets: List<TweetCardInfo>
 ) : RecyclerView.Adapter<TweetAdapter.ViewHolder>() {
 
     class ViewHolder(view: View):RecyclerView.ViewHolder(view){

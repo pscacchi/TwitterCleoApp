@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
-import ar.scacchipa.twittercloneapp.domain.model.TweetInfo
+import ar.scacchipa.twittercloneapp.domain.model.TweetCardInfo
 import ar.scacchipa.twittercloneapp.domain.usecase.FetchFeedUseCase
 import kotlinx.coroutines.launch
 
@@ -13,8 +13,10 @@ class HomeViewModel(
     private val fetchFeedUseCase: FetchFeedUseCase
 ): ViewModel() {
 
-    private val _tweets = MutableLiveData<List<TweetInfo>>()
-    val tweets: LiveData<List<TweetInfo>> = _tweets
+    private val _tweets = MutableLiveData<ResponseDomain>(
+        ResponseDomain.Success<List<TweetCardInfo>>(listOf())
+    )
+    val tweets: LiveData<ResponseDomain> = _tweets
 
     fun getTweets() {
         viewModelScope.launch {
@@ -22,8 +24,10 @@ class HomeViewModel(
                 val respond = fetchFeedUseCase()
             ) {
                 is ResponseDomain.Success<*> ->
-                    _tweets.value = respond.data as ArrayList<TweetInfo>
-                else -> println("No user")
+                    _tweets.value = ResponseDomain.Success(
+                        respond.data as ArrayList<TweetCardInfo>
+                    )
+                else -> _tweets.value = ResponseDomain.Error()
             }
         }
     }

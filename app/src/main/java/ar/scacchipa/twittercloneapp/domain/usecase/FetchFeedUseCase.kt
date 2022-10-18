@@ -2,7 +2,7 @@ package ar.scacchipa.twittercloneapp.domain.usecase
 
 import ar.scacchipa.twittercloneapp.data.repository.ITweetRepository
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
-import ar.scacchipa.twittercloneapp.domain.model.UserMeInfo
+import ar.scacchipa.twittercloneapp.domain.model.UserInfo
 
 class FetchFeedUseCase(
     private val tweetRepository: ITweetRepository
@@ -11,7 +11,7 @@ class FetchFeedUseCase(
         return when (
             val response = tweetRepository.getUserMeInfo()
         ) {
-            is ResponseDomain.Success<*> -> response.data as UserMeInfo
+            is ResponseDomain.Success<*> -> response.data as UserInfo
             else -> null
         }?.let { userMeInfo ->
             return tweetRepository.getTweets(
