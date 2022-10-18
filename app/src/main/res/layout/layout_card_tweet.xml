@@ -185,7 +185,7 @@
             app:srcCompat="@drawable/ic_tweet_like"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_like_count"
+            android:id="@+id/text_view_like_count"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:fontFamily="@font/roboto_regular"
