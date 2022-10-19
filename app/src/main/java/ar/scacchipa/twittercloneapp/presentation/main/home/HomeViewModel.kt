@@ -20,15 +20,7 @@ class HomeViewModel(
 
     fun getTweets() {
         viewModelScope.launch {
-            when (
-                val respond = fetchFeedUseCase()
-            ) {
-                is ResponseDomain.Success<*> ->
-                    _tweets.value = ResponseDomain.Success(
-                        respond.data as ArrayList<TweetCardInfo>
-                    )
-                else -> _tweets.value = ResponseDomain.Error()
-            }
+            _tweets.value = fetchFeedUseCase() as ResponseDomain
         }
     }
 }

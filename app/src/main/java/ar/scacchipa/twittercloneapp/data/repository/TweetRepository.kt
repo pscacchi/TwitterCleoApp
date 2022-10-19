@@ -7,6 +7,7 @@ import ar.scacchipa.twittercloneapp.data.model.response.UserDataWrapper
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.domain.model.TweetCardInfo
 import ar.scacchipa.twittercloneapp.domain.model.UserInfo
+import ar.scacchipa.twittercloneapp.utils.Constants
 
 class TweetRepository(
     private val tweetExternalSource: ITweetExternalSource,
@@ -25,7 +26,9 @@ class TweetRepository(
                 }
             }
         }
-        return ResponseDomain.Error()
+        return ResponseDomain.Error(
+            error = Constants.USER_DOWNLOAD_ERROR,
+            errorDescription = Constants.USER_DOWNLOAD_ERROR_TXT)
     }
 
     override suspend fun getTweets(userId: String) : ResponseDomain {
@@ -43,7 +46,9 @@ class TweetRepository(
                 }
             }
         }
-        return ResponseDomain.Error()
+        return ResponseDomain.Error(
+            error = Constants.TWEETS_DOWNLOAD_ERROR,
+            errorDescription = Constants.ACCESS_TOKEN_ERROR_TXT)
     }
 }
 

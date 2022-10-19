@@ -23,6 +23,12 @@ class Constants {
 
         const val ERROR_HOST_LOOKUP_TOKEN = "error_host_lookup"
         const val ERROR_ACCESS_DENIED = "access_denied"
+        const val ACCESS_TOKEN_ERROR = "ACCESS_TOKEN_ERROR"
+        const val ACCESS_TOKEN_ERROR_TXT = "Failed to download the user data."
+        const val USER_DOWNLOAD_ERROR = "USER_DOWNLOAD_ERROR"
+        const val USER_DOWNLOAD_ERROR_TXT = "Failed to download the user data."
+        const val TWEETS_DOWNLOAD_ERROR = "TWEETS_DOWNLOAD_ERROR"
+        const val TWEETS_DOWNLOAD_ERROR_TXT = "Failed to download tweet list."
 
         const val SCOPE_USERS_READ = "users.read"
         const val SCOPE_TWEET_READ = "tweet.read"
