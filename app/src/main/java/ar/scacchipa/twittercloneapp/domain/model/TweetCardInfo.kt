@@ -3,11 +3,7 @@ package ar.scacchipa.twittercloneapp.domain.model
 data class TweetCardInfo(
     val text: String,
     val publicMetrics: PublicMetricInfo,
-    val authorId: String,
-    val profileImageUrl: String,
-    var name: String,
-    var username: String,
-    var verified: Boolean,
+    val user: UserInfo,
     val referenceTweet: ReferencedType,
     val profileBitmapByteArray: ByteArray? = null
 ) {
@@ -19,11 +15,7 @@ data class TweetCardInfo(
 
         if (text != other.text
             || publicMetrics != other.publicMetrics
-            || authorId != other.authorId
-            || profileImageUrl != other.profileImageUrl
-            || name != other.name
-            || username != other.username
-            || verified != other.verified
+            || user != other.user
             || referenceTweet != other.referenceTweet) return false
         if (profileBitmapByteArray != null) {
             if (other.profileBitmapByteArray == null) return false
@@ -36,11 +28,7 @@ data class TweetCardInfo(
     override fun hashCode(): Int {
         var result = text.hashCode()
         result = 31 * result + publicMetrics.hashCode()
-        result = 31 * result + authorId.hashCode()
-        result = 31 * result + profileImageUrl.hashCode()
-        result = 31 * result + name.hashCode()
-        result = 31 * result + username.hashCode()
-        result = 31 * result + verified.hashCode()
+        result = 31 * result + user.hashCode()
         result = 31 * result + referenceTweet.hashCode()
         result = 31 * result + (profileBitmapByteArray?.contentHashCode() ?: 0)
         return result

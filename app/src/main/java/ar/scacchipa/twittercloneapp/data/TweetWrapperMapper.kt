@@ -4,13 +4,16 @@ import ar.scacchipa.twittercloneapp.data.model.IncludesTweetData
 import ar.scacchipa.twittercloneapp.data.model.PublicMetricData
 import ar.scacchipa.twittercloneapp.data.model.ReferenceTweetData
 import ar.scacchipa.twittercloneapp.data.model.TweetData
-import ar.scacchipa.twittercloneapp.data.model.TweetsDataWrapper
-import ar.scacchipa.twittercloneapp.data.model.UsersData
+import ar.scacchipa.twittercloneapp.data.model.UserData
+import ar.scacchipa.twittercloneapp.data.model.response.TweetsDataWrapper
 import ar.scacchipa.twittercloneapp.domain.model.PublicMetricInfo
 import ar.scacchipa.twittercloneapp.domain.model.ReferencedType
 import ar.scacchipa.twittercloneapp.domain.model.TweetCardInfo
+import ar.scacchipa.twittercloneapp.domain.model.UserInfo
 
-class TweetWrapperMapper : IMapper<TweetsDataWrapper, List<TweetCardInfo>> {
+class TweetWrapperMapper(
+    private val userMapper: IMapper<UserData, UserInfo>
+) : IMapper<TweetsDataWrapper, List<TweetCardInfo>> {
     override fun toDomain(value: TweetsDataWrapper): List<TweetCardInfo> {
         return value.tweets.map { tweetData ->
             val userData = value.includes.users.first { usersData ->
@@ -24,27 +27,24 @@ class TweetWrapperMapper : IMapper<TweetsDataWrapper, List<TweetCardInfo>> {
 
             val referencedUserName = getRefUserName(
                 referencedTweet?.authorId,
-                value.includes.users)
+                value.includes.users
+            )
 
             TweetCardInfo(
                 text = tweetData.text,
+                user = userMapper.toDomain(userData),
                 publicMetrics = PublicMetricInfo(
                     retweetCount = tweetData.publicMetricData.retweetCount
                             + tweetData.publicMetricData.quoteCount,
                     replyCount = tweetData.publicMetricData.replyCount,
                     likeCount = tweetData.publicMetricData.likeCount
                 ),
-                authorId = tweetData.authorId,
-                verified = userData.verified,
-                name = userData.name,
-                username = userData.username,
-                referenceTweet = when(referencedData?.type) {
+                referenceTweet = when (referencedData?.type) {
                     "retweeted" -> ReferencedType.RetweetedType(referencedUserName)
                     "replied_to" -> ReferencedType.RepliedToType(referencedUserName)
                     "quoted" -> ReferencedType.QuotedType(referencedUserName)
                     else -> ReferencedType.NoReferencedType
-                },
-                profileImageUrl = userData.profileImageUrl
+                }
             )
         }
     }
@@ -54,17 +54,17 @@ class TweetWrapperMapper : IMapper<TweetsDataWrapper, List<TweetCardInfo>> {
             tweets = value.map { tweetCardInfo ->
                 TweetData(
                     id = "",
-                    authorId = tweetCardInfo.authorId,
-                    text = tweetCardInfo.authorId,
+                    authorId = tweetCardInfo.user.id,
+                    text = tweetCardInfo.user.id,
                     referencedTweets = listOf(
                         ReferenceTweetData(
-                        type = "",
-                        referencedId = ""
-                    )
+                            type = "",
+                            referencedId = ""
+                        )
                     ),
                     publicMetricData = PublicMetricData(
                         retweetCount = tweetCardInfo.publicMetrics.retweetCount,
-                        replyCount =  tweetCardInfo.publicMetrics.replyCount,
+                        replyCount = tweetCardInfo.publicMetrics.replyCount,
                         likeCount = tweetCardInfo.publicMetrics.likeCount,
                         quoteCount = 0
                     )
@@ -76,7 +76,7 @@ class TweetWrapperMapper : IMapper<TweetsDataWrapper, List<TweetCardInfo>> {
             )
         )
     }
-    private fun getRefUserName(wantedId: String?, userList: List<UsersData>) : String {
+    private fun getRefUserName(wantedId: String?, userList: List<UserData>) : String {
         return userList.find { userData ->
             userData.id == wantedId
         }?.name ?: ""

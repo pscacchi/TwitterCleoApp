@@ -38,9 +38,9 @@ class TweetAdapter(
                     tweet.profileBitmapByteArray?.size ?: 0
                 )
             )
-            txtOwner.text = tweet.name
-            imgTick.visibility = if (tweet.verified) View.VISIBLE else View.GONE
-            txtCreationInfo.text = tweet.username
+            txtOwner.text = tweet.user.name
+            imgTick.visibility = if (tweet.user.verified) View.VISIBLE else View.GONE
+            txtCreationInfo.text = tweet.user.username
             txtReference.text = when (tweet.referenceTweet) {
                 is ReferencedType.RetweetedType -> "${tweet.referenceTweet.name} Retweeted"
                 is ReferencedType.RepliedToType -> "Replied to ${tweet.referenceTweet.name}"

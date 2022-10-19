@@ -3,8 +3,8 @@ package ar.scacchipa.twittercloneapp.data.repository
 import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.datasource.FileExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ITweetExternalSource
-import ar.scacchipa.twittercloneapp.data.model.TweetsDataWrapper
-import ar.scacchipa.twittercloneapp.data.model.UserWrapper
+import ar.scacchipa.twittercloneapp.data.model.response.TweetsDataWrapper
+import ar.scacchipa.twittercloneapp.data.model.response.UserDataWrapper
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.domain.model.TweetCardInfo
 import ar.scacchipa.twittercloneapp.domain.model.UserInfo
@@ -13,17 +13,16 @@ class TweetRepository(
     private val tweetExternalSource: ITweetExternalSource,
     private val fileExternalSource: FileExternalSource,
     private val credentialRepository: ICredentialRepository,
-    private val userMeMapper: IMapper<UserWrapper, UserInfo>,
-    private val tweetsMapper: IMapper<TweetsDataWrapper, List<TweetCardInfo>>
+    private val userWrapperMapper: IMapper<UserDataWrapper, UserInfo>,
+    private val tweetsWrapperMapper: IMapper<TweetsDataWrapper, List<TweetCardInfo>>
 ) : ITweetRepository {
     override suspend fun getUserMeInfo(): ResponseDomain {
         credentialRepository.recoverLocalCredential()?.let { credential ->
-            println(credential.accessToken)
             val response = tweetExternalSource.getUserMeData("Bearer ${credential.accessToken}")
             if (response.isSuccessful) {
                 response.body()?.let { userMeWrapper ->
                     return ResponseDomain.Success(
-                        userMeMapper.toDomain(userMeWrapper)
+                        userWrapperMapper.toDomain(userMeWrapper)
                     )
                 }
             }
@@ -43,7 +42,7 @@ class TweetRepository(
 
                     return ResponseDomain.Success(
                         addProfileImageByteArray(
-                            tweetsMapper.toDomain(tweetsDataWrapper)
+                            tweetsWrapperMapper.toDomain(tweetsDataWrapper)
                         )
                     )
                 }
@@ -55,7 +54,7 @@ class TweetRepository(
     private suspend fun addProfileImageByteArray(tweets: List<TweetCardInfo>): List<TweetCardInfo> {
         return tweets.map { tweetInfo ->
             tweetInfo.copy(
-                profileBitmapByteArray = fileExternalSource.getFile(tweetInfo.profileImageUrl)
+                profileBitmapByteArray = fileExternalSource.getFile(tweetInfo.user.profileImageUrl)
             )
         }
     }

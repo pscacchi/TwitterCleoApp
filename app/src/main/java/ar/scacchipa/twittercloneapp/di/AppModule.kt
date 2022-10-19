@@ -5,14 +5,16 @@ import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.TweetWrapperMapper
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenMapper
 import ar.scacchipa.twittercloneapp.data.UserMapper
+import ar.scacchipa.twittercloneapp.data.UserWrapperMapper
 import ar.scacchipa.twittercloneapp.data.datasource.FileExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.IAuthExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ILocalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ITweetExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.SharedPrefsLocalSource
-import ar.scacchipa.twittercloneapp.data.model.TweetsDataWrapper
 import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
-import ar.scacchipa.twittercloneapp.data.model.UserWrapper
+import ar.scacchipa.twittercloneapp.data.model.UserData
+import ar.scacchipa.twittercloneapp.data.model.response.TweetsDataWrapper
+import ar.scacchipa.twittercloneapp.data.model.response.UserDataWrapper
 import ar.scacchipa.twittercloneapp.data.repository.CredentialRepository
 import ar.scacchipa.twittercloneapp.data.repository.ICredentialRepository
 import ar.scacchipa.twittercloneapp.data.repository.ITweetRepository
@@ -50,9 +52,18 @@ val appModule = module {
     single { provideTweetDataApi( get() ) as ITweetExternalSource }
     single { FileExternalSource() as FileExternalSource }
 
-    single(named("IUserAccessTokenMapper")) { UserAccessTokenMapper() as IMapper<UserAccessToken, Credential> }
-    single(named("IUserMapper")) { UserMapper() as IMapper<UserWrapper, UserInfo> }
-    single(named("ITweetsMapper")) { TweetWrapperMapper() as IMapper<TweetsDataWrapper, List<TweetCardInfo>> }
+    single(named("UserMapper")) {
+        UserMapper() as IMapper<UserData, UserInfo>
+    }
+    single(named("IUserAccessTokenMapper")) {
+        UserAccessTokenMapper() as IMapper<UserAccessToken, Credential>
+    }
+    single(named("IUserWrapperMapper")) {
+        UserWrapperMapper(get(named("UserMapper"))) as IMapper<UserDataWrapper, UserInfo>
+    }
+    single(named("ITweetsWrapperMapper")) {
+        TweetWrapperMapper(get(named("UserMapper"))) as IMapper<TweetsDataWrapper, List<TweetCardInfo>>
+    }
 
     single {
         CredentialRepository(get(), get(), get(named("IUserAccessTokenMapper"))) as ICredentialRepository
@@ -62,8 +73,8 @@ val appModule = module {
             get(),
             get(),
             get(),
-            get(named("IUserMapper")),
-            get(named("ITweetsMapper"))
+            get(named("IUserWrapperMapper")),
+            get(named("ITweetsWrapperMapper"))
         ) as ITweetRepository
     }
 

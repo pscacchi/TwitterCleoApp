@@ -1,5 +1,7 @@
-package ar.scacchipa.twittercloneapp.data.model
+package ar.scacchipa.twittercloneapp.data.model.response
 
+import ar.scacchipa.twittercloneapp.data.model.IncludesTweetData
+import ar.scacchipa.twittercloneapp.data.model.TweetData
 import com.google.gson.annotations.SerializedName
 
 data class TweetsDataWrapper(

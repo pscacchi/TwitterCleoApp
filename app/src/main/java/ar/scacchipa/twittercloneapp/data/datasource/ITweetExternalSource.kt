@@ -1,7 +1,7 @@
 package ar.scacchipa.twittercloneapp.data.datasource
 
-import ar.scacchipa.twittercloneapp.data.model.TweetsDataWrapper
-import ar.scacchipa.twittercloneapp.data.model.UserWrapper
+import ar.scacchipa.twittercloneapp.data.model.response.TweetsDataWrapper
+import ar.scacchipa.twittercloneapp.data.model.response.UserDataWrapper
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -26,6 +26,6 @@ interface ITweetExternalSource {
     )
     suspend fun getUserMeData(
         @Header("Authorization") bearerCode: String
-    ): Response<UserWrapper>
+    ): Response<UserDataWrapper>
 }
 
