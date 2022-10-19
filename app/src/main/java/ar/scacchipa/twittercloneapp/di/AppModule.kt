@@ -6,7 +6,6 @@ import ar.scacchipa.twittercloneapp.data.TweetWrapperMapper
 import ar.scacchipa.twittercloneapp.data.UserAccessTokenMapper
 import ar.scacchipa.twittercloneapp.data.UserMapper
 import ar.scacchipa.twittercloneapp.data.UserWrapperMapper
-import ar.scacchipa.twittercloneapp.data.datasource.FileExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.IAuthExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ILocalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ITweetExternalSource
@@ -50,7 +49,6 @@ val appModule = module {
     single { SharedPrefsLocalSource( get() ) as ILocalSource }
     single { provideAuthSourceDataApi( get() ) as IAuthExternalSource }
     single { provideTweetDataApi( get() ) as ITweetExternalSource }
-    single { FileExternalSource() as FileExternalSource }
 
     single(named("UserMapper")) {
         UserMapper() as IMapper<UserData, UserInfo>
@@ -70,7 +68,6 @@ val appModule = module {
     }
     single {
         TweetRepository(
-            get(),
             get(),
             get(),
             get(named("IUserWrapperMapper")),

@@ -1,6 +1,5 @@
 package ar.scacchipa.twittercloneapp.presentation.main.home
 
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.LayoutCardTweetBinding
 import ar.scacchipa.twittercloneapp.domain.model.ReferencedType
 import ar.scacchipa.twittercloneapp.domain.model.TweetCardInfo
+import com.squareup.picasso.Picasso
 
 class TweetAdapter(
     private val tweets: List<TweetCardInfo>
@@ -31,13 +31,6 @@ class TweetAdapter(
             textviewCommentCount.text = tweet.publicMetrics.replyCount.toString()
             textviewRetweetCount.text = tweet.publicMetrics.retweetCount.toString()
             textViewLikeCount.text = tweet.publicMetrics.likeCount.toString()
-            imgProfile.setImageBitmap(
-                BitmapFactory.decodeByteArray(
-                    tweet.profileBitmapByteArray,
-                    0,
-                    tweet.profileBitmapByteArray?.size ?: 0
-                )
-            )
             txtOwner.text = tweet.user.name
             imgTick.visibility = if (tweet.user.verified) View.VISIBLE else View.GONE
             txtCreationInfo.text = tweet.user.username
@@ -58,13 +51,17 @@ class TweetAdapter(
                     is ReferencedType.NoReferencedType -> 0
                 }
             )
-
             icReferenceType.visibility = when (tweet.referenceTweet) {
                 is ReferencedType.RetweetedType -> View.VISIBLE
                 is ReferencedType.RepliedToType -> View.VISIBLE
                 is ReferencedType.QuotedType -> View.GONE
                 is ReferencedType.NoReferencedType -> View.GONE
             }
+            Picasso
+                .with(imgProfile.context)
+                .load(tweet.user.profileImageUrl)
+                .into(imgProfile)
+
         }
     }
 
