@@ -8,6 +8,7 @@ import ar.scacchipa.twittercloneapp.R
 import ar.scacchipa.twittercloneapp.databinding.LayoutCardTweetBinding
 import ar.scacchipa.twittercloneapp.domain.model.ReferencedType
 import ar.scacchipa.twittercloneapp.domain.model.TweetCardInfo
+import ar.scacchipa.twittercloneapp.utils.Constants
 import com.squareup.picasso.Picasso
 
 class TweetAdapter(
@@ -35,9 +36,9 @@ class TweetAdapter(
             imgTick.visibility = if (tweet.user.verified) View.VISIBLE else View.GONE
             txtCreationInfo.text = tweet.user.username
             txtReference.text = when (tweet.referenceTweet) {
-                is ReferencedType.RetweetedType -> "${tweet.referenceTweet.name} Retweeted"
-                is ReferencedType.RepliedToType -> "Replied to ${tweet.referenceTweet.name}"
-                is ReferencedType.QuotedType -> "Quoted by ${tweet.referenceTweet.name}"
+                is ReferencedType.RetweetedType -> tweet.user.name + Constants.RETWEETED_MSG
+                is ReferencedType.RepliedToType -> Constants.REPLIED_TO_MSG + tweet.user.name
+                is ReferencedType.QuotedType ->  Constants.QUOTED_BY_MSG + tweet.user.name
                 is ReferencedType.NoReferencedType -> ""
             }
             txtReference.visibility = when (tweet.referenceTweet) {

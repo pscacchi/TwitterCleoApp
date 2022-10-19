@@ -41,5 +41,10 @@ class Constants {
         const val SCOPE_SPACE_READ = "space.read"
 
         const val ACTIVITY_ACTION_SKIP_SPLASH = "skipSplashView"
+
+        const val RETWEETED_MSG = " retweeted"
+        const val REPLIED_TO_MSG = "Replied to "
+        const val QUOTED_BY_MSG = "Quoted by "
+
     }
 }
