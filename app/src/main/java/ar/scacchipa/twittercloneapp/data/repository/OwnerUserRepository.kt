@@ -8,11 +8,16 @@ import ar.scacchipa.twittercloneapp.utils.Constants.Companion.OWNER_USER_DATA_NA
 import ar.scacchipa.twittercloneapp.utils.Constants.Companion.OWNER_USER_DATA_PROFILE_IMAGE_URL
 import ar.scacchipa.twittercloneapp.utils.Constants.Companion.OWNER_USER_DATA_USERNAME
 import ar.scacchipa.twittercloneapp.utils.Constants.Companion.OWNER_USER_DATA_VERIFIED
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class OwnerUserRepository(
     private val ownerUserLocalSource: ILocalSource,
     private val ownerUserExternalSource: IOwnerUserExternalSource,
-    private val credentialRepository: ICredentialRepository
+    private val credentialRepository: ICredentialRepository,
+    private val dispatcherDefault: CoroutineDispatcher = Dispatchers.Default
 ): IOwnerUserRepository {
     override suspend fun refreshOwnerUser(): Boolean {
         credentialRepository.recoverLocalCredential()?.let { credential ->
@@ -33,13 +38,17 @@ class OwnerUserRepository(
         return getOwnerUserData()
     }
 
-    private fun storeOwnerUserData(userData: UserData) {
-        ownerUserLocalSource.apply {
-            save(OWNER_USER_DATA_ID, userData.id)
-            save(OWNER_USER_DATA_VERIFIED, userData.verified)
-            save(OWNER_USER_DATA_NAME, userData.name)
-            save(OWNER_USER_DATA_USERNAME, userData.username)
-            save(OWNER_USER_DATA_PROFILE_IMAGE_URL, userData.profileImageUrl)
+    private suspend fun storeOwnerUserData(userData: UserData) {
+        coroutineScope {
+            launch(dispatcherDefault) {
+                ownerUserLocalSource.apply {
+                    save(OWNER_USER_DATA_ID, userData.id)
+                    save(OWNER_USER_DATA_VERIFIED, userData.verified)
+                    save(OWNER_USER_DATA_NAME, userData.name)
+                    save(OWNER_USER_DATA_USERNAME, userData.username)
+                    save(OWNER_USER_DATA_PROFILE_IMAGE_URL, userData.profileImageUrl)
+                }
+            }
         }
     }
 
