@@ -3,38 +3,25 @@ package ar.scacchipa.twittercloneapp.data.repository
 import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.datasource.ITweetExternalSource
 import ar.scacchipa.twittercloneapp.data.model.response.TweetsDataWrapper
-import ar.scacchipa.twittercloneapp.data.model.response.UserDataWrapper
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.domain.model.TweetCardInfo
-import ar.scacchipa.twittercloneapp.domain.model.UserInfo
 import ar.scacchipa.twittercloneapp.utils.Constants
 
 class TweetRepository(
     private val tweetExternalSource: ITweetExternalSource,
     private val credentialRepository: ICredentialRepository,
-    private val userWrapperMapper: IMapper<UserDataWrapper, UserInfo>,
+    private val ownerUserRepository: IOwnerUserRepository,
     private val tweetsWrapperMapper: IMapper<TweetsDataWrapper, List<TweetCardInfo>>
 ) : ITweetRepository {
-    override suspend fun getUserMeInfo(): ResponseDomain {
-        credentialRepository.recoverLocalCredential()?.let { credential ->
-            val response = tweetExternalSource.getUserMeData("Bearer ${credential.accessToken}")
-            if (response.isSuccessful) {
-                response.body()?.let { userMeWrapper ->
-                    return ResponseDomain.Success(
-                        userWrapperMapper.toDomain(userMeWrapper)
-                    )
-                }
-            }
-        }
-        return ResponseDomain.Error(
-            error = Constants.USER_DOWNLOAD_ERROR,
-            errorDescription = Constants.USER_DOWNLOAD_ERROR_TXT)
-    }
-
-    override suspend fun getTweets(userId: String) : ResponseDomain {
+    override suspend fun getTweets(): ResponseDomain {
+        val ownerUserData = ownerUserRepository.getOwnerUser()
+            ?: return ResponseDomain.Error(
+                error = Constants.NO_OWNER_USER_DATA_ERROR,
+                errorDescription = Constants.NO_OWNER_USER_DATA_ERROR_TXT
+            )
         credentialRepository.recoverLocalCredential()?.let { credential ->
             val tweetsRespond = tweetExternalSource.getTweets(
-                userId = userId,
+                userId = ownerUserData.id,
                 bearerCode = "Bearer ${credential.accessToken}"
             )
 
@@ -48,7 +35,8 @@ class TweetRepository(
         }
         return ResponseDomain.Error(
             error = Constants.TWEETS_DOWNLOAD_ERROR,
-            errorDescription = Constants.ACCESS_TOKEN_ERROR_TXT)
+            errorDescription = Constants.TWEETS_DOWNLOAD_ERROR_TXT
+        )
     }
 }
 

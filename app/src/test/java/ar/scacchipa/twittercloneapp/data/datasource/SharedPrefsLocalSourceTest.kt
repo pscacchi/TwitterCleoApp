@@ -57,7 +57,7 @@ class SharedPrefsLocalSourceTest {
             mockSharedPreferences.getString("aKey1", null)
         } returns "aString1"
 
-        subject.get("aKey1")
+        subject.getString("aKey1")
         verify {
             mockSharedPreferences.getString("aKey1", null)
         }

@@ -1,12 +1,14 @@
 package ar.scacchipa.twittercloneapp.domain.usecase
 
 import ar.scacchipa.twittercloneapp.data.repository.ICredentialRepository
+import ar.scacchipa.twittercloneapp.data.repository.IOwnerUserRepository
 import ar.scacchipa.twittercloneapp.domain.model.Credential
 import ar.scacchipa.twittercloneapp.domain.model.ResponseDomain
 import ar.scacchipa.twittercloneapp.utils.Constants
 
 open class AuthorizationUseCase(
-    private val credentialRepository: ICredentialRepository
+    private val credentialRepository: ICredentialRepository,
+    private val ownerUserRepository: IOwnerUserRepository
 ) {
     suspend operator fun invoke(
         transitoryToken: String
@@ -22,6 +24,7 @@ open class AuthorizationUseCase(
 
         if (accessTokenRequest is ResponseDomain.Success<*>) {
             credentialRepository.storeLocalCredential(accessTokenRequest.data as Credential)
+            ownerUserRepository.refreshOwnerUser()
         }
 
         return accessTokenRequest

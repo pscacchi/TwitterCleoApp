@@ -23,12 +23,18 @@ class Constants {
 
         const val ERROR_HOST_LOOKUP_TOKEN = "error_host_lookup"
         const val ERROR_ACCESS_DENIED = "access_denied"
-        const val ACCESS_TOKEN_ERROR = "ACCESS_TOKEN_ERROR"
-        const val ACCESS_TOKEN_ERROR_TXT = "Failed to download the user data."
-        const val USER_DOWNLOAD_ERROR = "USER_DOWNLOAD_ERROR"
-        const val USER_DOWNLOAD_ERROR_TXT = "Failed to download the user data."
         const val TWEETS_DOWNLOAD_ERROR = "TWEETS_DOWNLOAD_ERROR"
         const val TWEETS_DOWNLOAD_ERROR_TXT = "Failed to download tweet list."
+        const val NO_OWNER_USER_DATA_ERROR = "NO_OWNER_USER_ERROR"
+        const val NO_OWNER_USER_DATA_ERROR_TXT = "Failed to recovered the stored owner user data"
+
+        const val OWNER_USER_DATA_ID = "owner_user_data_id"
+        const val OWNER_USER_DATA_VERIFIED = "owner_user_data_verified"
+        const val OWNER_USER_DATA_NAME = "owner_user_data_name"
+        const val OWNER_USER_DATA_USERNAME = "owner_user_data_username"
+        const val OWNER_USER_DATA_PROFILE_IMAGE_URL = "owner_user_data_profileImageUrl"
+
+
 
         const val SCOPE_USERS_READ = "users.read"
         const val SCOPE_TWEET_READ = "tweet.read"

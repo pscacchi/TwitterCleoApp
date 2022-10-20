@@ -131,8 +131,8 @@ class CredentialRepositoryTest {
         assertTrue ( subject.storeLocalCredential(expectedCredential) )
 
         val storedCredential = Credential(
-            mockCredentialLocalSource.get(Constants.ACCESS_TOKEN)?:"",
-            mockCredentialLocalSource.get(Constants.REFRESH_TOKEN)?:""
+            mockCredentialLocalSource.getString(Constants.ACCESS_TOKEN)?:"",
+            mockCredentialLocalSource.getString(Constants.REFRESH_TOKEN)?:""
         )
 
         assertEquals(

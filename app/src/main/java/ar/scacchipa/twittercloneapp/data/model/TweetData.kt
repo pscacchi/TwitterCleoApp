@@ -7,6 +7,6 @@ data class TweetData(
     @SerializedName("author_id") val authorId: String,
     @SerializedName("text") val text: String,
     @SerializedName("referenced_tweets") val referencedTweets: List<ReferenceTweetData>?,
-    @SerializedName("public_metrics")val publicMetricData: PublicMetricData
+    @SerializedName("public_metrics") val publicMetricData: PublicMetricData
 )
 
