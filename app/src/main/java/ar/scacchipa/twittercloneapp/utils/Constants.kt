@@ -25,16 +25,14 @@ class Constants {
         const val ERROR_ACCESS_DENIED = "access_denied"
         const val TWEETS_DOWNLOAD_ERROR = "TWEETS_DOWNLOAD_ERROR"
         const val TWEETS_DOWNLOAD_ERROR_TXT = "Failed to download tweet list."
-        const val NO_OWNER_USER_DATA_ERROR = "NO_OWNER_USER_ERROR"
-        const val NO_OWNER_USER_DATA_ERROR_TXT = "Failed to recovered the stored owner user data"
+        const val NO_LOGGED_USER_DATA_ERROR = "NO_LOGGED_USER_ERROR"
+        const val NO_LOGGED_USER_DATA_ERROR_TXT = "Failed to recovered the stored logged user data"
 
-        const val OWNER_USER_DATA_ID = "owner_user_data_id"
-        const val OWNER_USER_DATA_VERIFIED = "owner_user_data_verified"
-        const val OWNER_USER_DATA_NAME = "owner_user_data_name"
-        const val OWNER_USER_DATA_USERNAME = "owner_user_data_username"
-        const val OWNER_USER_DATA_PROFILE_IMAGE_URL = "owner_user_data_profileImageUrl"
-
-
+        const val LOGGED_USER_DATA_ID = "logged_user_data_id"
+        const val LOGGED_USER_DATA_VERIFIED = "logged_user_data_verified"
+        const val LOGGED_USER_DATA_NAME = "logged_user_data_name"
+        const val LOGGED_USER_DATA_USERNAME = "logged_user_data_username"
+        const val LOGGED_USER_DATA_PROFILE_IMAGE_URL = "logged_user_data_profileImageUrl"
 
         const val SCOPE_USERS_READ = "users.read"
         const val SCOPE_TWEET_READ = "tweet.read"

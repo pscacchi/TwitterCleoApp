@@ -5,13 +5,13 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 
-interface IOwnerUserExternalSource {
+interface ILoggedUserExternalSource {
     @GET(
         "2/users/me?"
                 + "tweet.fields=public_metrics"
                 + "&user.fields=id,profile_image_url,verified"
     )
-    suspend fun getOwnerUserData(
+    suspend fun getLoggedUserData(
         @Header("Authorization") bearerCode: String
     ): Response<UserDataWrapper>
 }

@@ -1,7 +1,7 @@
 package ar.scacchipa.twittercloneapp.di
 
 import ar.scacchipa.twittercloneapp.data.datasource.IAuthExternalSource
-import ar.scacchipa.twittercloneapp.data.datasource.IOwnerUserExternalSource
+import ar.scacchipa.twittercloneapp.data.datasource.ILoggedUserExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ITweetExternalSource
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
@@ -20,5 +20,5 @@ fun provideAuthSourceDataApi(retrofit: Retrofit): IAuthExternalSource =
 fun provideTweetDataApi(retrofit: Retrofit): ITweetExternalSource =
     retrofit.create(ITweetExternalSource::class.java)
 
-fun provideOwnerUserDataApi(retrofit: Retrofit): IOwnerUserExternalSource =
-    retrofit.create(IOwnerUserExternalSource::class.java)
+fun provideLoggedUserDataApi(retrofit: Retrofit): ILoggedUserExternalSource =
+    retrofit.create(ILoggedUserExternalSource::class.java)

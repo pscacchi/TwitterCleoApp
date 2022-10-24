@@ -7,7 +7,7 @@ import ar.scacchipa.twittercloneapp.data.UserAccessTokenMapper
 import ar.scacchipa.twittercloneapp.data.UserMapper
 import ar.scacchipa.twittercloneapp.data.datasource.IAuthExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ILocalSource
-import ar.scacchipa.twittercloneapp.data.datasource.IOwnerUserExternalSource
+import ar.scacchipa.twittercloneapp.data.datasource.ILoggedUserExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ITweetExternalSource
 import ar.scacchipa.twittercloneapp.data.datasource.SharedPrefsLocalSource
 import ar.scacchipa.twittercloneapp.data.model.UserAccessToken
@@ -15,9 +15,9 @@ import ar.scacchipa.twittercloneapp.data.model.UserData
 import ar.scacchipa.twittercloneapp.data.model.response.TweetsDataWrapper
 import ar.scacchipa.twittercloneapp.data.repository.CredentialRepository
 import ar.scacchipa.twittercloneapp.data.repository.ICredentialRepository
-import ar.scacchipa.twittercloneapp.data.repository.IOwnerUserRepository
+import ar.scacchipa.twittercloneapp.data.repository.ILoggedUserRepository
 import ar.scacchipa.twittercloneapp.data.repository.ITweetRepository
-import ar.scacchipa.twittercloneapp.data.repository.OwnerUserRepository
+import ar.scacchipa.twittercloneapp.data.repository.LoggedUserRepository
 import ar.scacchipa.twittercloneapp.data.repository.TweetRepository
 import ar.scacchipa.twittercloneapp.domain.model.Credential
 import ar.scacchipa.twittercloneapp.domain.model.TweetCardInfo
@@ -50,7 +50,7 @@ val appModule = module {
     single { SharedPrefsLocalSource( get() ) as ILocalSource }
     single { provideAuthSourceDataApi( get() ) as IAuthExternalSource }
     single { provideTweetDataApi( get() ) as ITweetExternalSource }
-    single { provideOwnerUserDataApi( get() ) as IOwnerUserExternalSource }
+    single { provideLoggedUserDataApi( get() ) as ILoggedUserExternalSource }
 
     single(named("IUserMapper")) {
         UserMapper() as IMapper<UserData, UserInfo>
@@ -66,7 +66,7 @@ val appModule = module {
         CredentialRepository(get(), get(), get(named("IUserAccessTokenMapper"))) as ICredentialRepository
     }
     single {
-        OwnerUserRepository(get(), get(), get()) as IOwnerUserRepository
+        LoggedUserRepository(get(), get(), get()) as ILoggedUserRepository
     }
     single {
         TweetRepository(get(), get(), get(), get(named("ITweetsWrapperMapper")) ) as ITweetRepository
