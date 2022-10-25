@@ -52,15 +52,17 @@ class LoggedUserRepository(
         }
     }
 
-    private fun getLoggedUserData(): UserData {
+    private fun getLoggedUserData(): UserData? {
         loggedUserLocalSource.apply {
-            return UserData(
-                id = getString(LOGGED_USER_DATA_ID) ?: "",
-                verified = getBoolean(LOGGED_USER_DATA_VERIFIED),
-                name = getString(LOGGED_USER_DATA_NAME) ?: "",
-                username =  getString(LOGGED_USER_DATA_USERNAME) ?: "",
-                profileImageUrl =getString(LOGGED_USER_DATA_PROFILE_IMAGE_URL) ?: ""
-            )
+            return if (contains(LOGGED_USER_DATA_ID))
+                UserData(
+                    id = getString(LOGGED_USER_DATA_ID) ?: "",
+                    verified = getBoolean(LOGGED_USER_DATA_VERIFIED),
+                    name = getString(LOGGED_USER_DATA_NAME) ?: "",
+                    username =  getString(LOGGED_USER_DATA_USERNAME) ?: "",
+                    profileImageUrl =getString(LOGGED_USER_DATA_PROFILE_IMAGE_URL) ?: ""
+                )
+            else null
         }
     }
 }
