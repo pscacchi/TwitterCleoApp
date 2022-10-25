@@ -69,13 +69,13 @@ val appModule = module {
         LoggedUserRepository(get(), get(), get()) as ILoggedUserRepository
     }
     single {
-        TweetRepository(get(), get(), get(), get(named("ITweetsWrapperMapper")) ) as ITweetRepository
+        TweetRepository(get(), get(named("ITweetsWrapperMapper")) ) as ITweetRepository
     }
 
     single { AuthorizationUseCase(get(),get()) as AuthorizationUseCase }
     single { StarterUseCase(get()) as StarterUseCase }
     single { RevokeCredentialUseCase(get()) as RevokeCredentialUseCase }
-    single { FetchFeedUseCase(get()) as FetchFeedUseCase }
+    single { FetchFeedUseCase(get(), get(), get()) as FetchFeedUseCase }
 
     viewModel { SplashViewModel( get() ) }
     viewModel { LoginViewModel() }
