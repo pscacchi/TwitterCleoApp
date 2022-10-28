@@ -118,4 +118,12 @@ class MainActivity: AppCompatActivity() {
             R.id.profileImageView -> this.openDrawer()
         }
     }
+
+    fun showLoaderAnimation() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    fun hideLoaderAnimation() {
+        binding.progressBar.visibility = View.GONE
+    }
 }
