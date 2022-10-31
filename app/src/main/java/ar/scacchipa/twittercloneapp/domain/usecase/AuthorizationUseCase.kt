@@ -24,7 +24,12 @@ open class AuthorizationUseCase(
 
         if (accessTokenRequest is ResponseDomain.Success<*>) {
             credentialRepository.storeLocalCredential(accessTokenRequest.data as Credential)
-            loggedUserRepository.refreshLoggedUser()
+            if (loggedUserRepository.refreshLoggedUser().not()) {
+                return ResponseDomain.Error(
+                    error = Constants.NO_LOGGED_USER_DATA_ERROR,
+                    errorDescription = Constants.NO_LOGGED_USER_DATA_ERROR_TXT
+                )
+            }
         }
 
         return accessTokenRequest
