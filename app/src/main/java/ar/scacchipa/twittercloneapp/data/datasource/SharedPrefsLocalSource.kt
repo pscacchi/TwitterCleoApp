@@ -11,6 +11,7 @@ class SharedPrefsLocalSource(
             commit()
         }
     }
+gg
     override fun save(key: String, value: Boolean) {
         with(prefs.edit()) {
             putBoolean(key, value)
@@ -21,6 +22,7 @@ class SharedPrefsLocalSource(
     override fun getString(key: String): String? {
         return prefs.getString(key, null)
     }
+
     override fun getBoolean(key: String): Boolean {
         return prefs.getBoolean(key, false)
     }

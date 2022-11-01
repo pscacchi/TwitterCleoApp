@@ -8,15 +8,10 @@ import ar.scacchipa.twittercloneapp.utils.Constants.Companion.LOGGED_USER_DATA_N
 import ar.scacchipa.twittercloneapp.utils.Constants.Companion.LOGGED_USER_DATA_PROFILE_IMAGE_URL
 import ar.scacchipa.twittercloneapp.utils.Constants.Companion.LOGGED_USER_DATA_USERNAME
 import ar.scacchipa.twittercloneapp.utils.Constants.Companion.LOGGED_USER_DATA_VERIFIED
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 
 class LoggedUserRepository(
     private val loggedUserLocalSource: ILocalSource,
-    private val loggedUserExternalSource: ILoggedUserExternalSource,
-    private val dispatcherDefault: CoroutineDispatcher = Dispatchers.Default
+    private val loggedUserExternalSource: ILoggedUserExternalSource
 ): ILoggedUserRepository {
     override suspend fun refreshLoggedUser(accessToken: String): Boolean {
         val userResponse = loggedUserExternalSource.getLoggedUserData(
@@ -35,17 +30,13 @@ class LoggedUserRepository(
         return getLoggedUserData()
     }
 
-    private suspend fun storeLoggedUserData(userData: UserData) {
-        coroutineScope {
-            launch(dispatcherDefault) {
-                loggedUserLocalSource.apply {
-                    save(LOGGED_USER_DATA_ID, userData.id)
-                    save(LOGGED_USER_DATA_VERIFIED, userData.verified)
-                    save(LOGGED_USER_DATA_NAME, userData.name)
-                    save(LOGGED_USER_DATA_USERNAME, userData.username)
-                    save(LOGGED_USER_DATA_PROFILE_IMAGE_URL, userData.profileImageUrl)
-                }
-            }
+    private fun storeLoggedUserData(userData: UserData) {
+        loggedUserLocalSource.apply {
+            save(LOGGED_USER_DATA_ID, userData.id)
+            save(LOGGED_USER_DATA_VERIFIED, userData.verified)
+            save(LOGGED_USER_DATA_NAME, userData.name)
+            save(LOGGED_USER_DATA_USERNAME, userData.username)
+            save(LOGGED_USER_DATA_PROFILE_IMAGE_URL, userData.profileImageUrl)
         }
     }
 
