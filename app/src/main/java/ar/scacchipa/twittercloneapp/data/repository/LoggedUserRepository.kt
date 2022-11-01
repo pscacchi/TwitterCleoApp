@@ -16,20 +16,17 @@ import kotlinx.coroutines.launch
 class LoggedUserRepository(
     private val loggedUserLocalSource: ILocalSource,
     private val loggedUserExternalSource: ILoggedUserExternalSource,
-    private val credentialRepository: ICredentialRepository,
     private val dispatcherDefault: CoroutineDispatcher = Dispatchers.Default
 ): ILoggedUserRepository {
-    override suspend fun refreshLoggedUser(): Boolean {
-        credentialRepository.recoverLocalCredential()?.let { credential ->
-            val userResponse = loggedUserExternalSource.getLoggedUserData(
-                bearerCode = "Bearer ${credential.accessToken}"
-            )
-            if (userResponse.isSuccessful) {
-                userResponse.body()?.data?.let { userData ->
-                    storeLoggedUserData(userData)
-                }
-                return true
+    override suspend fun refreshLoggedUser(accessToken: String): Boolean {
+        val userResponse = loggedUserExternalSource.getLoggedUserData(
+            bearerCode = "Bearer $accessToken"
+        )
+        if (userResponse.isSuccessful) {
+            userResponse.body()?.data?.let { userData ->
+                storeLoggedUserData(userData)
             }
+            return true
         }
         return false
     }

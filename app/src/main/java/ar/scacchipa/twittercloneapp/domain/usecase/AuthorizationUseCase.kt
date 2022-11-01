@@ -23,8 +23,9 @@ open class AuthorizationUseCase(
         )
 
         if (accessTokenRequest is ResponseDomain.Success<*>) {
-            credentialRepository.storeLocalCredential(accessTokenRequest.data as Credential)
-            if (loggedUserRepository.refreshLoggedUser().not()) {
+            val credential = accessTokenRequest.data as Credential
+            credentialRepository.storeLocalCredential(credential)
+            if (loggedUserRepository.refreshLoggedUser(credential.accessToken).not()) {
                 return ResponseDomain.Error(
                     error = Constants.NO_LOGGED_USER_DATA_ERROR,
                     errorDescription = Constants.NO_LOGGED_USER_DATA_ERROR_TXT
