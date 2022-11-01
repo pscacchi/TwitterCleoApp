@@ -15,6 +15,12 @@ class FragmentHome : Fragment() {
     private val viewModel: HomeViewModel by viewModel()
     private var binding: FragmentHomeBinding? = null
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.getTweets()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,8 +53,6 @@ class FragmentHome : Fragment() {
                 }
             }
         }
-
-        viewModel.getTweets()
 
         return binding?.root
     }
