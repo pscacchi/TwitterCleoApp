@@ -1,8 +1,10 @@
 package ar.scacchipa.twittercloneapp.data.repository
 
+import ar.scacchipa.twittercloneapp.data.IMapper
 import ar.scacchipa.twittercloneapp.data.datasource.ILocalSource
 import ar.scacchipa.twittercloneapp.data.datasource.ILoggedUserExternalSource
 import ar.scacchipa.twittercloneapp.data.model.UserData
+import ar.scacchipa.twittercloneapp.domain.model.UserInfo
 import ar.scacchipa.twittercloneapp.utils.Constants.Companion.LOGGED_USER_DATA_ID
 import ar.scacchipa.twittercloneapp.utils.Constants.Companion.LOGGED_USER_DATA_NAME
 import ar.scacchipa.twittercloneapp.utils.Constants.Companion.LOGGED_USER_DATA_PROFILE_IMAGE_URL
@@ -11,7 +13,8 @@ import ar.scacchipa.twittercloneapp.utils.Constants.Companion.LOGGED_USER_DATA_V
 
 class LoggedUserRepository(
     private val loggedUserLocalSource: ILocalSource,
-    private val loggedUserExternalSource: ILoggedUserExternalSource
+    private val loggedUserExternalSource: ILoggedUserExternalSource,
+    private val userMapper: IMapper<UserData, UserInfo>
 ): ILoggedUserRepository {
     override suspend fun refreshLoggedUser(accessToken: String): Boolean {
         val userResponse = loggedUserExternalSource.getLoggedUserData(
@@ -26,8 +29,10 @@ class LoggedUserRepository(
         return false
     }
 
-    override suspend fun getLoggedUser(): UserData? {
-        return getLoggedUserData()
+    override suspend fun getLoggedUser(): UserInfo? {
+        return getLoggedUserData()?.let { it ->
+            userMapper.toDomain(it)
+        }
     }
 
     private fun storeLoggedUserData(userData: UserData) {

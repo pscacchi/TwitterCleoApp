@@ -57,7 +57,7 @@ val appModule = module {
         CredentialRepository(get(), get(), get(named("IUserAccessTokenMapper"))) as ICredentialRepository
     }
     single {
-        LoggedUserRepository(get(), get()) as ILoggedUserRepository
+        LoggedUserRepository(get(), get(), get(named("IUserMapper"))) as ILoggedUserRepository
     }
     single {
         TweetRepository(get(), get(named("ITweetsWrapperMapper")) ) as ITweetRepository
