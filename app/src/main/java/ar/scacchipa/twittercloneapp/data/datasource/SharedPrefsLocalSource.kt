@@ -8,14 +8,14 @@ class SharedPrefsLocalSource(
     override fun save(key: String, value: String) {
         with(prefs.edit()) {
             putString(key, value)
-            commit()
+            apply()
         }
     }
 
     override fun save(key: String, value: Boolean) {
         with(prefs.edit()) {
             putBoolean(key, value)
-            commit()
+            apply()
         }
     }
 
