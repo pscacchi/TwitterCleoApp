@@ -26,8 +26,8 @@ open class CredentialRepository(
                 return null
             }
             return Credential(
-                get(Constants.ACCESS_TOKEN) ?: "",
-                get(Constants.REFRESH_TOKEN) ?: ""
+                getString(Constants.ACCESS_TOKEN) ?: "",
+                getString(Constants.REFRESH_TOKEN) ?: ""
             )
         }
     }
@@ -78,7 +78,7 @@ open class CredentialRepository(
     }
 
     override suspend fun revokeCredential(): Boolean {
-        credentialLocalSource.get(Constants.ACCESS_TOKEN)
+        credentialLocalSource.getString(Constants.ACCESS_TOKEN)
             ?.let { accessToken ->
                 val providerRevokeData = authExternalSource.revokeToken(
                     token = accessToken,

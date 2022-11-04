@@ -23,6 +23,16 @@ class Constants {
 
         const val ERROR_HOST_LOOKUP_TOKEN = "error_host_lookup"
         const val ERROR_ACCESS_DENIED = "access_denied"
+        const val TWEETS_DOWNLOAD_ERROR = "TWEETS_DOWNLOAD_ERROR"
+        const val TWEETS_DOWNLOAD_ERROR_TXT = "Failed to download tweet list."
+        const val NO_LOGGED_USER_DATA_ERROR = "NO_LOGGED_USER_ERROR"
+        const val NO_LOGGED_USER_DATA_ERROR_TXT = "Failed to recovered the stored logged user data"
+
+        const val LOGGED_USER_DATA_ID = "logged_user_data_id"
+        const val LOGGED_USER_DATA_VERIFIED = "logged_user_data_verified"
+        const val LOGGED_USER_DATA_NAME = "logged_user_data_name"
+        const val LOGGED_USER_DATA_USERNAME = "logged_user_data_username"
+        const val LOGGED_USER_DATA_PROFILE_IMAGE_URL = "logged_user_data_profileImageUrl"
 
         const val SCOPE_USERS_READ = "users.read"
         const val SCOPE_TWEET_READ = "tweet.read"
@@ -35,5 +45,10 @@ class Constants {
         const val SCOPE_SPACE_READ = "space.read"
 
         const val ACTIVITY_ACTION_SKIP_SPLASH = "skipSplashView"
+
+        const val RETWEETED_MSG = " retweeted"
+        const val REPLIED_TO_MSG = "Replied to "
+        const val QUOTED_BY_MSG = "Quoted by "
+
     }
 }

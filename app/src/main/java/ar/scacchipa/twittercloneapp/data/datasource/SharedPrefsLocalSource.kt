@@ -8,12 +8,23 @@ class SharedPrefsLocalSource(
     override fun save(key: String, value: String) {
         with(prefs.edit()) {
             putString(key, value)
-            commit()
+            apply()
         }
     }
 
-    override fun get(key: String): String? {
+    override fun save(key: String, value: Boolean) {
+        with(prefs.edit()) {
+            putBoolean(key, value)
+            apply()
+        }
+    }
+
+    override fun getString(key: String): String? {
         return prefs.getString(key, null)
+    }
+
+    override fun getBoolean(key: String): Boolean {
+        return prefs.getBoolean(key, false)
     }
 
     override fun contains(key: String): Boolean {
